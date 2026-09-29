@@ -1,0 +1,207 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum RecordStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+  REFUND_REQUIRED
+}
+
+enum SessionStatus {
+  ACTIVE
+  REVOKED
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(80)
+  email        String        @unique @db.VarChar(190)
+  phone        String?       @db.VarChar(20)
+  passwordHash String        @db.VarChar(100)
+  role         Role          @default(CUSTOMER)
+  status       AccountStatus @default(ACTIVE)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  purchases Purchase[]
+  sessions  UserSession[]
+  views     ContactView[]
+
+  @@map("users")
+}
+
+model District {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique @db.VarChar(80)
+  slug      String       @unique @db.VarChar(80)
+  code      String       @unique @db.VarChar(5)
+  status    RecordStatus @default(ACTIVE)
+  sortOrder Int          @default(999)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  businesses Business[]
+  purchases  Purchase[]
+
+  @@map("districts")
+}
+
+model Category {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique @db.VarChar(120)
+  slug      String       @unique @db.VarChar(120)
+  icon      String       @default("📁") @db.VarChar(16)
+  status    RecordStatus @default(ACTIVE)
+  sortOrder Int          @default(999)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  businesses Business[]
+  purchases  Purchase[]
+
+  @@map("business_categories")
+}
+
+model Business {
+  id         Int          @id @default(autoincrement())
+  districtId Int
+  categoryId Int
+  name       String       @db.VarChar(200)
+  phone      String       @db.VarChar(15) // normalised 10-digit number
+  altPhone   String?      @db.VarChar(15)
+  email      String?      @db.VarChar(190)
+  website    String?      @db.VarChar(300)
+  address    String?      @db.VarChar(500)
+  area       String?      @db.VarChar(120)
+  pincode    String?      @db.VarChar(10)
+  mapsUrl    String?      @db.VarChar(1000)
+  status     RecordStatus @default(ACTIVE)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  district         District          @relation(fields: [districtId], references: [id])
+  category         Category          @relation(fields: [categoryId], references: [id])
+  purchaseContacts PurchaseContact[]
+  views            ContactView[]
+
+  @@unique([districtId, categoryId, phone])
+  @@index([districtId, categoryId, status])
+  @@map("businesses")
+}
+
+model PricingRule {
+  id                   Int      @id @default(autoincrement())
+  label                String   @db.VarChar(80)
+  minQty               Int
+  maxQty               Int? // null = no upper limit
+  pricePerContactPaise Int // 100 paise = Rs 1
+  discountPercent      Int      @default(0)
+  active               Boolean  @default(true)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@index([active, minQty])
+  @@map("pricing_rules")
+}
+
+model Purchase {
+  id                  Int           @id @default(autoincrement())
+  code                String        @unique @db.VarChar(20)
+  userId              Int
+  districtId          Int
+  categoryId          Int
+  quantity            Int
+  baseAmountPaise     Int
+  discountPercent     Int
+  discountAmountPaise Int
+  finalAmountPaise    Int
+  razorpayOrderId     String?       @unique @db.VarChar(64)
+  razorpayPaymentId   String?       @db.VarChar(64)
+  paymentStatus       PaymentStatus @default(PENDING)
+  paidAt              DateTime?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  user     User              @relation(fields: [userId], references: [id])
+  district District          @relation(fields: [districtId], references: [id])
+  category Category          @relation(fields: [categoryId], references: [id])
+  contacts PurchaseContact[]
+  views    ContactView[]
+
+  @@index([userId, paymentStatus])
+  @@index([districtId, categoryId])
+  @@index([createdAt])
+  @@map("purchases")
+}
+
+model PurchaseContact {
+  id         Int      @id @default(autoincrement())
+  purchaseId Int
+  businessId Int
+  createdAt  DateTime @default(now())
+
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@unique([purchaseId, businessId])
+  @@index([businessId])
+  @@map("purchase_contacts")
+}
+
+model UserSession {
+  id           String        @id @default(uuid()) @db.VarChar(36)
+  userId       Int
+  tokenHash    String        @unique @db.VarChar(64)
+  deviceLabel  String        @db.VarChar(120)
+  userAgent    String        @db.VarChar(500)
+  ip           String        @db.VarChar(64)
+  lastActiveAt DateTime      @default(now())
+  expiresAt    DateTime
+  status       SessionStatus @default(ACTIVE)
+  createdAt    DateTime      @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@map("user_sessions")
+}
+
+model ContactView {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  purchaseId Int
+  businessId Int
+  viewedAt   DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([userId, viewedAt])
+  @@index([purchaseId])
+  @@index([viewedAt])
+  @@map("contact_views")
+}
