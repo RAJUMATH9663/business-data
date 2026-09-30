@@ -138,6 +138,14 @@ export const metadata: Metadata = {
       "Access verified business phone numbers, decision makers, and company contact directories across the US, India, and international markets.",
     images: ["/logo.png"],
   },
+  alternates: {
+    canonical: appUrl,
+  },
+  other: {
+    "geo.region": "IN-KA",
+    "geo.placename": "Karnataka, India",
+    "target-country": "IN, US",
+  },
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",

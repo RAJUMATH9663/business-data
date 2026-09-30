@@ -1,0 +1,30 @@
+# NivoLeads
+
+> NivoLeads is a verified commercial B2B lead generation platform and business contact directory providing direct 10-digit mobile phone numbers, company names, areas, addresses, and websites.
+
+## Core Capabilities & Offerings
+- **Verified Business Phone Numbers**: 100% normalized, cleaned, and verified 10-digit mobile numbers stripped of duplicates, dead entries, and spam.
+- **Geographic & Industry Segmentation**: Filter leads by Country (India, USA), State/Region (e.g. Karnataka, New York, California), City/District (e.g. Bengaluru, Vijayapura, Belagavi, Mysuru), and 20+ Industry Sectors.
+- **Smart Zero-Duplicate Engine**: Automatic deduplication tracking ensuring repeat buyers never pay for the same phone number twice.
+- **Instant Excel & CSV Export**: Immediate digital downloads in .xlsx and .csv format for sales prospecting, cold calling, and WhatsApp marketing campaigns.
+- **Target Audience**: B2B sales teams, freelancers, web designers, digital marketing agencies, SEO consultants, and enterprise growth teams.
+
+## Key Industry Sectors Covered
+- Hospitals, Multi-Specialty Clinics & Healthcare Facilities
+- Real Estate, Builders & Property Developers
+- IT & Software Companies
+- Schools, Colleges & Educational Institutes
+- Retail & Supermarkets
+- Manufacturing, Factories & Industrial Units
+- Hotels & Restaurants
+- Automobile Dealers & Garages
+- Chartered Accountants (CA) & Legal Services
+- Logistics, Transport & Supply Chain
+
+## Key Endpoints & Directory Links
+- [Homepage](https://nivoleads.com): Overview, search filters, and pricing tiers.
+- [Explore Data](https://nivoleads.com/explore): Search businesses by location, district, and sector.
+- [Client Portal](https://nivoleads.com/login): Account sign in and dataset management.
+- [Terms & Licensing](https://nivoleads.com/terms): Commercial data use and compliance terms.
+- [Privacy Policy](https://nivoleads.com/privacy): Data protection standards and compliance.
+- [Support Desk](https://nivoleads.com/contact): Customer service and custom enterprise dataset orders.

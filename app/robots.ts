@@ -6,7 +6,12 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/explore", "/login", "/register", "/privacy", "/terms", "/contact"],
+        allow: ["/", "/explore", "/login", "/register", "/privacy", "/terms", "/contact", "/llms.txt"],
+        disallow: ["/admin/", "/api/", "/purchases/"],
+      },
+      {
+        userAgent: ["GPTBot", "PerplexityBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"],
+        allow: ["/", "/explore", "/llms.txt", "/privacy", "/terms", "/contact"],
         disallow: ["/admin/", "/api/", "/purchases/"],
       },
     ],
