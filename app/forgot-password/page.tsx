@@ -8,6 +8,8 @@ export default function ForgotPasswordPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [userExists, setUserExists] = useState(false);
   const [devResetUrl, setDevResetUrl] = useState<string | null>(null);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -26,6 +28,8 @@ export default function ForgotPasswordPage() {
       if (!res.ok) throw new Error(data.error || "Failed to process request");
 
       setSuccess(true);
+      setEmailSent(Boolean(data.emailSent));
+      setUserExists(Boolean(data.userExists));
       if (data.resetUrl) {
         setDevResetUrl(data.resetUrl);
       }
@@ -57,9 +61,26 @@ export default function ForgotPasswordPage() {
 
       {success ? (
         <div className="mt-6 space-y-4">
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-semibold text-emerald-600 dark:text-emerald-400 leading-relaxed">
-            ✅ If an account exists for <span className="font-bold underline">{email}</span>, password reset instructions have been generated.
-          </div>
+          {userExists ? (
+            emailSent ? (
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-xs font-semibold text-emerald-600 dark:text-emerald-400 leading-relaxed">
+                📬 <strong>Email Dispatched!</strong> A password reset link has been sent to <span className="font-bold underline">{email}</span>. Please check your inbox and spam folder.
+              </div>
+            ) : (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs font-semibold text-amber-600 dark:text-amber-400 leading-relaxed">
+                ⚠️ Account found for <span className="font-bold underline">{email}</span>, but SMTP email delivery was skipped or failed. Use the shortcut below to reset your password:
+              </div>
+            )
+          ) : (
+            <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-xs text-rose-600 dark:text-rose-400 leading-relaxed">
+              ⚠️ <strong>Account Not Found:</strong> No registered account exists for <span className="font-bold underline">{email}</span>. Reset links can only be sent to email addresses that have already registered.
+              <div className="mt-2">
+                <Link href="/register" className="font-bold underline hover:opacity-80">
+                  Click here to register a new account →
+                </Link>
+              </div>
+            </div>
+          )}
 
           {devResetUrl && (
             <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4 text-xs space-y-2">
@@ -110,7 +131,7 @@ export default function ForgotPasswordPage() {
             {busy ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                Generating reset link…
+                Sending reset link…
               </span>
             ) : (
               "Send Password Reset Link"

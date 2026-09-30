@@ -68,6 +68,7 @@ export const POST = handler(async (req) => {
       ? "A password reset link has been dispatched to your email address."
       : "If an account exists with this email address, password reset instructions have been generated.",
     emailSent,
+    userExists: Boolean(user && user.status === "ACTIVE"),
     resetUrl: process.env.NODE_ENV !== "production" ? resetUrl : undefined,
   });
 });
