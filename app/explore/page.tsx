@@ -2,7 +2,10 @@ import ExploreFlow from "@/components/ExploreFlow";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 
-export const metadata = { title: "Explore Business Data" };
+export const metadata = {
+  title: "Explore Verified Business Leads & Contacts",
+  description: "Browse verified B2B and commercial directory contacts across 31 districts and 20+ sectors in Karnataka.",
+};
 
 export default async function ExplorePage({ searchParams }: { searchParams: { d?: string; c?: string; q?: string } }) {
   const [districts, rules, session] = await Promise.all([

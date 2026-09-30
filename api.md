@@ -1,4 +1,4 @@
-# LeadSetu — REST API Specification (api.md)
+# NivoLeads — REST API Specification (api.md)
 
 ## 1. Overview
 All API endpoints follow RESTful conventions. Responses are returned in JSON format with standard HTTP status codes.

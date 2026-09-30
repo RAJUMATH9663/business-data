@@ -1,7 +1,7 @@
-# LeadSetu — Database Schema & Architecture (database.md)
+# NivoLeads — Database Schema & Architecture (database.md)
 
 ## 1. Overview
-LeadSetu uses a relational MySQL database (InnoDB engine, `utf8mb4_unicode_ci` collation) managed declaratively via Prisma ORM.
+NivoLeads uses a relational MySQL database (InnoDB engine, `utf8mb4_unicode_ci` collation) managed declaratively via Prisma ORM.
 
 ---
 

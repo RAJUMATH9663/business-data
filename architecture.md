@@ -1,7 +1,7 @@
-# LeadSetu — Technical Architecture
+# NivoLeads — Technical Architecture
 
 ## 1. System Overview
-LeadSetu is built on a full-stack Next.js 14 application architecture utilizing the App Router with React Server Components (RSC) and Client Components. The backend interacts directly with a relational MySQL database via Prisma ORM.
+NivoLeads is built on a full-stack Next.js 14 application architecture utilizing the App Router with React Server Components (RSC) and Client Components. The backend interacts directly with a relational MySQL database via Prisma ORM.
 
 ```
 +-------------------------------------------------------------+

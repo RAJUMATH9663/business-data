@@ -4,7 +4,10 @@ import { prisma } from "@/lib/db";
 import { formatDate, rupees } from "@/lib/format";
 import { StatusBadge } from "@/components/ui";
 
-export const metadata = { title: "My Purchases" };
+export const metadata = {
+  title: "My Purchases & Unlocked Leads",
+  description: "View and download your purchased verified business contact datasets in Excel format.",
+};
 
 export default async function PurchasesPage() {
   const { user } = await requireUser("/purchases");

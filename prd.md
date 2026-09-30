@@ -1,7 +1,7 @@
-# LeadSetu — Product Requirements Document (PRD)
+# NivoLeads — Product Requirements Document (PRD)
 
 ## 1. Executive Summary
-**LeadSetu** is a dedicated B2B and commercial directory platform providing controlled, verified, in-browser access to decision-maker contact datasets across all 31 districts and 20+ industry sectors in Karnataka.
+**NivoLeads** is a dedicated B2B and commercial directory platform providing controlled, verified, in-browser access to decision-maker contact datasets across all 31 districts and 20+ industry sectors in Karnataka.
 
 ---
 
@@ -14,7 +14,7 @@
 ---
 
 ## 3. Product Vision & Value Proposition
-LeadSetu provides an automated, self-service marketplace where users can select their exact target district and industry, choose a desired volume, pay securely via Razorpay/UPI, and immediately explore watermarked, verified contacts in a modern, secure viewer.
+NivoLeads provides an automated, self-service marketplace where users can select their exact target district and industry, choose a desired volume, pay securely via Razorpay/UPI, and immediately explore watermarked, verified contacts in a modern, secure viewer.
 
 ### Key Value Pillars
 - **100% Normalized Numbers**: Validated 10-digit mobile numbers with country code normalization.

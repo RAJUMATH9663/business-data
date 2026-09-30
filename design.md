@@ -1,13 +1,13 @@
-# LeadSetu — Design System & UI/UX Guidelines
+# NivoLeads — Design System & UI/UX Guidelines
 
 ## 1. Design Philosophy
-LeadSetu follows a modern, high-contrast, data-centric interface designed for maximum legibility and speed. It delivers an intuitive, conversion-optimized flow whether viewed on a mobile device or desktop browser.
+NivoLeads follows a modern, high-contrast, data-centric interface designed for maximum legibility and speed. It delivers an intuitive, conversion-optimized flow whether viewed on a mobile device or desktop browser.
 
 ---
 
 ## 2. Color System & Semantic Variables
 
-LeadSetu uses CSS Custom Properties to ensure flawless contrast across both light mode and dark mode, preventing dark-mode flattening and browser-forced color inversions.
+NivoLeads uses CSS Custom Properties to ensure flawless contrast across both light mode and dark mode, preventing dark-mode flattening and browser-forced color inversions.
 
 ```css
 :root {

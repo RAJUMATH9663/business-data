@@ -1,4 +1,4 @@
-# LeadSetu — Code Style & Standards (codestyle.md)
+# NivoLeads — Code Style & Standards (codestyle.md)
 
 ## 1. Principles
 1. **Clarity Over Cleverness**: Code should be explicit, readable, and self-documenting.

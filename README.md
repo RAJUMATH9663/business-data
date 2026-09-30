@@ -1,12 +1,12 @@
-# LeadSetu
+# NivoLeads
 
-**LeadSetu** is a dedicated B2B and commercial directory platform providing verified, high-accuracy business contact datasets across all 31 districts and 20+ industry sectors in Karnataka.
+**NivoLeads** is a dedicated B2B and commercial directory platform providing verified, high-accuracy business contact datasets across all 31 districts and 20+ industry sectors in Karnataka.
 
 ---
 
 ## What We Do
 
-LeadSetu connects businesses, manufacturers, service providers, and sales teams with authentic, decision-maker contact datasets. 
+NivoLeads connects businesses, manufacturers, service providers, and sales teams with authentic, decision-maker contact datasets. 
 
 - **Verified Contact Directory**: Curated business phone numbers, addresses, areas, and industry categories.
 - **Smart Contact Allocation**: An intelligent allocation engine ensuring customers always receive fresh, unique contacts with zero duplicate numbers across repeat orders.
@@ -14,7 +14,7 @@ LeadSetu connects businesses, manufacturers, service providers, and sales teams 
 
 ---
 
-## Why LeadSetu
+## Why NivoLeads
 
 - **100% Normalized & Clean Data**: Every contact includes a verified 10-digit mobile number with duplicates, invalid numbers, and incomplete entries filtered out.
 - **Zero Duplicate Guarantee**: Repeat purchases automatically start from the next unowned contact (e.g., purchasing 100 contacts, then another 100, delivers contacts #101–#200).

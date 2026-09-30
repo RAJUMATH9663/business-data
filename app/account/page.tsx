@@ -4,7 +4,10 @@ import { prisma } from "@/lib/db";
 import { formatDate } from "@/lib/format";
 import LogoutButton from "@/components/LogoutButton";
 
-export const metadata = { title: "Account" };
+export const metadata = {
+  title: "Account Settings & Active Sessions",
+  description: "Manage your NivoLeads account profile and active device sessions.",
+};
 
 export default async function AccountPage() {
   const { user, sessionId } = await requireUser("/account");

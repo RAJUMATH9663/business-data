@@ -40,16 +40,16 @@ export default function AuthForm({ mode, next }: { mode: "login" | "register"; n
       <div className="text-center">
         <div className="mx-auto flex justify-center">
           <Image
-            src="/leadsetu-logo.png"
-            alt="LeadSetu"
-            width={180}
-            height={46}
-            className="h-11 w-auto rounded-xl object-contain shadow-md"
+            src="/logo.png"
+            alt="NivoLeads"
+            width={260}
+            height={70}
+            className="h-16 sm:h-20 w-auto rounded-xl object-contain shadow-md"
             priority
           />
         </div>
         <h1 className="mt-4 text-2xl font-bold text-[var(--text-main)]">
-          {isReg ? "Create your LeadSetu account" : "Welcome back to LeadSetu"}
+          {isReg ? "Create your NivoLeads account" : "Welcome back to NivoLeads"}
         </h1>
         <p className="mt-1 text-sm text-[var(--text-muted)]">
           {isReg ? "Register once to browse and unlock verified contacts." : "Sign in to access your purchased datasets."}

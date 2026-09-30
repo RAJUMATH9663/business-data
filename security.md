@@ -1,7 +1,7 @@
-# LeadSetu — Security & Data Protection Model
+# NivoLeads — Security & Data Protection Model
 
 ## 1. Overview
-LeadSetu is engineered with a defense-in-depth security model to safeguard commercial contact datasets, prevent automated scraping, protect user sessions, and secure payment processing.
+NivoLeads is engineered with a defense-in-depth security model to safeguard commercial contact datasets, prevent automated scraping, protect user sessions, and secure payment processing.
 
 ---
 

@@ -15,14 +15,14 @@ export default async function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-[var(--header-border)] bg-[var(--header-bg)] backdrop-blur-md transition-all shadow-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link href="/" className="group flex items-center gap-2.5">
             <Image
-              src="/leadsetu-logo.png"
-              alt="LeadSetu"
-              width={160}
-              height={42}
-              className="h-9 sm:h-10 w-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-105"
+              src="/logo.png"
+              alt="NivoLeads"
+              width={240}
+              height={64}
+              className="h-12 sm:h-14 w-auto rounded-xl object-contain transition-transform duration-200 group-hover:scale-105"
               priority
             />
           </Link>

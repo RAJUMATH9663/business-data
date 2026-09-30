@@ -1,7 +1,7 @@
-# LeadSetu — AI Agent & Developer Guidelines (agents.md)
+# NivoLeads — AI Agent & Developer Guidelines (agents.md)
 
 ## 1. Role & Context
-You are working on **LeadSetu**, a production-grade B2B business directory application built on **Next.js 14 App Router, TypeScript, Tailwind CSS, Prisma, and MySQL**.
+You are working on **NivoLeads**, a production-grade B2B business directory application built on **Next.js 14 App Router, TypeScript, Tailwind CSS, Prisma, and MySQL**.
 
 ---
 

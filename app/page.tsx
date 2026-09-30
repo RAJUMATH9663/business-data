@@ -69,18 +69,18 @@ export default function Home() {
         <div className="mx-auto max-w-3xl space-y-6">
           <div className="mx-auto flex justify-center">
             <Image
-              src="/leadsetu-logo.png"
-              alt="LeadSetu"
-              width={260}
-              height={66}
-              className="h-12 sm:h-16 w-auto rounded-2xl object-contain shadow-md"
+              src="/logo.png"
+              alt="NivoLeads"
+              width={380}
+              height={100}
+              className="h-20 sm:h-28 md:h-32 w-auto rounded-2xl object-contain shadow-lg"
               priority
             />
           </div>
 
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-500">
             <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            LeadSetu · Verified B2B & Retail Directory · 31 Districts · 20+ Sectors
+            NivoLeads · Verified B2B & Retail Directory · 31 Districts · 20+ Sectors
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight text-[var(--text-main)] sm:text-5xl lg:text-6xl">
