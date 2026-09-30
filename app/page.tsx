@@ -35,35 +35,92 @@ const steps = [
 ];
 
 const featuredCategories = [
-  { icon: "🏥", name: "Hospitals & Clinics", slug: "hospitals-clinics", tag: "Healthcare" },
-  { icon: "🏠", name: "Real Estate & Builders", slug: "real-estate", tag: "Property" },
-  { icon: "💻", name: "IT & Software Companies", slug: "it-software-companies", tag: "Tech" },
-  { icon: "🏫", name: "Schools & Educational Inst.", slug: "schools", tag: "Education" },
-  { icon: "🛒", name: "Retail & Supermarkets", slug: "retail-supermarkets", tag: "Commercial" },
-  { icon: "🏭", name: "Manufacturing & Industries", slug: "manufacturing-industries", tag: "Industrial" },
+  { icon: "🏥", name: "Hospitals & Clinics", slug: "hospitals-clinics", tag: "Healthcare", query: "hospital business leads & phone numbers" },
+  { icon: "🏠", name: "Real Estate & Builders", slug: "real-estate", tag: "Property", query: "real estate company contacts" },
+  { icon: "💻", name: "IT & Software Companies", slug: "it-software-companies", tag: "Tech", query: "software company decision makers" },
+  { icon: "🏫", name: "Schools & Educational Inst.", slug: "schools", tag: "Education", query: "school & college phone numbers" },
+  { icon: "🛒", name: "Retail & Supermarkets", slug: "retail-supermarkets", tag: "Commercial", query: "local retail business contacts" },
+  { icon: "🏭", name: "Manufacturing & Industries", slug: "manufacturing-industries", tag: "Industrial", query: "industrial & manufacturing leads" },
+];
+
+const topDistricts = [
+  { name: "Bengaluru Urban", slug: "bengaluru-urban", tag: "Silicon Valley" },
+  { name: "Vijayapura", slug: "vijayapura", tag: "Commercial Hub" },
+  { name: "Belagavi", slug: "belagavi", tag: "Industrial Zone" },
+  { name: "Mysuru", slug: "mysuru", tag: "Heritage & Tech" },
+  { name: "Dharwad", slug: "dharwad", tag: "Education & IT" },
+  { name: "Mangaluru", slug: "dakshina-kannada", tag: "Coastal Port" },
+  { name: "Tumakuru", slug: "tumakuru", tag: "Smart City" },
+  { name: "Shivamogga", slug: "shivamogga", tag: "Central Trade" },
+  { name: "Kalaburagi", slug: "kalaburagi", tag: "North Hub" },
+  { name: "Ballari", slug: "ballari", tag: "Mining & Steel" },
+  { name: "Udupi", slug: "udupi", tag: "Banking & Retail" },
+  { name: "Davanagere", slug: "davanagere", tag: "Textiles & Agri" },
 ];
 
 const benefits = [
   {
     icon: "✅",
-    title: "100% Normalized Numbers",
-    desc: "Every contact includes a validated 10-digit mobile number stripped of duplicates, invalid formats, and fake entries.",
+    title: "100% Normalized Mobile Numbers",
+    desc: "Every lead includes a validated 10-digit mobile number stripped of duplicates, invalid formats, and dead numbers ready for cold calling and WhatsApp outreach.",
   },
   {
     icon: "💰",
     title: "Transparent Per-Contact Pricing",
-    desc: "Pay only for what you need with automated volume tier discounts starting from as low as ₹1 per contact.",
+    desc: "Pay only for what you need with automated volume tier discounts starting from as low as ₹1 per contact. No expensive recurring monthly retainers.",
   },
   {
     icon: "⚡",
-    title: "Instant Secure Access",
-    desc: "No waiting for manual file sends. Instantly view, search, and filter your purchased contacts inside your account portal.",
+    title: "Instant Digital Delivery & Excel Export",
+    desc: "No waiting for manual file sends. Instantly view, search, and download your purchased B2B contact lists directly into Excel (.xlsx) or CSV.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Where can I find business phone numbers and contact details in Karnataka?",
+    a: "NivoLeads is Karnataka's dedicated B2B business directory offering direct, verified phone numbers, company names, areas, and addresses across all 31 districts and 20+ industries. You can filter by district (e.g. Vijayapura, Bengaluru, Belagavi, Mysuru) and sector to instantly access verified contacts.",
+  },
+  {
+    q: "How can freelancers and marketing agencies use NivoLeads for client acquisition?",
+    a: "Freelancers, web designers, digital marketing agencies, and SEO consultants use NivoLeads to find local business leads who need digital services. Instead of spending days scraping Google Maps, agencies can purchase 100 to 1,000+ verified contacts in specific sectors (like hospitals, real estate, gyms, or schools) to run targeted outreach.",
+  },
+  {
+    q: "Can I find hospital and clinic contact lists with phone numbers in Karnataka?",
+    a: "Yes! NivoLeads includes comprehensive healthcare contact databases for hospitals, multi-specialty clinics, diagnostic centers, and nursing homes across Karnataka with direct verified mobile numbers for medical suppliers, pharmaceutical sales, and equipment reps.",
+  },
+  {
+    q: "How does the zero-duplicate guarantee work when buying B2B leads?",
+    a: "Our smart contact allocation engine tracks every lead you have ever unlocked under your account. When you place a repeat order in the same district and category, the system automatically starts from the next unowned contact (e.g. Order 1 gives contacts #1–#100; Order 2 gives #101–#200). You never pay for the same phone number twice.",
+  },
+  {
+    q: "Can I download business leads directly to Microsoft Excel or CSV format?",
+    a: "Yes. Every completed order comes with instant one-click 'Download Excel' (.xlsx) export capability from your account portal, making it easy to import contacts into your CRM, dialer, or outreach software.",
   },
 ];
 
 export default function Home() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a,
+      },
+    })),
+  };
+
   return (
     <div className="space-y-16 pb-8">
+      {/* Schema.org FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* Hero Section */}
       <section className="card relative overflow-hidden p-8 text-center sm:p-14 lg:p-20">
         <div className="mx-auto max-w-3xl space-y-6">
@@ -80,7 +137,7 @@ export default function Home() {
 
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-500">
             <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            NivoLeads · Verified B2B & Retail Directory · 31 Districts · 20+ Sectors
+            NivoLeads · Verified Business Leads & Company Contact Database · 31 Karnataka Districts
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight text-[var(--text-main)] sm:text-5xl lg:text-6xl">
@@ -91,16 +148,16 @@ export default function Home() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
-            High-accuracy B2B & retail contact datasets filtered by district and category.
-            Clean mobile numbers, addresses, areas, and websites ready for sales outreach.
+            High-accuracy B2B leads, company databases & local business phone numbers.
+            Clean mobile numbers, addresses, areas, and websites ready for cold calling, WhatsApp, and sales outreach.
           </p>
 
           <div className="flex flex-col items-center justify-center gap-3.5 pt-4 sm:flex-row">
             <Link
               href="/explore"
-              className="btn btn-primary w-full sm:w-auto !px-8 !py-3.5 !text-base"
+              className="btn btn-primary w-full sm:w-auto !px-8 !py-3.5 !text-base shadow-lg hover:shadow-blue-500/25 transition-all"
             >
-              Explore Business Data →
+              Explore Business Leads →
             </Link>
             <Link
               href="/login"
@@ -122,13 +179,34 @@ export default function Home() {
             </div>
             <div>
               <div className="text-2xl font-extrabold text-blue-500 sm:text-3xl">100%</div>
-              <div className="text-xs font-medium text-[var(--text-muted)]">Verified Numbers</div>
+              <div className="text-xs font-medium text-[var(--text-muted)]">Verified Mobile Numbers</div>
             </div>
             <div>
               <div className="text-2xl font-extrabold text-emerald-500 sm:text-3xl">Instant</div>
-              <div className="text-xs font-medium text-[var(--text-muted)]">Delivery & Viewer</div>
+              <div className="text-xs font-medium text-[var(--text-muted)]">Excel & CSV Download</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Freelancers & Sales Agencies Callout */}
+      <section className="card p-6 sm:p-10 border border-blue-500/30 bg-gradient-to-r from-blue-500/5 via-indigo-500/5 to-transparent">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left">
+            <span className="badge-brand">Built for Growth Teams</span>
+            <h2 className="text-2xl font-bold text-[var(--text-main)]">
+              Leads for Freelancers, Digital Marketers & Sales Agencies
+            </h2>
+            <p className="text-sm text-[var(--text-muted)] max-w-2xl leading-relaxed">
+              Stop wasting hours manually searching Google Maps. Access verified business prospect databases with direct owner phone numbers to pitch web design, SEO, social media marketing, and B2B services.
+            </p>
+          </div>
+          <Link
+            href="/explore"
+            className="btn btn-primary whitespace-nowrap !px-6 !py-3 !text-sm shrink-0"
+          >
+            Find Client Leads Now →
+          </Link>
         </div>
       </section>
 
@@ -140,7 +218,7 @@ export default function Home() {
             How It Works in 5 Easy Steps
           </h2>
           <p className="mt-1 text-sm text-[var(--text-muted)]">
-            From discovering leads to browsing verified contacts in under 2 minutes.
+            From discovering leads to browsing and downloading verified contacts in under 2 minutes.
           </p>
         </div>
 
@@ -165,6 +243,41 @@ export default function Home() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* Top Districts Grid */}
+      <section className="space-y-6">
+        <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-end">
+          <div>
+            <span className="badge-brand">Location Directory</span>
+            <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-[var(--text-main)]">
+              Explore Business Leads by Karnataka District
+            </h2>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">
+              Target verified commercial listings in your local city or region.
+            </p>
+          </div>
+          <Link href="/explore" className="text-sm font-semibold text-blue-500 hover:underline">
+            All 31 districts →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {topDistricts.map((d) => (
+            <Link
+              key={d.slug}
+              href={`/explore?d=${d.slug}`}
+              className="card p-3 text-center transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/60 group"
+            >
+              <div className="text-sm font-bold text-[var(--text-main)] group-hover:text-blue-500 transition-colors">
+                {d.name}
+              </div>
+              <div className="text-[10px] text-[var(--text-muted)] mt-0.5">
+                {d.tag}
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* Featured Categories Grid */}
@@ -218,6 +331,38 @@ export default function Home() {
               <p className="text-sm text-[var(--text-muted)] leading-relaxed">{b.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* High-Intent SEO FAQs */}
+      <section aria-labelledby="faq-section-title" className="card p-8 sm:p-12 space-y-6">
+        <div className="text-center sm:text-left">
+          <span className="badge-brand">Got Questions?</span>
+          <h2 id="faq-section-title" className="mt-2 text-2xl sm:text-3xl font-bold text-[var(--text-main)]">
+            Frequently Asked Questions About NivoLeads
+          </h2>
+          <p className="text-sm text-[var(--text-muted)]">
+            Everything you need to know about our verified business contact database and lead delivery.
+          </p>
+        </div>
+
+        <div className="divide-y divide-[var(--border-card)] space-y-2">
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="pt-4 first:pt-0">
+              <h3 className="text-base font-bold text-[var(--text-main)] mb-1.5 flex items-center gap-2">
+                <span className="text-blue-500">Q.</span> {faq.q}
+              </h3>
+              <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed pl-6">
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center pt-6 border-t border-[var(--border-card)]">
+          <Link href="/explore" className="btn btn-primary !px-8 !py-3 !text-sm">
+            Search Business Leads in Your District →
+          </Link>
         </div>
       </section>
     </div>

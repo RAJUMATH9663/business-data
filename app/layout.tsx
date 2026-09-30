@@ -9,15 +9,105 @@ const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nivoleads.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
-  title: { default: "NivoLeads | B2B & Verified Business Directory", template: "%s · NivoLeads" },
-  description: "Instant access to verified business contacts, decision makers, and company databases across all 31 districts in Karnataka on NivoLeads.",
+  title: {
+    default: "NivoLeads | Business Leads, B2B Contacts & Phone Numbers in India",
+    template: "%s · NivoLeads",
+  },
+  description:
+    "Buy verified business leads, B2B company contacts, and 100% verified mobile phone numbers across 31 districts and 20+ industries in Karnataka, India. Instant Excel downloads for freelancers, agencies & sales teams.",
   keywords: [
+    // Primary SEO Keywords
+    "business leads",
+    "business leads India",
+    "B2B leads India",
+    "B2B business leads",
+    "business contact database",
+    "business contacts India",
+    "business directory India",
+    "local business directory",
+    "business database India",
+    "verified business leads",
+    "business lead generation",
+    "local business leads",
+    "company contact database",
+    "business contact list",
+    "business prospect database",
+    "business phone numbers",
+    "company phone numbers",
+    "business contact numbers",
+    "business contact details",
+
+    // Karnataka-focused keywords
+    "Karnataka business leads",
     "Karnataka business database",
-    "B2B leads Karnataka",
-    "verified business directory",
-    "Bangalore business contacts",
-    "Karnataka phone directory",
+    "Karnataka business directory",
+    "Karnataka B2B leads",
+    "Karnataka company database",
+    "Karnataka business contacts",
+    "business leads Karnataka",
+    "local business leads Karnataka",
+    "Karnataka industry directory",
+    "Karnataka companies list",
+
+    // District/location keywords
+    "Vijayapura business leads",
+    "Bengaluru business leads",
+    "Belagavi business leads",
+    "Mysuru business leads",
+    "Hubli business leads",
+    "Dharwad business leads",
+    "Mangaluru business leads",
+    "Tumakuru business leads",
+    "Shivamogga business leads",
+    "Davanagere business leads",
+    "Kalaburagi business leads",
+    "Ballari business leads",
+    "Udupi business leads",
+    "Hassan business leads",
+    "Raichur business leads",
+
+    // Industry keywords
+    "hospital business leads",
+    "hospital phone numbers in Karnataka",
+    "clinic contact numbers Karnataka",
+    "real estate leads",
+    "construction company leads",
+    "school business leads",
+    "college leads",
+    "coaching institute leads",
+    "gym business leads",
+    "salon business leads",
+    "restaurant business leads",
+    "hotel business leads",
+    "retail business leads",
+    "IT company leads",
+    "digital marketing leads",
+    "CA firm leads",
+    "legal service leads",
+    "automobile dealer leads",
+    "manufacturing leads",
+    "logistics leads",
+    "travel business leads",
+    "agriculture business leads",
+
+    // Freelancer/Agency keywords
+    "business leads for freelancers",
+    "leads for freelancers",
+    "leads for digital marketers",
+    "leads for marketing agencies",
+    "sales leads India",
+    "leads for web designers",
+    "leads for SEO freelancers",
+    "client leads for freelancers",
+
+    // Brand keywords
     "NivoLeads",
+    "Nivo Leads",
+    "Nivoleads India",
+    "Nivoleads business leads",
+    "Nivoleads business database",
+    "Nivoleads Karnataka",
+    "Nivoleads B2B leads",
   ],
   authors: [{ name: "NivoLeads Team" }],
   openGraph: {
@@ -25,21 +115,23 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: appUrl,
     siteName: "NivoLeads",
-    title: "NivoLeads | B2B & Verified Business Directory",
-    description: "Instant access to verified business contacts across all 31 districts and 20+ industries in Karnataka.",
+    title: "NivoLeads | Business Leads, B2B Contacts & Phone Numbers in India",
+    description:
+      "Access verified business phone numbers, decision makers, and company contact directories across all 31 Karnataka districts and 20+ industries.",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "NivoLeads — Verified B2B Business Directory",
+        alt: "NivoLeads — Verified Business Leads & Contacts",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NivoLeads | B2B & Verified Business Directory",
-    description: "Instant access to verified business contacts across all 31 districts and 20+ industries in Karnataka.",
+    title: "NivoLeads | Business Leads, B2B Contacts & Phone Numbers in India",
+    description:
+      "Access verified business phone numbers, decision makers, and company contact directories across all 31 Karnataka districts and 20+ industries.",
     images: ["/logo.png"],
   },
   icons: {
@@ -63,6 +155,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var s=localStorage.getItem("kbd_theme");var p=window.matchMedia("(prefers-color-scheme: dark)").matches;var t=s||(p?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.documentElement.style.colorScheme=t;}catch(e){}})();`,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${appUrl}/#organization`,
+                  name: "NivoLeads",
+                  url: appUrl,
+                  logo: `${appUrl}/logo.png`,
+                  description:
+                    "Verified business leads, B2B company contacts, and phone directories across 31 Karnataka districts and 20+ industries.",
+                  contactPoint: {
+                    "@type": "ContactPoint",
+                    contactType: "Customer Support",
+                    email: "support@nivoleads.com",
+                  },
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${appUrl}/#website`,
+                  url: appUrl,
+                  name: "NivoLeads",
+                  description: "Business Leads, B2B Contacts & Phone Numbers in India",
+                  publisher: {
+                    "@id": `${appUrl}/#organization`,
+                  },
+                },
+              ],
+            }),
           }}
         />
       </head>

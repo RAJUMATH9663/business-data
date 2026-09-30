@@ -75,7 +75,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    return [...staticRoutes, ...districtRoutes, ...categoryRoutes];
+    // High-priority combination pages for top districts
+    const priorityDistrictSlugs = [
+      "bengaluru-urban",
+      "vijayapura",
+      "belagavi",
+      "mysuru",
+      "dharwad",
+      "dakshina-kannada",
+    ];
+
+    const comboRoutes: MetadataRoute.Sitemap = [];
+    for (const d of districts.filter((item) => priorityDistrictSlugs.includes(item.slug))) {
+      for (const c of categories) {
+        comboRoutes.push({
+          url: `${baseUrl}/explore?d=${d.slug}&c=${c.slug}`,
+          lastModified: d.updatedAt,
+          changeFrequency: "weekly",
+          priority: 0.85,
+        });
+      }
+    }
+
+    return [...staticRoutes, ...districtRoutes, ...categoryRoutes, ...comboRoutes];
   } catch {
     return staticRoutes;
   }
