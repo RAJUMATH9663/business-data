@@ -81,7 +81,7 @@ export default async function Navbar() {
       {/* Mobile Bottom Navigation Bar */}
       <nav
         aria-label="Mobile"
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-[var(--border-card)] bg-[var(--header-bg)] pb-[env(safe-area-inset-bottom)] backdrop-blur-lg md:hidden shadow-lg"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-[var(--border-card)] bg-[var(--header-bg)] pb-[env(safe-area-inset-bottom)] backdrop-blur-lg md:hidden shadow-lg"
       >
         {links.map((l) => (
           <Link

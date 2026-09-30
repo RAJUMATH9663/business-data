@@ -6,13 +6,13 @@ const steps = [
     step: "01",
     icon: "📍",
     label: "Pick a District",
-    desc: "Choose from any of Karnataka's 31 districts.",
+    desc: "Choose from any of Karnataka's 31 districts or international regions.",
   },
   {
     step: "02",
     icon: "🗂️",
     label: "Select Category",
-    desc: "Target specific industries like Hospitals, IT, Real Estate, etc.",
+    desc: "Target specific industries like Hospitals, IT, Real Estate, Manufacturing, etc.",
   },
   {
     step: "03",
@@ -24,23 +24,25 @@ const steps = [
     step: "04",
     icon: "💳",
     label: "Secure Checkout",
-    desc: "Seamless, encrypted payment via Razorpay / UPI / Cards.",
+    desc: "Seamless, encrypted payment via Razorpay / UPI / Cards / Net Banking.",
   },
   {
     step: "05",
     icon: "⚡",
-    label: "Instant Access",
-    desc: "Immediately view and search your verified contacts online.",
+    label: "Instant Excel Export",
+    desc: "Download verified spreadsheet (.xlsx / .csv) and search contacts online immediately.",
   },
 ];
 
-const featuredCategories = [
-  { icon: "🏥", name: "Hospitals & Clinics", slug: "hospitals-clinics", tag: "Healthcare", query: "hospital business leads & phone numbers" },
-  { icon: "🏠", name: "Real Estate & Builders", slug: "real-estate", tag: "Property", query: "real estate company contacts" },
-  { icon: "💻", name: "IT & Software Companies", slug: "it-software-companies", tag: "Tech", query: "software company decision makers" },
-  { icon: "🏫", name: "Schools & Educational Inst.", slug: "schools", tag: "Education", query: "school & college phone numbers" },
-  { icon: "🛒", name: "Retail & Supermarkets", slug: "retail-supermarkets", tag: "Commercial", query: "local retail business contacts" },
-  { icon: "🏭", name: "Manufacturing & Industries", slug: "manufacturing-industries", tag: "Industrial", query: "industrial & manufacturing leads" },
+const businessIdeas = [
+  { icon: "🏥", name: "Hospitals & Healthcare", slug: "hospitals-clinics", tag: "Hot Sector" },
+  { icon: "🏠", name: "Real Estate & Builders", slug: "real-estate", tag: "High Ticket" },
+  { icon: "💻", name: "IT & Software Companies", slug: "it-software-companies", tag: "Tech" },
+  { icon: "🏭", name: "Manufacturing & Factories", slug: "manufacturing-industries", tag: "B2B Supply" },
+  { icon: "🛒", name: "Retail & Supermarkets", slug: "retail-supermarkets", tag: "FMCG" },
+  { icon: "🏫", name: "Schools & Educational Inst.", slug: "schools", tag: "Education" },
+  { icon: "🏨", name: "Hotels & Restaurants", slug: "hotels-restaurants", tag: "Hospitality" },
+  { icon: "🚗", name: "Automobile Dealers", slug: "automobile-dealers", tag: "Auto" },
 ];
 
 const topDistricts = [
@@ -112,7 +114,6 @@ export default function Home() {
       name: f.q,
       acceptedAnswer: {
         "@type": "Answer",
-        text: f.a,
       },
     })),
   };
@@ -125,69 +126,104 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Hero Section */}
-      <section className="card relative overflow-hidden p-8 text-center sm:p-14 lg:p-20">
-        <div className="mx-auto max-w-3xl space-y-6">
-          <div className="mx-auto flex justify-center">
+      {/* Hero Section — Distinct, High-Converting & Intuitive */}
+      <section className="relative overflow-hidden rounded-3xl border border-[var(--border-card)] bg-gradient-to-b from-[var(--bg-card)] via-[var(--bg-mist)] to-[var(--bg-card)] p-6 sm:p-12 lg:p-16 shadow-lg text-center">
+        {/* Ambient Top Glow */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-96 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl" />
+
+        <div className="mx-auto max-w-4xl space-y-6">
+          {/* Brand Logo & Authority Badge */}
+          <div className="mx-auto flex flex-col items-center justify-center gap-3">
             <Image
               src="/logo.png"
               alt="NivoLeads"
-              width={380}
-              height={100}
-              className="h-20 sm:h-28 md:h-32 w-auto rounded-2xl object-contain shadow-lg"
+              width={340}
+              height={90}
+              className="h-16 sm:h-24 md:h-28 w-auto rounded-2xl object-contain shadow-md transition-transform hover:scale-105"
               priority
             />
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 shadow-sm">
+              <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              NivoLeads · Global B2B Directory & Verified Company Contact Database
+            </div>
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-500">
-            <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            NivoLeads · Global B2B Directory & Verified Company Contact Database
-          </div>
-
-          <h1 className="text-4xl font-extrabold tracking-tight text-[var(--text-main)] sm:text-5xl lg:text-6xl">
+          {/* Main Headline */}
+          <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-main)] sm:text-5xl lg:text-6xl leading-[1.15]">
             Target Real Businesses & Decision Makers{" "}
-            <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
               Locally & Globally
             </span>
           </h1>
 
-          <p className="mx-auto max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
-            High-accuracy B2B leads, company databases & local business phone numbers.
-            Filter by country, region, and industry sector to acquire clean decision-maker contacts ready for sales prospecting.
+          {/* Subtitle / Value Proposition */}
+          <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-[var(--text-muted)] leading-relaxed">
+            High-accuracy B2B leads, company databases & local business phone numbers. Filter by country, region, and industry sector to acquire clean decision-maker contacts ready for sales prospecting.
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-3.5 pt-4 sm:flex-row">
-            <Link
-              href="/explore"
-              className="btn btn-primary w-full sm:w-auto !px-8 !py-3.5 !text-base shadow-lg hover:shadow-blue-500/25 transition-all"
-            >
-              Explore Business Leads →
-            </Link>
-            <Link
-              href="/login"
-              className="btn btn-ghost w-full sm:w-auto !px-6 !py-3.5 !text-base"
-            >
-              Client Login
-            </Link>
+          {/* Direct CTA Action Box */}
+          <div className="mx-auto max-w-xl rounded-2xl border border-blue-500/30 bg-[var(--bg-card)] p-4 sm:p-5 shadow-md">
+            <p className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-3">
+              Want verified contacts for your business outreach?
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href="/explore"
+                className="btn btn-primary w-full sm:flex-1 !py-3.5 !text-sm sm:!text-base font-bold shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02]"
+              >
+                Get Started — Get Business Contacts →
+              </Link>
+              <Link
+                href="/leads"
+                className="btn btn-ghost w-full sm:w-auto !py-3.5 !text-sm font-semibold border border-[var(--border-card)]"
+              >
+                Browse Directory 📍
+              </Link>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-4 text-xs text-[var(--text-muted)]">
+              <span>Already have an account?</span>
+              <Link href="/login" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                Client Portal / Sign In →
+              </Link>
+            </div>
+          </div>
+
+          {/* Quick Business Ideas & Popular Sectors Pills */}
+          <div className="pt-2">
+            <div className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2.5">
+              Explore Popular Business Ideas & Sectors:
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {businessIdeas.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/explore?c=${item.slug}`}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] px-3 py-1.5 text-xs font-medium text-[var(--text-main)] transition-all hover:-translate-y-0.5 hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 shadow-sm"
+                >
+                  <span>{item.icon}</span>
+                  <span>{item.name}</span>
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="mt-12 grid grid-cols-2 gap-4 border-t border-[var(--border-card)] pt-8 sm:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-4 border-t border-[var(--border-card)] pt-6 sm:grid-cols-4">
             <div>
               <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">31</div>
-              <div className="text-xs font-medium text-[var(--text-muted)]">Districts Covered</div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Karnataka Districts</div>
             </div>
             <div>
               <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">20+</div>
-              <div className="text-xs font-medium text-[var(--text-muted)]">Industry Categories</div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Industry Categories</div>
             </div>
             <div>
-              <div className="text-2xl font-extrabold text-blue-500 sm:text-3xl">100%</div>
-              <div className="text-xs font-medium text-[var(--text-muted)]">Verified Mobile Numbers</div>
+              <div className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 sm:text-3xl">100%</div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Verified Mobile Numbers</div>
             </div>
             <div>
-              <div className="text-2xl font-extrabold text-emerald-500 sm:text-3xl">Instant</div>
-              <div className="text-xs font-medium text-[var(--text-muted)]">Excel & CSV Download</div>
+              <div className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 sm:text-3xl">Instant</div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Excel & CSV Download</div>
             </div>
           </div>
         </div>
@@ -261,7 +297,7 @@ export default function Home() {
               Target verified commercial listings in your local city or region.
             </p>
           </div>
-          <Link href="/explore" className="text-sm font-semibold text-blue-500 hover:underline">
+          <Link href="/leads" className="text-sm font-semibold text-blue-500 hover:underline">
             All 31 districts →
           </Link>
         </div>
@@ -270,7 +306,7 @@ export default function Home() {
           {topDistricts.map((d) => (
             <Link
               key={d.slug}
-              href={`/explore?d=${d.slug}`}
+              href={`/leads/${d.slug}`}
               className="card p-3 text-center transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/60 group"
             >
               <div className="text-sm font-bold text-[var(--text-main)] group-hover:text-blue-500 transition-colors">
@@ -297,22 +333,22 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredCategories.map((cat) => (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {businessIdeas.map((cat) => (
             <Link
               key={cat.slug}
               href={`/explore?c=${cat.slug}`}
-              className="card group flex items-center justify-between p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500/60"
+              className="card group flex items-center justify-between p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500/60"
             >
-              <div className="flex items-center gap-3.5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--bg-mist)] text-2xl transition-transform duration-200 group-hover:scale-110">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-mist)] text-2xl transition-transform duration-200 group-hover:scale-110">
                   {cat.icon}
                 </span>
                 <div>
-                  <h3 className="text-base font-bold text-[var(--text-main)] group-hover:text-blue-500 transition-colors">
+                  <h3 className="text-sm font-bold text-[var(--text-main)] group-hover:text-blue-500 transition-colors">
                     {cat.name}
                   </h3>
-                  <span className="inline-block rounded bg-[var(--bg-mist)] px-2 py-0.5 text-[11px] font-medium text-[var(--text-muted)]">
+                  <span className="inline-block rounded bg-[var(--bg-mist)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
                     {cat.tag}
                   </span>
                 </div>
