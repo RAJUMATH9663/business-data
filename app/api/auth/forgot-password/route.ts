@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { handler, json, limit, ApiError } from "@/lib/api";
 import { prisma } from "@/lib/db";
+import { sendPasswordResetEmail } from "@/lib/email";
 
 export const POST = handler(async (req) => {
   limit(req, "forgot-pw-ip", 10, 15 * 60_000);
@@ -20,6 +21,7 @@ export const POST = handler(async (req) => {
   });
 
   let resetUrl: string | undefined;
+  let emailSent = false;
 
   if (user && user.status === "ACTIVE") {
     const rawToken = crypto.randomBytes(32).toString("hex");
@@ -44,17 +46,28 @@ export const POST = handler(async (req) => {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     resetUrl = `${baseUrl}/reset-password?token=${rawToken}`;
 
+    // Try sending email if SMTP is configured
+    emailSent = await sendPasswordResetEmail({
+      to: user.email,
+      userName: user.name,
+      resetUrl,
+    });
+
     // Log to terminal for easy testing
     console.log(`\n================ PASSWORD RESET LINK ================`);
     console.log(`User: ${user.email} (${user.name})`);
     console.log(`Reset URL: ${resetUrl}`);
+    console.log(`Email Sent: ${emailSent ? "YES (Dispatched to inbox)" : "NO (SMTP not configured in .env)"}`);
     console.log(`Valid for 30 minutes.`);
     console.log(`=====================================================\n`);
   }
 
   return json({
     ok: true,
-    message: "If an account exists with this email address, password reset instructions have been generated.",
+    message: emailSent
+      ? "A password reset link has been dispatched to your email address."
+      : "If an account exists with this email address, password reset instructions have been generated.",
+    emailSent,
     resetUrl: process.env.NODE_ENV !== "production" ? resetUrl : undefined,
   });
 });
