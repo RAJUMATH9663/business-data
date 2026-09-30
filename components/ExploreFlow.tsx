@@ -37,7 +37,6 @@ declare global {
   }
 }
 
-const CHIPS = [100, 250, 500, 1000];
 const money = (paise: number) =>
   "₹" + (paise / 100).toLocaleString("en-IN", { minimumFractionDigits: Number.isInteger(paise / 100) ? 0 : 2, maximumFractionDigits: 2 });
 const num = (n: number) => n.toLocaleString("en-IN");
@@ -77,6 +76,17 @@ export default function ExploreFlow({
     const q = search.trim().toLowerCase();
     return q ? districts.filter((d) => d.name.toLowerCase().includes(q)) : districts;
   }, [districts, search]);
+
+  const chips = useMemo(() => {
+    if (!available || available <= 0) return [100, 250, 500, 1000];
+    if (available <= 50) {
+      return [10, 25, available].filter((v, i, a) => v <= available && a.indexOf(v) === i);
+    }
+    if (available < 100) {
+      return [10, 25, 50, available].filter((v, i, a) => v <= available && a.indexOf(v) === i);
+    }
+    return [100, 250, 500, 1000].filter((v) => v <= available || v === 100);
+  }, [available]);
 
   // Load categories whenever a district is chosen
   useEffect(() => {
@@ -466,8 +476,8 @@ export default function ExploreFlow({
                     />
                     <button aria-label="Increase" className="btn btn-ghost !min-h-[52px] !w-14 text-xl" onClick={() => setQuantity(qty + 10)}>+</button>
                   </div>
-                  <div className="mt-3 grid grid-cols-4 gap-2">
-                    {CHIPS.map((c) => (
+                  <div className={`mt-3 grid gap-2 ${chips.length === 3 ? "grid-cols-3" : chips.length === 2 ? "grid-cols-2" : "grid-cols-4"}`}>
+                    {chips.map((c) => (
                       <button
                         key={c}
                         disabled={c > available}
