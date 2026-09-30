@@ -78,20 +78,24 @@ const benefits = [
 
 const faqs = [
   {
-    q: "Where can I find business phone numbers and contact details in Karnataka?",
-    a: "NivoLeads is Karnataka's dedicated B2B business directory offering direct, verified phone numbers, company names, areas, and addresses across all 31 districts and 20+ industries. You can filter by district (e.g. Vijayapura, Bengaluru, Belagavi, Mysuru) and sector to instantly access verified contacts.",
+    q: "Where can I find business phone numbers and contact details?",
+    a: "NivoLeads is a dedicated commercial B2B directory providing verified business phone numbers, company names, areas, and addresses. Users can filter by country, region, city, and industry sector to instantly view and export authentic decision-maker contact lists.",
+  },
+  {
+    q: "Does NivoLeads offer US business contacts and international company leads?",
+    a: "Yes. NivoLeads is built on a scalable Country → State → City → Industry directory structure. While our deepest verified coverage currently starts across Karnataka's 31 districts in India, our database architecture natively scales to US business phone numbers, American company databases, and international B2B sales prospect lists.",
   },
   {
     q: "How can freelancers and marketing agencies use NivoLeads for client acquisition?",
-    a: "Freelancers, web designers, digital marketing agencies, and SEO consultants use NivoLeads to find local business leads who need digital services. Instead of spending days scraping Google Maps, agencies can purchase 100 to 1,000+ verified contacts in specific sectors (like hospitals, real estate, gyms, or schools) to run targeted outreach.",
+    a: "Freelancers, web designers, digital marketing agencies, and SEO consultants use NivoLeads to find local and global business leads who need client services. Instead of spending days scraping Google Maps, agencies can purchase 100 to 1,000+ verified contacts in specific high-value sectors (like hospitals, real estate, gyms, or IT firms) to run high-converting outreach.",
   },
   {
-    q: "Can I find hospital and clinic contact lists with phone numbers in Karnataka?",
-    a: "Yes! NivoLeads includes comprehensive healthcare contact databases for hospitals, multi-specialty clinics, diagnostic centers, and nursing homes across Karnataka with direct verified mobile numbers for medical suppliers, pharmaceutical sales, and equipment reps.",
+    q: "Can I find hospital and clinic contact lists with direct phone numbers?",
+    a: "Yes! NivoLeads includes comprehensive healthcare contact databases for hospitals, multi-specialty clinics, diagnostic centers, and medical facilities with verified mobile numbers for medical suppliers, pharmaceutical sales, and equipment reps.",
   },
   {
     q: "How does the zero-duplicate guarantee work when buying B2B leads?",
-    a: "Our smart contact allocation engine tracks every lead you have ever unlocked under your account. When you place a repeat order in the same district and category, the system automatically starts from the next unowned contact (e.g. Order 1 gives contacts #1–#100; Order 2 gives #101–#200). You never pay for the same phone number twice.",
+    a: "Our smart contact allocation engine tracks every lead you have ever unlocked under your account. When you place a repeat order in the same location and category, the system automatically starts from the next unowned contact (e.g. Order 1 gives contacts #1–#100; Order 2 gives #101–#200). You never pay for the same phone number twice.",
   },
   {
     q: "Can I download business leads directly to Microsoft Excel or CSV format?",
@@ -137,19 +141,19 @@ export default function Home() {
 
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-500">
             <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            NivoLeads · Verified Business Leads & Company Contact Database · 31 Karnataka Districts
+            NivoLeads · Global B2B Directory & Verified Company Contact Database
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight text-[var(--text-main)] sm:text-5xl lg:text-6xl">
-            Target Real Businesses & Decision Makers Across{" "}
+            Target Real Businesses & Decision Makers{" "}
             <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 bg-clip-text text-transparent">
-              Karnataka
+              Locally & Globally
             </span>
           </h1>
 
           <p className="mx-auto max-w-2xl text-base text-[var(--text-muted)] sm:text-lg">
             High-accuracy B2B leads, company databases & local business phone numbers.
-            Clean mobile numbers, addresses, areas, and websites ready for cold calling, WhatsApp, and sales outreach.
+            Filter by country, region, and industry sector to acquire clean decision-maker contacts ready for sales prospecting.
           </p>
 
           <div className="flex flex-col items-center justify-center gap-3.5 pt-4 sm:flex-row">
