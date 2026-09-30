@@ -234,6 +234,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
+              <Link href="/leads" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                Leads Directory
+              </Link>
+              <span>·</span>
               <Link href="/explore" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                 Explore Data
               </Link>

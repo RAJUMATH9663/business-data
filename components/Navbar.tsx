@@ -7,6 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 export default async function Navbar() {
   const s = await getSession();
   const links = [
+    { href: "/leads", label: "Directory", icon: "📍" },
     { href: "/explore", label: "Explore Data", icon: "🔎" },
     { href: "/purchases", label: "My Purchases", icon: "🧾" },
     s ? { href: "/account", label: "Account", icon: "👤" } : { href: "/login", label: "Login", icon: "👤" },

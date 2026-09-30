@@ -13,6 +13,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
+      url: `${baseUrl}/leads`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/explore`,
       lastModified: new Date(),
       changeFrequency: "daily",
@@ -61,43 +67,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       select: { slug: true, updatedAt: true },
     });
 
-    const districtRoutes: MetadataRoute.Sitemap = districts.map((d) => ({
-      url: `${baseUrl}/explore?d=${d.slug}`,
+    // District programmatic landing pages (/leads/[district])
+    const districtLandingRoutes: MetadataRoute.Sitemap = districts.map((d) => ({
+      url: `${baseUrl}/leads/${d.slug}`,
       lastModified: d.updatedAt,
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.85,
     }));
 
-    const categoryRoutes: MetadataRoute.Sitemap = categories.map((c) => ({
-      url: `${baseUrl}/explore?c=${c.slug}`,
-      lastModified: c.updatedAt,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    }));
-
-    // High-priority combination pages for top districts
-    const priorityDistrictSlugs = [
-      "bengaluru-urban",
-      "vijayapura",
-      "belagavi",
-      "mysuru",
-      "dharwad",
-      "dakshina-kannada",
-    ];
-
-    const comboRoutes: MetadataRoute.Sitemap = [];
-    for (const d of districts.filter((item) => priorityDistrictSlugs.includes(item.slug))) {
+    // District + Category programmatic landing pages (/leads/[district]/[category])
+    const districtCategoryRoutes: MetadataRoute.Sitemap = [];
+    for (const d of districts) {
       for (const c of categories) {
-        comboRoutes.push({
-          url: `${baseUrl}/explore?d=${d.slug}&c=${c.slug}`,
+        districtCategoryRoutes.push({
+          url: `${baseUrl}/leads/${d.slug}/${c.slug}`,
           lastModified: d.updatedAt,
           changeFrequency: "weekly",
-          priority: 0.85,
+          priority: 0.8,
         });
       }
     }
 
-    return [...staticRoutes, ...districtRoutes, ...categoryRoutes, ...comboRoutes];
+    // Dynamic explore filter routes
+    const districtExploreRoutes: MetadataRoute.Sitemap = districts.map((d) => ({
+      url: `${baseUrl}/explore?d=${d.slug}`,
+      lastModified: d.updatedAt,
+      changeFrequency: "weekly",
+      priority: 0.75,
+    }));
+
+    const categoryExploreRoutes: MetadataRoute.Sitemap = categories.map((c) => ({
+      url: `${baseUrl}/explore?c=${c.slug}`,
+      lastModified: c.updatedAt,
+      changeFrequency: "weekly",
+      priority: 0.75,
+    }));
+
+    return [
+      ...staticRoutes,
+      ...districtLandingRoutes,
+      ...districtCategoryRoutes,
+      ...districtExploreRoutes,
+      ...categoryExploreRoutes,
+    ];
   } catch {
     return staticRoutes;
   }

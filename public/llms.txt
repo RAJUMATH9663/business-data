@@ -23,7 +23,10 @@
 
 ## Key Endpoints & Directory Links
 - [Homepage](https://nivoleads.com): Overview, search filters, and pricing tiers.
-- [Explore Data](https://nivoleads.com/explore): Search businesses by location, district, and sector.
+- [Leads Directory](https://nivoleads.com/leads): Master directory index of all 31 Karnataka districts and 20+ industries.
+- [District Directory Pages](https://nivoleads.com/leads/{district}): Deep-dive pages with sample listings for each district (e.g. `https://nivoleads.com/leads/vijayapura`, `https://nivoleads.com/leads/bengaluru-urban`).
+- [Industry + Location Landing Pages](https://nivoleads.com/leads/{district}/{category}): Dedicated sector listings (e.g. `https://nivoleads.com/leads/vijayapura/hospitals-clinics`).
+- [Explore Data & Lead Builder](https://nivoleads.com/explore): Search businesses by location, district, and sector.
 - [Client Portal](https://nivoleads.com/login): Account sign in and dataset management.
 - [Terms & Licensing](https://nivoleads.com/terms): Commercial data use and compliance terms.
 - [Privacy Policy](https://nivoleads.com/privacy): Data protection standards and compliance.
