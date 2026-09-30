@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import fs from "fs";
+import path from "path";
 
 interface SendResetEmailParams {
   to: string;
@@ -6,12 +8,42 @@ interface SendResetEmailParams {
   resetUrl: string;
 }
 
+function getSmtpConfig() {
+  let user = process.env.SMTP_USER;
+  let pass = process.env.SMTP_PASSWORD;
+  let host = process.env.SMTP_HOST || "smtp.gmail.com";
+  let port = parseInt(process.env.SMTP_PORT || "587", 10);
+  let from = process.env.SMTP_FROM;
+
+  // Fallback: manually read .env if process.env wasn't initialized
+  if (!user || !pass) {
+    try {
+      const envPath = path.resolve(process.cwd(), ".env");
+      if (fs.existsSync(envPath)) {
+        const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
+        for (const line of lines) {
+          const match = line.match(/^\s*([\w_]+)\s*=\s*"?([^"]*)"?\s*$/);
+          if (match) {
+            const [, key, val] = match;
+            if (key === "SMTP_USER") user = val;
+            if (key === "SMTP_PASSWORD") pass = val;
+            if (key === "SMTP_HOST") host = val;
+            if (key === "SMTP_PORT") port = parseInt(val, 10);
+            if (key === "SMTP_FROM") from = val;
+          }
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  from = from || `"NivoLeads" <${user || "support@nivoleads.com"}>`;
+  return { host, port, user, pass, from };
+}
+
 export async function sendPasswordResetEmail({ to, userName, resetUrl }: SendResetEmailParams): Promise<boolean> {
-  const host = process.env.SMTP_HOST || "smtp.gmail.com";
-  const port = parseInt(process.env.SMTP_PORT || "587", 10);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASSWORD;
-  const from = process.env.SMTP_FROM || `"NivoLeads" <${user || "support@nivoleads.com"}>`;
+  const { host, port, user, pass, from } = getSmtpConfig();
 
   // If SMTP credentials are not configured, return false so the caller knows to log/fallback
   if (!user || !pass) {
