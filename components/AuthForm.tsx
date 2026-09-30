@@ -112,7 +112,9 @@ export default function AuthForm({ mode, next }: { mode: "login" | "register"; n
               Password
             </label>
             {!isReg && (
-              <span className="text-xs text-[var(--text-muted)]">Secure session</span>
+              <Link href="/forgot-password" className="text-xs text-blue-500 hover:underline font-medium">
+                Forgot password?
+              </Link>
             )}
           </div>
           <input
