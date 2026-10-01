@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 
+export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
+
 export async function generateMetadata({
   params,
 }: {

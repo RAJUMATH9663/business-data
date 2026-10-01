@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 
+export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
+
 export const metadata: Metadata = {
   title: "Karnataka Business Leads Directory by District & Industry | NivoLeads",
   description:

@@ -6,12 +6,15 @@ import ThemeToggle from "./ThemeToggle";
 
 export default async function Navbar() {
   const s = await getSession();
-  const links = [
-    { href: "/leads", label: "Directory", icon: "📍" },
-    { href: "/explore", label: "Explore Data", icon: "🔎" },
-    { href: "/purchases", label: "My Purchases", icon: "🧾" },
-    s ? { href: "/account", label: "Account", icon: "👤" } : { href: "/login", label: "Login", icon: "👤" },
-  ];
+  const links = s
+    ? [
+        { href: "/explore", label: "Explore Data", icon: "🔎" },
+        { href: "/purchases", label: "My Purchases", icon: "🧾" },
+        { href: "/account", label: "Account", icon: "👤" },
+      ]
+    : [
+        { href: "/login", label: "Login", icon: "👤" },
+      ];
 
   return (
     <>
@@ -71,29 +74,37 @@ export default async function Navbar() {
                 Admin
               </Link>
             )}
-            <Link href="/explore" className="btn btn-primary !min-h-[36px] !px-3.5 !py-1.5 !text-xs">
-              Explore
-            </Link>
+            {s ? (
+              <Link href="/explore" className="btn btn-primary !min-h-[36px] !px-3.5 !py-1.5 !text-xs">
+                Explore
+              </Link>
+            ) : (
+              <Link href="/login" className="btn btn-primary !min-h-[36px] !px-3.5 !py-1.5 !text-xs">
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
       </header>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <nav
-        aria-label="Mobile"
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-[var(--border-card)] bg-[var(--header-bg)] pb-[env(safe-area-inset-bottom)] backdrop-blur-lg md:hidden shadow-lg"
-      >
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="flex min-h-[58px] flex-col items-center justify-center gap-1 text-[11px] font-semibold text-[var(--text-muted)] transition-colors active:text-brand"
-          >
-            <span className="text-xl leading-none">{l.icon}</span>
-            <span>{l.label}</span>
-          </Link>
-        ))}
-      </nav>
+      {/* Mobile Bottom Navigation Bar (Logged in only) */}
+      {s && (
+        <nav
+          aria-label="Mobile"
+          className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-[var(--border-card)] bg-[var(--header-bg)] pb-[env(safe-area-inset-bottom)] backdrop-blur-lg md:hidden shadow-lg"
+        >
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="flex min-h-[58px] flex-col items-center justify-center gap-1 text-[11px] font-semibold text-[var(--text-muted)] transition-colors active:text-brand"
+            >
+              <span className="text-xl leading-none">{l.icon}</span>
+              <span>{l.label}</span>
+            </Link>
+          ))}
+        </nav>
+      )}
     </>
   );
 }
