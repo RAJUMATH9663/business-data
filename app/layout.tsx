@@ -161,10 +161,11 @@ export const metadata: Metadata = {
     canonical: appUrl,
   },
   verification: {
-    google:
-      process.env.GOOGLE_SITE_VERIFICATION ||
-      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+    google: [
+      "07b99ac8ae838322",
       "X3ZYshAQpt9UDruysLXUYc3bIVUchhoj7cOBCE1gz0E",
+      process.env.GOOGLE_SITE_VERIFICATION,
+    ].filter(Boolean) as string[],
   },
   other: {
     "geo.region": "IN-KA",
