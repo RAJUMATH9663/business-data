@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { getAppUrl } from "@/lib/seo";
 
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
@@ -103,7 +104,7 @@ export default async function DistrictCategoryLandingPage({
     }),
   ]);
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nivoleads.com";
+  const appUrl = getAppUrl();
 
   // Structured Data (Schema.org)
   const jsonLd = {

@@ -4,8 +4,9 @@ import Link from "next/link";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CookieConsent from "@/components/CookieConsent";
+import { getAppUrl } from "@/lib/seo";
 
-const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nivoleads.com";
+const appUrl = getAppUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
@@ -114,6 +115,24 @@ export const metadata: Metadata = {
     "Nivoleads B2B leads",
   ],
   authors: [{ name: "NivoLeads Team" }],
+  creator: "NivoLeads",
+  publisher: "NivoLeads",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -141,16 +160,26 @@ export const metadata: Metadata = {
   alternates: {
     canonical: appUrl,
   },
+  verification: {
+    google:
+      process.env.GOOGLE_SITE_VERIFICATION ||
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+      "X3ZYshAQpt9UDruysLXUYc3bIVUchhoj7cOBCE1gz0E",
+  },
   other: {
     "geo.region": "IN-KA",
     "geo.placename": "Karnataka, India",
     "target-country": "IN, US",
   },
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -182,7 +211,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   url: appUrl,
                   logo: `${appUrl}/logo.png`,
                   description:
-                    "Verified business leads, B2B company contacts, and phone directories across 31 Karnataka districts and 20+ industries.",
+                    "Verified business leads, B2B company contacts, and phone directories across 31 Karnataka districts and 12 core industry sectors.",
                   contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "Customer Support",
@@ -194,9 +223,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   "@id": `${appUrl}/#website`,
                   url: appUrl,
                   name: "NivoLeads",
-                  description: "Business Leads, B2B Contacts & Phone Numbers in India",
+                  description: "Business Leads, B2B Contacts & Phone Numbers in India & USA",
                   publisher: {
                     "@id": `${appUrl}/#organization`,
+                  },
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: {
+                      "@type": "EntryPoint",
+                      urlTemplate: `${appUrl}/explore?d={search_term_string}`,
+                    },
+                    "query-input": "required name=search_term_string",
                   },
                 },
               ],

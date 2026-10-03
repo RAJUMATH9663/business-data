@@ -64,8 +64,8 @@ Base URL: `/api`
   [
     {
       "id": 1,
-      "name": "Hospitals & Clinics",
-      "slug": "hospitals-clinics",
+      "name": "Healthcare",
+      "slug": "healthcare",
       "icon": "🏥",
       "count": 500,
       "available": 400,
@@ -75,7 +75,7 @@ Base URL: `/api`
   ```
 
 ### 3.2 Real-Time Price & Volume Quote
-- **Endpoint**: `GET /api/quote?district=vijayapura&category=hospitals-clinics&qty=100`
+- **Endpoint**: `GET /api/quote?district=vijayapura&category=healthcare&qty=100`
 - **Query Params**:
   - `district` (string, required)
   - `category` (string, required)
@@ -84,7 +84,7 @@ Base URL: `/api`
   ```json
   {
     "district": { "id": 15, "name": "Vijayapura" },
-    "category": { "id": 1, "name": "Hospitals & Clinics" },
+    "category": { "id": 1, "name": "Healthcare" },
     "quantity": 100,
     "ratePaise": 200,
     "basePaise": 20000,

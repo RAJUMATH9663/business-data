@@ -1,18 +1,47 @@
 import { MetadataRoute } from "next";
+import { getAppUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nivoleads.com";
+  const baseUrl = getAppUrl();
   return {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/explore", "/login", "/register", "/privacy", "/terms", "/contact", "/llms.txt"],
-        disallow: ["/admin/", "/api/", "/purchases/"],
+        allow: [
+          "/",
+          "/leads",
+          "/leads/",
+          "/explore",
+          "/login",
+          "/register",
+          "/privacy",
+          "/terms",
+          "/contact",
+          "/llms.txt",
+        ],
+        disallow: [
+          "/admin/",
+          "/api/",
+          "/purchases/",
+          "/account/",
+          "/reset-password/",
+        ],
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: [
+          "/admin/",
+          "/api/",
+          "/purchases/",
+          "/account/",
+          "/reset-password/",
+        ],
       },
       {
         userAgent: ["GPTBot", "PerplexityBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"],
-        allow: ["/", "/explore", "/llms.txt", "/privacy", "/terms", "/contact"],
-        disallow: ["/admin/", "/api/", "/purchases/"],
+        allow: ["/", "/explore", "/llms.txt", "/privacy", "/terms", "/contact", "/leads"],
+        disallow: ["/admin/", "/api/", "/purchases/", "/account/", "/reset-password/"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

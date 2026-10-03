@@ -37,7 +37,7 @@ NivoLeads provides an automated, self-service marketplace where users can select
 
 ### 5.1 User Journey & Discovery Flow
 - **Step 1 — District Selection**: User selects 1 of Karnataka's 31 districts.
-- **Step 2 — Category Selection**: User selects 1 of 20+ industry categories. System displays live available contact counts and owned counts.
+- **Step 2 — Category Selection**: User selects 1 of 12 industry categories. System displays live available contact counts and owned counts.
 - **Step 3 — Quantity & Live Quote**: User enters quantity or clicks preset volume chips. Dynamic quote engine computes base price, volume discount, and final amount.
 - **Step 4 — Checkout**: Seamless modal payment powered by Razorpay (UPI, Credit/Debit Cards, Net Banking).
 - **Step 5 — Instant Data Unlock**: Payment confirmation immediately redirects to the interactive contact viewer.

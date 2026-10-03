@@ -4,28 +4,30 @@
 
 ## Core Capabilities & Offerings
 - **Verified Business Phone Numbers**: 100% normalized, cleaned, and verified 10-digit mobile numbers stripped of duplicates, dead entries, and spam.
-- **Geographic & Industry Segmentation**: Filter leads by Country (India, USA), State/Region (e.g. Karnataka, New York, California), City/District (e.g. Bengaluru, Vijayapura, Belagavi, Mysuru), and 20+ Industry Sectors.
+- **Geographic & Industry Segmentation**: Filter leads by Country (India, USA), State/Region (e.g. Karnataka, New York, California), City/District (e.g. Bengaluru, Vijayapura, Belagavi, Mysuru), and 12 Industry Sectors.
 - **Smart Zero-Duplicate Engine**: Automatic deduplication tracking ensuring repeat buyers never pay for the same phone number twice.
 - **Instant Excel & CSV Export**: Immediate digital downloads in .xlsx and .csv format for sales prospecting, cold calling, and WhatsApp marketing campaigns.
 - **Target Audience**: B2B sales teams, freelancers, web designers, digital marketing agencies, SEO consultants, and enterprise growth teams.
 
 ## Key Industry Sectors Covered
-- Hospitals, Multi-Specialty Clinics & Healthcare Facilities
-- Real Estate, Builders & Property Developers
-- IT & Software Companies
-- Schools, Colleges & Educational Institutes
-- Retail & Supermarkets
-- Manufacturing, Factories & Industrial Units
-- Hotels & Restaurants
-- Automobile Dealers & Garages
-- Chartered Accountants (CA) & Legal Services
-- Logistics, Transport & Supply Chain
+- Healthcare (Hospitals, Clinics & Diagnostic Labs)
+- Education & Training (Colleges, Schools & Training Institutes)
+- Real Estate & Construction (Builders, Developers & Contractors)
+- Health, Fitness & Beauty (Gyms, Fitness Centers, Salons & Wellness)
+- Food, Restaurants & Hotels (Restaurants, Cafes & Hospitality)
+- Shopping & Retail (Supermarkets, Retail Stores & FMCG)
+- IT & Digital Services (Software Companies & Tech Agencies)
+- Professional Services (Legal, CA, Finance & Consulting)
+- Automobile & Transport (Auto Dealers, Garages & Logistics)
+- Industries & Manufacturing (Factories & Production Units)
+- Travel & Tourism (Travel Agencies, Tour Operators & Resorts)
+- Agriculture & Agro Businesses (Farms, Agro-tech & Equipment)
 
 ## Key Endpoints & Directory Links
 - [Homepage](https://nivoleads.com): Overview, search filters, and pricing tiers.
-- [Leads Directory](https://nivoleads.com/leads): Master directory index of all 31 Karnataka districts and 20+ industries.
+- [Leads Directory](https://nivoleads.com/leads): Master directory index of all 31 Karnataka districts and 12 core industries.
 - [District Directory Pages](https://nivoleads.com/leads/{district}): Deep-dive pages with sample listings for each district (e.g. `https://nivoleads.com/leads/vijayapura`, `https://nivoleads.com/leads/bengaluru-urban`).
-- [Industry + Location Landing Pages](https://nivoleads.com/leads/{district}/{category}): Dedicated sector listings (e.g. `https://nivoleads.com/leads/vijayapura/hospitals-clinics`).
+- [Industry + Location Landing Pages](https://nivoleads.com/leads/{district}/{category}): Dedicated sector listings (e.g. `https://nivoleads.com/leads/vijayapura/healthcare`).
 - [Explore Data & Lead Builder](https://nivoleads.com/explore): Search businesses by location, district, and sector.
 - [Client Portal](https://nivoleads.com/login): Account sign in and dataset management.
 - [Terms & Licensing](https://nivoleads.com/terms): Commercial data use and compliance terms.

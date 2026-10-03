@@ -35,14 +35,18 @@ const steps = [
 ];
 
 const businessIdeas = [
-  { icon: "🏥", name: "Hospitals & Healthcare", slug: "hospitals-clinics", tag: "Hot Sector" },
-  { icon: "🏠", name: "Real Estate & Builders", slug: "real-estate", tag: "High Ticket" },
-  { icon: "💻", name: "IT & Software Companies", slug: "it-software-companies", tag: "Tech" },
-  { icon: "🏭", name: "Manufacturing & Factories", slug: "manufacturing-industries", tag: "B2B Supply" },
-  { icon: "🛒", name: "Retail & Supermarkets", slug: "retail-supermarkets", tag: "FMCG" },
-  { icon: "🏫", name: "Schools & Educational Inst.", slug: "schools", tag: "Education" },
-  { icon: "🏨", name: "Hotels & Restaurants", slug: "hotels-restaurants", tag: "Hospitality" },
-  { icon: "🚗", name: "Automobile Dealers", slug: "automobile-dealers", tag: "Auto" },
+  { icon: "🏥", name: "Healthcare", slug: "healthcare", tag: "Hot Sector" },
+  { icon: "🎓", name: "Education & Training", slug: "education-training", tag: "Education" },
+  { icon: "🏠", name: "Real Estate & Construction", slug: "real-estate-construction", tag: "High Ticket" },
+  { icon: "💪", name: "Health, Fitness & Beauty", slug: "health-fitness-beauty", tag: "Wellness" },
+  { icon: "🍽️", name: "Food, Restaurants & Hotels", slug: "food-restaurants-hotels", tag: "Hospitality" },
+  { icon: "🛒", name: "Shopping & Retail", slug: "shopping-retail", tag: "Retail" },
+  { icon: "💻", name: "IT & Digital Services", slug: "it-digital-services", tag: "Tech" },
+  { icon: "⚖️", name: "Professional Services", slug: "professional-services", tag: "B2B" },
+  { icon: "🚗", name: "Automobile & Transport", slug: "automobile-transport", tag: "Auto" },
+  { icon: "🏭", name: "Industries & Manufacturing", slug: "industries-manufacturing", tag: "B2B Supply" },
+  { icon: "✈️", name: "Travel & Tourism", slug: "travel-tourism", tag: "Travel" },
+  { icon: "🌾", name: "Agriculture & Agro Businesses", slug: "agriculture-agro-businesses", tag: "Agri" },
 ];
 
 const topDistricts = [
@@ -214,7 +218,7 @@ export default function Home() {
               <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Karnataka Districts</div>
             </div>
             <div>
-              <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">20+</div>
+              <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">12</div>
               <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Industry Categories</div>
             </div>
             <div>
@@ -329,7 +333,7 @@ export default function Home() {
             <p className="mt-1 text-sm text-[var(--text-muted)]">Direct phone numbers and addresses for targeted campaigns.</p>
           </div>
           <Link href="/explore" className="text-sm font-semibold text-blue-500 hover:underline">
-            View all 20 categories →
+            View all 12 categories →
           </Link>
         </div>
 

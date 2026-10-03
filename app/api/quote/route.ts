@@ -13,12 +13,16 @@ export const GET = handler(async (req) => {
     category: sp.get("category") ?? "",
     qty: sp.get("qty") ?? undefined,
   });
-  const [district, category] = await Promise.all([
-    prisma.district.findFirst({ where: { slug: q.district, status: "ACTIVE" } }),
-    prisma.category.findFirst({ where: { slug: q.category, status: "ACTIVE" } }),
+
+  const [district, category, session, price] = await Promise.all([
+    prisma.district.findFirst({ where: { slug: q.district, status: "ACTIVE" }, select: { id: true, name: true } }),
+    prisma.category.findFirst({ where: { slug: q.category, status: "ACTIVE" }, select: { id: true, name: true } }),
+    getSession(),
+    q.qty !== undefined ? priceFor(q.qty) : Promise.resolve(null),
   ]);
+
   if (!district || !category) throw new ApiError(404, "District or category not found");
-  const session = await getSession();
+
   const [available, totalInCategory, alreadyPurchased] = await Promise.all([
     prisma.business.count({
       where: availableWhere(district.id, category.id, session?.user.id),
@@ -42,11 +46,10 @@ export const GET = handler(async (req) => {
 
   const nextStartNumber = alreadyPurchased + 1;
 
-  if (q.qty === undefined) {
+  if (q.qty === undefined || !price) {
     return json({ available, totalInCategory, alreadyPurchased, nextStartNumber });
   }
 
-  const price = await priceFor(q.qty);
   return json({
     available,
     totalInCategory,

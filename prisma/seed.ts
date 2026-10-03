@@ -14,16 +14,18 @@ const DISTRICTS: [string, string][] = [
 ];
 
 const CATEGORIES: [string, string, string][] = [
-  ["🏥", "Hospitals & Clinics", "hospitals-clinics"], ["🏠", "Real Estate", "real-estate"],
-  ["🎓", "Colleges & Universities", "colleges-universities"], ["🏫", "Schools", "schools"],
-  ["📚", "Coaching & Training Institutes", "coaching-training-institutes"], ["💪", "Gyms & Fitness Centers", "gyms-fitness-centers"],
-  ["💇", "Salons & Beauty Parlours", "salons-beauty-parlours"], ["🍽️", "Restaurants & Hotels", "restaurants-hotels"],
-  ["🛒", "Retail & Supermarkets", "retail-supermarkets"], ["🏗️", "Construction & Builders", "construction-builders"],
-  ["💻", "IT & Software Companies", "it-software-companies"], ["📸", "Photography & Videography", "photography-videography"],
-  ["📢", "Digital Marketing & Advertising", "digital-marketing-advertising"], ["⚖️", "Legal & CA Services", "legal-ca-services"],
-  ["🏦", "Finance, Insurance & Loans", "finance-insurance-loans"], ["🚗", "Automobile & Dealers", "automobile-dealers"],
-  ["🏭", "Manufacturing & Industries", "manufacturing-industries"], ["🚛", "Transport & Logistics", "transport-logistics"],
-  ["✈️", "Travel & Tourism", "travel-tourism"], ["🌾", "Agriculture & Agro Businesses", "agriculture-agro-businesses"],
+  ["🏥", "Healthcare", "healthcare"],
+  ["🎓", "Education & Training", "education-training"],
+  ["🏠", "Real Estate & Construction", "real-estate-construction"],
+  ["💪", "Health, Fitness & Beauty", "health-fitness-beauty"],
+  ["🍽️", "Food, Restaurants & Hotels", "food-restaurants-hotels"],
+  ["🛒", "Shopping & Retail", "shopping-retail"],
+  ["💻", "IT & Digital Services", "it-digital-services"],
+  ["⚖️", "Professional Services", "professional-services"],
+  ["🚗", "Automobile & Transport", "automobile-transport"],
+  ["🏭", "Industries & Manufacturing", "industries-manufacturing"],
+  ["✈️", "Travel & Tourism", "travel-tourism"],
+  ["🌾", "Agriculture & Agro Businesses", "agriculture-agro-businesses"],
 ];
 
 const AREAS = ["Station Road", "Gandhi Chowk", "Market Area", "College Road", "Ring Road", "Old Town", "Industrial Area"];
@@ -60,8 +62,20 @@ async function main() {
     await prisma.district.upsert({ where: { name }, update: { code, slug }, create: { name, slug, code, sortOrder: i + 1 } });
   }
   console.log("Seeding categories…");
+  const validSlugs = CATEGORIES.map(([, , slug]) => slug);
+  await prisma.category.deleteMany({
+    where: {
+      slug: { notIn: validSlugs },
+      businesses: { none: {} },
+      purchases: { none: {} },
+    },
+  });
   for (const [i, [icon, name, slug]] of CATEGORIES.entries()) {
-    await prisma.category.upsert({ where: { slug }, update: { name, icon }, create: { name, slug, icon, sortOrder: i + 1 } });
+    await prisma.category.upsert({
+      where: { slug },
+      update: { name, icon, sortOrder: i + 1, status: "ACTIVE" },
+      create: { name, slug, icon, sortOrder: i + 1, status: "ACTIVE" },
+    });
   }
 
   if ((await prisma.pricingRule.count()) === 0) {

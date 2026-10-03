@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { computePrice } from "@/lib/pricing-core";
 
 type District = { id: number; name: string; slug: string };
 type Cat = { id: number; name: string; slug: string; icon: string; count: number; purchased?: number; available?: number };
@@ -48,21 +49,84 @@ export default function ExploreFlow({
   tiers,
   loggedIn,
   initial,
+  initialCategories,
 }: {
   districts: District[];
   tiers: Tier[];
   loggedIn: boolean;
   initial: { d: string | null; c: string | null; q: number | null };
+  initialCategories?: Cat[] | null;
 }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [district, setDistrict] = useState<District | null>(() => districts.find((d) => d.slug === initial.d) ?? null);
-  const [cats, setCats] = useState<Cat[] | null>(null);
+  
+  // Category cache to make district switching instant (0ms)
+  const categoryCache = useRef<Record<string, Cat[]>>({});
+  if (initial.d && initialCategories && !categoryCache.current[initial.d]) {
+    categoryCache.current[initial.d] = initialCategories;
+  }
+
+  const [cats, setCats] = useState<Cat[] | null>(() => {
+    if (initial.d && categoryCache.current[initial.d]) {
+      return categoryCache.current[initial.d];
+    }
+    return initialCategories ?? null;
+  });
+
   const [catError, setCatError] = useState("");
-  const [category, setCategory] = useState<Cat | null>(null);
-  const [available, setAvailable] = useState<number | null>(null);
+  const [category, setCategory] = useState<Cat | null>(() => {
+    if (cats && initial.c) {
+      return cats.find((x) => x.slug === initial.c) ?? null;
+    }
+    return null;
+  });
+
+  const [available, setAvailable] = useState<number | null>(() => {
+    if (cats && initial.c) {
+      const c = cats.find((x) => x.slug === initial.c);
+      return c ? (c.available ?? c.count) : null;
+    }
+    return null;
+  });
+
   const [qty, setQty] = useState<number>(initial.q ?? 250);
-  const [quote, setQuote] = useState<Quote | null>(null);
+
+  // Instant local quote calculation (0ms latency)
+  const calculateLocalQuote = useCallback((quantity: number, avail: number, cat?: Cat | null): Quote => {
+    const rules = tiers.map((t) => ({
+      minQty: t.minQty,
+      maxQty: t.maxQty,
+      pricePerContactPaise: 100,
+      discountPercent: t.discountPercent,
+      active: true,
+    }));
+    const price = computePrice(rules, quantity) || {
+      ratePaise: 100,
+      basePaise: quantity * 100,
+      discountPercent: 0,
+      discountPaise: 0,
+      finalPaise: quantity * 100,
+    };
+    const alreadyPurchased = cat?.purchased ?? 0;
+    return {
+      available: avail,
+      quantity,
+      exceeds: quantity > avail,
+      alreadyPurchased,
+      totalInCategory: cat?.count ?? avail,
+      nextStartNumber: alreadyPurchased > 0 ? alreadyPurchased + 1 : undefined,
+      ...price,
+    };
+  }, [tiers]);
+
+  const [quote, setQuote] = useState<Quote | null>(() => {
+    if (available !== null && category) {
+      return calculateLocalQuote(initial.q ?? 250, available, category);
+    }
+    return null;
+  });
+
   const [quoteError, setQuoteError] = useState("");
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
@@ -88,9 +152,23 @@ export default function ExploreFlow({
     return [100, 250, 500, 1000].filter((v) => v <= available || v === 100);
   }, [available]);
 
-  // Load categories whenever a district is chosen
+  // Load categories whenever a district is chosen (using in-memory cache for instant switching)
   useEffect(() => {
     if (!district) return;
+    
+    // Check cache first
+    if (categoryCache.current[district.slug]) {
+      const cached = categoryCache.current[district.slug];
+      setCats(cached);
+      setCatError("");
+      if (wantedCat.current) {
+        const c = cached.find((x) => x.slug === wantedCat.current);
+        wantedCat.current = null;
+        if (c) pickCategory(c, district);
+      }
+      return;
+    }
+
     let cancelled = false;
     setCats(null);
     setCatError("");
@@ -102,14 +180,16 @@ export default function ExploreFlow({
       })
       .then((list) => {
         if (cancelled) return;
+        categoryCache.current[district.slug] = list;
         setCats(list);
         if (wantedCat.current) {
-          const c = list.find((x) => x.slug === wantedCat.current && x.count > 0);
+          const c = list.find((x) => x.slug === wantedCat.current);
           wantedCat.current = null;
-          if (c) void pickCategory(c, district);
+          if (c) pickCategory(c, district);
         }
       })
       .catch((e) => !cancelled && setCatError(netErr(e)));
+
     return () => {
       cancelled = true;
     };
@@ -128,11 +208,12 @@ export default function ExploreFlow({
     window.history.replaceState(null, "", "/explore" + (s ? `?${s}` : ""));
   }, [district, category, qty]);
 
-  // Backend-authoritative price, refreshed as quantity changes
+  // Background server quote verification (debounced, never blocks UI)
   useEffect(() => {
-    if (!district || !category || !available) return;
+    if (!district || !category || available === null) return;
     const q = Math.max(1, Math.floor(qty) || 1);
     const id = ++reqId.current;
+    
     const t = setTimeout(async () => {
       try {
         const r = await fetch(`/api/quote?district=${district.slug}&category=${category.slug}&qty=${q}`);
@@ -144,29 +225,28 @@ export default function ExploreFlow({
       } catch (e) {
         if (id === reqId.current) setQuoteError(netErr(e));
       }
-    }, 200);
+    }, 400);
+
     return () => clearTimeout(t);
   }, [district, category, available, qty]);
 
-  async function pickCategory(c: Cat, d: District | null = district) {
+  function pickCategory(c: Cat, d: District | null = district) {
     if (!d) return;
     setCategory(c);
-    setQuote(null);
     setQuoteError("");
     setNotice("");
-    setAvailable(null);
-    try {
-      const r = await fetch(`/api/quote?district=${d.slug}&category=${c.slug}`);
-      const j = await r.json();
-      if (!r.ok) throw new Error(j.error);
-      setAvailable(j.available);
-      const want = wantedQty.current ?? Math.min(250, j.available);
-      wantedQty.current = null;
-      setQty(Math.max(1, Math.min(want, j.available || 1)));
-    } catch (e) {
-      setQuoteError(netErr(e));
-    }
-    setTimeout(() => qtyRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    const avail = c.available ?? c.count ?? 0;
+    setAvailable(avail);
+    
+    const want = wantedQty.current ?? Math.min(250, avail || 250);
+    wantedQty.current = null;
+    const initialQuantity = Math.max(1, Math.min(want, avail || 1));
+    setQty(initialQuantity);
+    
+    // Instant local calculation (0ms latency!)
+    setQuote(calculateLocalQuote(initialQuantity, avail, c));
+
+    setTimeout(() => qtyRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 30);
   }
 
   function pickDistrict(d: District) {
@@ -175,12 +255,16 @@ export default function ExploreFlow({
     setAvailable(null);
     setQuote(null);
     setNotice("");
-    setTimeout(() => catRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setTimeout(() => catRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 30);
   }
 
   function setQuantity(v: number) {
     const max = available ?? 1;
-    setQty(Math.max(1, Math.min(max, Math.floor(v) || 1)));
+    const newQ = Math.max(1, Math.min(max, Math.floor(v) || 1));
+    setQty(newQ);
+    if (available !== null && category) {
+      setQuote(calculateLocalQuote(newQ, available, category));
+    }
   }
 
   function currentUrl() {
@@ -315,7 +399,7 @@ export default function ExploreFlow({
       {/* STEP 1 — district */}
       <section aria-labelledby="s1">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 id="s1" className="text-xl">
+          <h2 id="s1" className="text-xl font-bold">
             {district ? (
               <>📍 {district.name}</>
             ) : (
@@ -351,7 +435,7 @@ export default function ExploreFlow({
             ) : (
               <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                 {filtered.map((d) => (
-                  <button key={d.id} className="tile" onClick={() => pickDistrict(d)}>
+                  <button key={d.id} className="tile transition-all duration-150 active:scale-95" onClick={() => pickDistrict(d)}>
                     <span className="text-xl">📍</span>
                     <span className="text-sm font-semibold leading-tight">{d.name}</span>
                   </button>
@@ -366,7 +450,7 @@ export default function ExploreFlow({
       {district && (
         <section ref={catRef} aria-labelledby="s2" className="fade-in scroll-mt-20">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 id="s2" className="text-xl">{category ? `${category.icon} ${category.name}` : "Select a business category"}</h2>
+            <h2 id="s2" className="text-xl font-bold">{category ? `${category.icon} ${category.name}` : "Select a business category"}</h2>
             {category && (
               <button className="btn btn-ghost !min-h-[38px] !py-1.5" onClick={() => { setCategory(null); setQuote(null); }}>
                 Change category
@@ -382,7 +466,7 @@ export default function ExploreFlow({
               ) : !cats ? (
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="h-16 animate-pulse rounded-2xl bg-mist/60" />
+                    <div key={i} className="h-16 animate-pulse rounded-2xl bg-[var(--bg-mist)]" />
                   ))}
                 </div>
               ) : (
@@ -390,7 +474,7 @@ export default function ExploreFlow({
                   {cats.map((c) => (
                     <button
                       key={c.id}
-                      className={`tile ${c.count === 0 ? "cursor-not-allowed opacity-50 hover:translate-y-0 hover:shadow-none" : ""}`}
+                      className={`tile transition-all duration-150 active:scale-95 ${c.count === 0 ? "cursor-not-allowed opacity-50 hover:translate-y-0 hover:shadow-none" : ""}`}
                       disabled={c.count === 0}
                       onClick={() => pickCategory(c)}
                     >
@@ -421,13 +505,10 @@ export default function ExploreFlow({
       {/* STEP 3 — quantity + price + pay */}
       {district && category && (
         <section ref={qtyRef} aria-labelledby="s3" className="fade-in scroll-mt-20">
-          <div className="card p-5 sm:p-7">
-            <h2 id="s3" className="text-2xl">
+          <div className="card p-5 sm:p-7 shadow-lg border border-[var(--border-card)]">
+            <h2 id="s3" className="text-2xl font-bold">
               {district.name} — {category.name}
             </h2>
-
-            {available === null && !quoteError && <p className="mt-3 text-sm text-[var(--text-muted)]">Checking availability…</p>}
-            {quoteError && available === null && <p className="mt-3 text-sm font-medium text-rose-500">⚠️ {quoteError}</p>}
 
             {available === 0 && (
               <p className="card mt-3 p-4 text-sm text-[var(--text-muted)]">
@@ -495,7 +576,7 @@ export default function ExploreFlow({
                 </div>
 
                 <div className="rounded-2xl border border-[var(--border-card)] bg-[var(--bg-mist)] p-5">
-                  <h3 className="text-sm uppercase tracking-wide text-[var(--text-muted)]">Your price</h3>
+                  <h3 className="text-sm uppercase tracking-wide text-[var(--text-muted)] font-bold">Your price</h3>
                   {quoteError ? (
                     <p className="mt-3 text-sm font-medium text-rose-500">⚠️ {quoteError}</p>
                   ) : !quote ? (
@@ -514,7 +595,7 @@ export default function ExploreFlow({
                     </dl>
                   )}
                   {quote?.exceeds && <p className="mt-3 text-sm font-medium text-amber-500">Only {num(available)} contacts are available.</p>}
-                  <button className="btn btn-primary mt-5 w-full !py-3.5 !text-base" disabled={!quote || quote.exceeds || busy} onClick={pay}>
+                  <button className="btn btn-primary mt-5 w-full !py-3.5 !text-base shadow-lg shadow-blue-500/25" disabled={!quote || quote.exceeds || busy} onClick={pay}>
                     {busy ? "Processing…" : quote ? `Pay ${money(quote.finalPaise)} →` : "Pay"}
                   </button>
                   <p className="mt-3 text-center text-xs text-[var(--text-muted)]">

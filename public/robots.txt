@@ -1,5 +1,21 @@
 User-agent: *
+Allow: /
+Allow: /leads
+Allow: /leads/
+Allow: /explore
+Allow: /login
+Allow: /register
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+Allow: /llms.txt
+Disallow: /admin/
 Disallow: /api/
-Disallow: /admin
-Disallow: /purchases
-Disallow: /account
+Disallow: /purchases/
+Disallow: /account/
+Disallow: /reset-password/
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://nivoleads.vercel.app/sitemap.xml

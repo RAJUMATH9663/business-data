@@ -6,13 +6,20 @@ import { getSession } from "@/lib/auth";
 export const GET = handler(async (req) => {
   limit(req, "catalog", 120, 60_000);
   const slug = req.nextUrl.searchParams.get("district") ?? "";
-  const district = await prisma.district.findFirst({ where: { slug, status: "ACTIVE" } });
+
+  const [district, session, cats] = await Promise.all([
+    prisma.district.findFirst({ where: { slug, status: "ACTIVE" }, select: { id: true, name: true, slug: true } }),
+    getSession(),
+    prisma.category.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+      select: { id: true, name: true, slug: true, icon: true },
+    }),
+  ]);
+
   if (!district) throw new ApiError(404, "District not found");
 
-  const session = await getSession();
-
-  const [cats, counts, purchasedRows] = await Promise.all([
-    prisma.category.findMany({ where: { status: "ACTIVE" }, orderBy: [{ sortOrder: "asc" }, { name: "asc" }] }),
+  const [counts, purchasedRows] = await Promise.all([
     prisma.business.groupBy({
       by: ["categoryId"],
       where: { districtId: district.id, status: "ACTIVE" },

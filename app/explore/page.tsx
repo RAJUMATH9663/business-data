@@ -11,7 +11,7 @@ export async function generateMetadata({
   const { d, c } = searchParams;
   let title = "Explore Business Leads, Contacts & Phone Numbers | NivoLeads";
   let description =
-    "Browse verified B2B leads, company databases, and verified 10-digit mobile numbers across 31 districts and 20+ sectors in Karnataka.";
+    "Browse verified B2B leads, company databases, and verified 10-digit mobile numbers across 31 districts and 12 core sectors in Karnataka.";
 
   try {
     if (d && c) {
@@ -64,6 +64,75 @@ export default async function ExplorePage({
     prisma.pricingRule.findMany({ where: { active: true }, orderBy: { minQty: "asc" } }),
     getSession(),
   ]);
+
+  const targetDistrictSlug = searchParams.d ?? null;
+  const selectedDistrict = targetDistrictSlug
+    ? districts.find((d) => d.slug === targetDistrictSlug)
+    : null;
+
+  let initialCategories: Array<{
+    id: number;
+    name: string;
+    slug: string;
+    icon: string;
+    count: number;
+    purchased?: number;
+    available?: number;
+  }> | null = null;
+
+  if (selectedDistrict) {
+    const [cats, counts, purchasedRows] = await Promise.all([
+      prisma.category.findMany({
+        where: { status: "ACTIVE" },
+        orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+        select: { id: true, name: true, slug: true, icon: true },
+      }),
+      prisma.business.groupBy({
+        by: ["categoryId"],
+        where: { districtId: selectedDistrict.id, status: "ACTIVE" },
+        _count: { _all: true },
+      }),
+      session?.user.id
+        ? prisma.purchaseContact.findMany({
+            where: {
+              purchase: {
+                userId: session.user.id,
+                districtId: selectedDistrict.id,
+                paymentStatus: "PAID",
+              },
+            },
+            select: {
+              purchase: {
+                select: { categoryId: true },
+              },
+            },
+          })
+        : Promise.resolve([]),
+    ]);
+
+    const totalMap = new Map(counts.map((c) => [c.categoryId, c._count._all]));
+    const purchasedMap = new Map<number, number>();
+    for (const r of purchasedRows) {
+      const catId = r.purchase.categoryId;
+      purchasedMap.set(catId, (purchasedMap.get(catId) ?? 0) + 1);
+    }
+
+    initialCategories = cats.map((c) => {
+      const total = totalMap.get(c.id) ?? 0;
+      const purchased = purchasedMap.get(c.id) ?? 0;
+      const available = Math.max(0, total - purchased);
+      return {
+        id: c.id,
+        name: c.name,
+        slug: c.slug,
+        icon: c.icon,
+        count: total,
+        purchased,
+        available: session?.user.id ? available : total,
+      };
+    });
+  }
+
   const q = parseInt(searchParams.q ?? "", 10);
 
   return (
@@ -76,6 +145,7 @@ export default async function ExplorePage({
         discountPercent: r.discountPercent,
       }))}
       loggedIn={!!session}
+      initialCategories={initialCategories}
       initial={{
         d: searchParams.d ?? null,
         c: searchParams.c ?? null,

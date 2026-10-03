@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
+import { getAppUrl } from "@/lib/seo";
 
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
 export const metadata: Metadata = {
   title: "Karnataka Business Leads Directory by District & Industry | NivoLeads",
   description:
-    "Explore verified B2B leads, company databases, and verified 10-digit phone numbers across all 31 districts and 20+ industries in Karnataka.",
+    "Explore verified B2B leads, company databases, and verified 10-digit phone numbers across all 31 districts and 12 core industries in Karnataka.",
   keywords: [
     "Karnataka business directory",
     "Karnataka B2B leads",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Karnataka Business Leads Directory by District & Industry | NivoLeads",
     description:
-      "Explore verified B2B leads, company databases, and verified 10-digit phone numbers across all 31 districts and 20+ industries in Karnataka.",
+      "Explore verified B2B leads, company databases, and verified 10-digit phone numbers across all 31 districts and 12 core industries in Karnataka.",
     url: "/leads",
   },
 };
@@ -55,7 +56,7 @@ export default async function LeadsDirectoryPage() {
     prisma.business.count({ where: { status: "ACTIVE" } }),
   ]);
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nivoleads.com";
+  const appUrl = getAppUrl();
 
   // Schema.org CollectionPage + Breadcrumb
   const jsonLd = {
@@ -108,7 +109,7 @@ export default async function LeadsDirectoryPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400">
-              📍 31 Districts · 20+ Sectors · 100% Phone Verified
+              📍 31 Districts · 12 Core Sectors · 100% Phone Verified
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-main)]">
               Karnataka B2B Business Leads Directory

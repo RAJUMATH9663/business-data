@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
+import { getAppUrl } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nivoleads.com";
+  const baseUrl = getAppUrl();
 
   // Static core routes
   const staticRoutes: MetadataRoute.Sitemap = [
