@@ -52,11 +52,12 @@ async function exportAllExcel() {
     }));
 
     // Master District File
-    const masterPath = path.join(outDir, `NivoLeads_${d.name}_Master_Database_${d.businesses.length}_Leads.xlsx`);
+    const masterPath = path.join(outDir, `Karnataka_Trade_Directory_${d.name.replace(/\s+/g, "_")}_Master_Database_${d.businesses.length}_Listings.xlsx`);
     const ws = XLSX.utils.json_to_sheet(rows);
     ws["!cols"] = cols;
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, `${d.name} Leads`);
+    const safeSheetName = `${d.name} Directory`.slice(0, 31);
+    XLSX.utils.book_append_sheet(wb, ws, safeSheetName);
     XLSX.writeFile(wb, masterPath);
     console.log(`   ✅ Saved: ${masterPath}`);
 
@@ -66,26 +67,26 @@ async function exportAllExcel() {
         ["Toranagal", "Sandur", "Donimalai", "Kudatini", "Deogiri", "Kurekuppa"].includes(r["Town / Hub / Area"] as string)
       );
       if (indRows.length > 0) {
-        const indPath = path.join(outDir, `NivoLeads_Ballari_Toranagal_Sandur_Industrial_Hubs.xlsx`);
+        const indPath = path.join(outDir, `Karnataka_Trade_Directory_Ballari_Toranagal_Sandur_Industrial_Hubs.xlsx`);
         const wsInd = XLSX.utils.json_to_sheet(indRows);
         wsInd["!cols"] = cols;
         const wbInd = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wbInd, wsInd, "Industrial & Mining");
         XLSX.writeFile(wbInd, indPath);
-        console.log(`   ✅ Saved: ${indPath} (${indRows.length} leads)`);
+        console.log(`   ✅ Saved: ${indPath} (${indRows.length} listings)`);
       }
 
       const agroRows = rows.filter((r) =>
         ["Siruguppa", "Kampli", "Kurugodu", "Tekkalakote", "Moka", "Desanur", "Ibrahimpura"].includes(r["Town / Hub / Area"] as string)
       );
       if (agroRows.length > 0) {
-        const agroPath = path.join(outDir, `NivoLeads_Siruguppa_Kampli_Kurugodu_Agro_Hubs.xlsx`);
+        const agroPath = path.join(outDir, `Karnataka_Trade_Directory_Siruguppa_Kampli_Kurugodu_Agro_Hubs.xlsx`);
         const wsAgro = XLSX.utils.json_to_sheet(agroRows);
         wsAgro["!cols"] = cols;
         const wbAgro = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wbAgro, wsAgro, "Agro & Rice Mills");
         XLSX.writeFile(wbAgro, agroPath);
-        console.log(`   ✅ Saved: ${agroPath} (${agroRows.length} leads)`);
+        console.log(`   ✅ Saved: ${agroPath} (${agroRows.length} listings)`);
       }
     }
 
@@ -95,13 +96,45 @@ async function exportAllExcel() {
         ["Badami", "Pattadakallu", "Aihole"].includes(r["Town / Hub / Area"] as string)
       );
       if (heritageRows.length > 0) {
-        const heritagePath = path.join(outDir, `NivoLeads_Badami_Pattadakallu_Aihole_Heritage_Hubs.xlsx`);
+        const heritagePath = path.join(outDir, `Karnataka_Trade_Directory_Badami_Pattadakallu_Aihole_Heritage_Hubs.xlsx`);
         const wsH = XLSX.utils.json_to_sheet(heritageRows);
         wsH["!cols"] = cols;
         const wbH = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wbH, wsH, "Heritage Hubs");
         XLSX.writeFile(wbH, heritagePath);
-        console.log(`   ✅ Saved: ${heritagePath} (${heritageRows.length} leads)`);
+        console.log(`   ✅ Saved: ${heritagePath} (${heritageRows.length} listings)`);
+      }
+    }
+
+    // Belagavi specific sub-hubs
+    if (d.slug === "belagavi") {
+      const indRows = rows.filter((r) =>
+        ["Udyambag", "Machhe", "Auto Nagar", "Kakati", "Desur", "Kanbargi"].includes(r["Town / Hub / Area"] as string)
+      );
+      if (indRows.length > 0) {
+        const indPath = path.join(outDir, `Karnataka_Trade_Directory_Belagavi_Industrial_Foundry_Hubs.xlsx`);
+        const wsInd = XLSX.utils.json_to_sheet(indRows);
+        wsInd["!cols"] = cols;
+        const wbInd = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wbInd, wsInd, "Foundry & Industrial");
+        XLSX.writeFile(wbInd, indPath);
+        console.log(`   ✅ Saved: ${indPath} (${indRows.length} listings)`);
+      }
+    }
+
+    // Bengaluru Rural specific sub-hubs
+    if (d.slug === "bengaluru-rural") {
+      const aeroRows = rows.filter((r) =>
+        ["Devanahalli", "Boodihal", "Aradeshanahalli", "Bettahalasur", "Mylanahalli", "Avathi"].includes(r["Town / Hub / Area"] as string)
+      );
+      if (aeroRows.length > 0) {
+        const aeroPath = path.join(outDir, `Karnataka_Trade_Directory_Bengaluru_Rural_Aerospace_Hardware_Hubs.xlsx`);
+        const wsAero = XLSX.utils.json_to_sheet(aeroRows);
+        wsAero["!cols"] = cols;
+        const wbAero = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wbAero, wsAero, "Aerospace & Hardware");
+        XLSX.writeFile(wbAero, aeroPath);
+        console.log(`   ✅ Saved: ${aeroPath} (${aeroRows.length} listings)`);
       }
     }
   }

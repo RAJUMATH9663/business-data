@@ -74,7 +74,7 @@ async function runProductionVerification() {
 
   // 3. District Ingestion Verification
   console.log("📊 Populated Districts Overview:");
-  for (const slug of ["bagalkote", "ballari"]) {
+  for (const slug of ["bagalkote", "ballari", "belagavi", "bengaluru-rural"]) {
     const d = districts.find((item) => item.slug === slug);
     if (!d) continue;
     const count = await prisma.business.count({ where: { districtId: d.id } });
