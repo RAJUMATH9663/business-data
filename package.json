@@ -11,6 +11,7 @@
     "postinstall": "prisma generate",
     "migrate": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
+    "verify:db": "tsx scripts/db-verify.ts",
     "seed": "prisma db seed",
     "test:unit": "tsx scripts/unit-tests.ts"
   },
