@@ -19,25 +19,24 @@ export async function generateMetadata({
 
   if (!district) {
     return {
-      title: "District Not Found | NivoLeads",
+      title: "District Not Found | Karnataka Trade Directory",
     };
   }
 
-  const title = `${district.name} Business Leads & Company Database (2026) | NivoLeads`;
-  const description = `Access verified B2B leads, company phone numbers, and decision-maker contacts in ${district.name}, Karnataka. Instant download, 0 duplicate guarantee, Excel/CSV ready.`;
-  const canonicalUrl = `/leads/${district.slug}`;
+  const title = `${district.name} B2B Trade Directory & Merchant Registry | Karnataka Trade Directory`;
+  const description = `Access verified commercial enterprise listings, business addresses, and trade profiles in ${district.name}, Karnataka. Instant digital report download in Microsoft Excel.`;
+  const canonicalUrl = `/directory/${district.slug}`;
 
   return {
     title,
     description,
     keywords: [
-      `${district.name} business leads`,
-      `${district.name} company database`,
-      `${district.name} B2B contacts`,
       `${district.name} business directory`,
-      `${district.name} business phone numbers`,
-      `local business leads ${district.name}`,
+      `${district.name} trade directory`,
+      `${district.name} commercial enterprises`,
+      `${district.name} merchant registry`,
       `companies in ${district.name}`,
+      `local businesses ${district.name}`,
     ],
     alternates: {
       canonical: canonicalUrl,
@@ -111,7 +110,6 @@ export default async function DistrictLandingPage({
   const appUrl = getAppUrl();
   const totalCount = district._count.businesses;
 
-  // Schema.org Structured Data
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -127,62 +125,33 @@ export default async function DistrictLandingPage({
           {
             "@type": "ListItem",
             position: 2,
-            name: "Leads Directory",
-            item: `${appUrl}/leads`,
+            name: "Trade Directory",
+            item: `${appUrl}/directory`,
           },
           {
             "@type": "ListItem",
             position: 3,
-            name: `${district.name} Leads`,
-            item: `${appUrl}/leads/${district.slug}`,
+            name: `${district.name} Directory`,
+            item: `${appUrl}/directory/${district.slug}`,
           },
         ],
       },
       {
         "@type": "Dataset",
-        name: `${district.name} B2B Business Leads & Company Database`,
-        description: `Verified directory of businesses, commercial enterprises, and 10-digit mobile contacts in ${district.name}, Karnataka.`,
-        url: `${appUrl}/leads/${district.slug}`,
+        name: `${district.name} Commercial Enterprise Directory & Merchant Index`,
+        description: `Verified directory of registered commercial enterprises and business profiles in ${district.name}, Karnataka.`,
+        url: `${appUrl}/directory/${district.slug}`,
         keywords: [
-          `${district.name} business leads`,
-          "Karnataka B2B database",
-          "verified phone numbers",
+          `${district.name} business directory`,
+          "Karnataka trade directory",
+          "commercial registry",
         ],
         creator: {
           "@type": "Organization",
-          name: "NivoLeads",
+          name: "Karnataka Trade Directory",
           url: appUrl,
         },
         spatialCoverage: `${district.name}, Karnataka, India`,
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: `How many verified business contacts are available in ${district.name}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `NivoLeads provides comprehensive verified business contacts across ${district.name}, covering multiple sectors including healthcare, manufacturing, retail, real estate, and services.`,
-            },
-          },
-          {
-            "@type": "Question",
-            name: `What format will I receive the ${district.name} leads in?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "All purchased leads can be downloaded immediately in clean Excel (.xlsx) and CSV formats, complete with business name, category, verified phone numbers, and location details.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: `Does NivoLeads guarantee zero duplicates for ${district.name} contacts?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. Our intelligent contact allocation engine tracks your previous purchases and guarantees you never pay for or receive the same contact number twice.",
-            },
-          },
-        ],
       },
     ],
   };
@@ -198,7 +167,7 @@ export default async function DistrictLandingPage({
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
         <Link href="/" className="hover:text-[var(--text-main)] transition-colors">Home</Link>
         <span>/</span>
-        <Link href="/leads" className="hover:text-[var(--text-main)] transition-colors">Leads Directory</Link>
+        <Link href="/directory" className="hover:text-[var(--text-main)] transition-colors">Trade Directory</Link>
         <span>/</span>
         <span className="text-[var(--text-main)] font-semibold">{district.name}</span>
       </nav>
@@ -211,10 +180,10 @@ export default async function DistrictLandingPage({
               📍 District Directory · {district.name}, Karnataka
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-main)]">
-              {district.name} Business Leads & Company Database
+              {district.name} Commercial Trade Directory & Merchant Registry
             </h1>
             <p className="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed">
-              Target active business owners, key decision-makers, and commercial enterprises in {district.name}. Verified 10-digit mobile numbers with instant Excel export.
+              Explore active registered enterprises, manufacturers, distributors, and commercial service providers in {district.name}. Normalized business records with instant Excel export.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
@@ -222,7 +191,7 @@ export default async function DistrictLandingPage({
               href={`/explore?d=${district.slug}`}
               className="btn btn-primary bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 px-6 py-3.5 text-sm font-semibold rounded-xl text-center"
             >
-              Explore & Download {district.name} Leads →
+              Filter & Download {district.name} Directory →
             </Link>
             <DownloadSampleButton
               districtSlug={district.slug}
@@ -236,7 +205,7 @@ export default async function DistrictLandingPage({
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-[var(--border-card)] pt-6 text-center">
           <div className="p-3">
             <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {totalCount > 0 ? `${totalCount}+` : "Verified"}
+              {totalCount > 0 ? `${totalCount.toLocaleString("en-IN")}` : "Verified"}
             </div>
             <div className="text-xs text-[var(--text-muted)] mt-1">Available in {district.name}</div>
           </div>
@@ -248,11 +217,11 @@ export default async function DistrictLandingPage({
           </div>
           <div className="p-3">
             <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">100%</div>
-            <div className="text-xs text-[var(--text-muted)] mt-1">10-Digit Mobile Numbers</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Normalized Records</div>
           </div>
           <div className="p-3">
             <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">0</div>
-            <div className="text-xs text-[var(--text-muted)] mt-1">Duplicate Guarantee</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Duplicate Policy</div>
           </div>
         </div>
       </div>
@@ -264,22 +233,22 @@ export default async function DistrictLandingPage({
         variant="banner"
       />
 
-      {/* Live Sample Preview Section (Google SEO Anti-Thin Content Proof) */}
+      {/* Live Sample Preview Section */}
       <section className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)]">
-              Verified Data Preview in {district.name}
+              Verified Merchant Preview in {district.name}
             </h2>
             <p className="text-xs sm:text-sm text-[var(--text-muted)]">
-              Real sample listings from our verified {district.name} commercial registry (phone numbers partially masked for privacy).
+              Sample listings from our verified {district.name} commercial registry (phone numbers partially masked for security).
             </p>
           </div>
           <Link
             href={`/explore?d=${district.slug}`}
             className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
           >
-            Unlock Full Unmasked List →
+            Access Full Directory Listings →
           </Link>
         </div>
 
@@ -290,8 +259,8 @@ export default async function DistrictLandingPage({
                 <thead className="bg-[var(--bg-mist)] text-xs font-semibold text-[var(--text-muted)] uppercase border-b border-[var(--border-card)]">
                   <tr>
                     <th className="px-4 py-3 sm:px-6">Business / Enterprise Name</th>
-                    <th className="px-4 py-3 sm:px-6">Industry Category</th>
-                    <th className="px-4 py-3 sm:px-6">Verified Contact</th>
+                    <th className="px-4 py-3 sm:px-6">Industry Sector</th>
+                    <th className="px-4 py-3 sm:px-6">Trade Contact</th>
                     <th className="px-4 py-3 sm:px-6">Location</th>
                     <th className="px-4 py-3 sm:px-6 text-right">Status</th>
                   </tr>
@@ -331,9 +300,9 @@ export default async function DistrictLandingPage({
               </table>
             </div>
             <div className="bg-[var(--bg-mist)] p-3 text-center text-xs text-[var(--text-muted)] border-t border-[var(--border-card)]">
-              Showing sample entries from {district.name}. To unlock all complete phone numbers, use the{" "}
+              Showing sample entries from {district.name}. To download complete unmasked commercial records, visit the{" "}
               <Link href={`/explore?d=${district.slug}`} className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-                Lead Export Tool
+                Directory Exploration Tool
               </Link>
               .
             </div>
@@ -342,16 +311,16 @@ export default async function DistrictLandingPage({
           <div className="rounded-2xl border border-dashed border-[var(--border-card)] bg-[var(--bg-card)] p-8 text-center">
             <div className="text-3xl mb-2">📊</div>
             <h3 className="text-base font-semibold text-[var(--text-main)]">
-              Custom Dataset Available for {district.name}
+              Directory Dataset Available for {district.name}
             </h3>
             <p className="text-xs sm:text-sm text-[var(--text-muted)] max-w-md mx-auto mt-1">
-              Our lead verification engine continuously compiles active businesses in {district.name}. You can customize your order and export fresh contacts today.
+              Our directory cataloging engine continuously indexes active commercial enterprises in {district.name}.
             </p>
             <Link
               href={`/explore?d=${district.slug}`}
               className="mt-4 inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
             >
-              Order {district.name} Dataset →
+              Order {district.name} Directory →
             </Link>
           </div>
         )}
@@ -361,10 +330,10 @@ export default async function DistrictLandingPage({
       <section className="space-y-6">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)]">
-            Explore {district.name} Leads by Sector
+            Explore {district.name} Listings by Industry Sector
           </h2>
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
-            Browse targeted industry lists with verified decision-maker contacts in {district.name}.
+            Browse targeted trade lists with verified enterprise profiles in {district.name}.
           </p>
         </div>
 
@@ -372,7 +341,7 @@ export default async function DistrictLandingPage({
           {categories.map((c) => (
             <Link
               key={c.id}
-              href={`/leads/${district.slug}/${c.slug}`}
+              href={`/directory/${district.slug}/${c.slug}`}
               className="group flex items-center justify-between rounded-2xl border border-[var(--border-card)] bg-[var(--tile-bg)] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500/50 hover:shadow-md hover:bg-[var(--tile-hover)]"
             >
               <div className="flex items-center gap-3">
@@ -385,8 +354,8 @@ export default async function DistrictLandingPage({
                   </div>
                   <div className="text-xs text-[var(--text-muted)]">
                     {c._count.businesses > 0
-                      ? `${c._count.businesses} verified records`
-                      : `Leads in ${district.name}`}
+                      ? `${c._count.businesses.toLocaleString("en-IN")} verified listings`
+                      : `Enterprises in ${district.name}`}
                   </div>
                 </div>
               </div>
@@ -398,56 +367,26 @@ export default async function DistrictLandingPage({
         </div>
       </section>
 
-      {/* Why Choose NivoLeads */}
-      <section className="rounded-3xl border border-[var(--border-card)] bg-[var(--bg-card)] p-6 sm:p-8 space-y-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)] text-center">
-          Why B2B Teams Choose NivoLeads for {district.name} Data
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="space-y-2 rounded-2xl border border-[var(--border-card)] bg-[var(--bg-mist)] p-5">
-            <div className="text-2xl">⚡</div>
-            <h3 className="text-base font-semibold text-[var(--text-main)]">Zero Duplicates Guaranteed</h3>
-            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-              Every lead purchased is recorded to your account. You will never pay for or receive the same {district.name} phone number twice.
-            </p>
-          </div>
-          <div className="space-y-2 rounded-2xl border border-[var(--border-card)] bg-[var(--bg-mist)] p-5">
-            <div className="text-2xl">📱</div>
-            <h3 className="text-base font-semibold text-[var(--text-main)]">Direct 10-Digit Mobile Numbers</h3>
-            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-              Skip generic switchboards. Our database prioritizes direct WhatsApp and calling numbers of key business owners and proprietors.
-            </p>
-          </div>
-          <div className="space-y-2 rounded-2xl border border-[var(--border-card)] bg-[var(--bg-mist)] p-5">
-            <div className="text-2xl">📥</div>
-            <h3 className="text-base font-semibold text-[var(--text-main)]">Instant Excel / CSV Download</h3>
-            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-              Ready-to-use spreadsheet format compatible with Tele-calling CRM, WhatsApp marketing tools, and Cold Outreach software.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Other Districts Cross Links (Internal SEO Equity) */}
-      <section className="space-y-4 pt-4 border-t border-[var(--border-card)]">
-        <h2 className="text-base sm:text-lg font-bold text-[var(--text-main)]">
+      {/* Other Districts */}
+      <section className="space-y-4 pt-6 border-t border-[var(--border-card)]">
+        <h2 className="text-lg font-bold text-[var(--text-main)]">
           Explore Other Karnataka Districts
         </h2>
         <div className="flex flex-wrap gap-2">
           {otherDistricts.map((od) => (
             <Link
               key={od.id}
-              href={`/leads/${od.slug}`}
-              className="rounded-xl border border-[var(--border-card)] bg-[var(--tile-bg)] px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] hover:border-blue-500 hover:text-[var(--text-main)] transition-colors"
+              href={`/directory/${od.slug}`}
+              className="rounded-xl border border-[var(--border-card)] bg-[var(--tile-bg)] px-3.5 py-1.5 text-xs font-medium text-[var(--text-main)] hover:border-blue-500/50 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
             >
-              {od.name} Leads
+              {od.name}
             </Link>
           ))}
           <Link
-            href="/leads"
-            className="rounded-xl border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 transition-colors"
+            href="/directory"
+            className="rounded-xl border border-dashed border-[var(--border-card)] px-3.5 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
           >
-            View All 31 Districts →
+            All 31 Districts →
           </Link>
         </div>
       </section>

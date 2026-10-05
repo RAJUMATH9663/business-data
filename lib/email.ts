@@ -38,7 +38,7 @@ function getSmtpConfig() {
     }
   }
 
-  from = from || `"NivoLeads" <${user || "support@nivoleads.com"}>`;
+  from = from || `"Karnataka Trade Directory" <${user || "support@karnatakatradedirectory.com"}>`;
   return { host, port, user, pass, from };
 }
 
@@ -65,8 +65,8 @@ export async function sendPasswordResetEmail({ to, userName, resetUrl }: SendRes
     const html = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
         <div style="margin-bottom: 24px; text-align: center;">
-          <h1 style="color: #0f172a; font-size: 24px; font-weight: 800; margin: 0;">Nivo<span style="color: #2563eb;">Leads</span></h1>
-          <p style="color: #64748b; font-size: 13px; margin: 4px 0 0 0;">Verified Business Directory</p>
+          <h1 style="color: #0f172a; font-size: 22px; font-weight: 800; margin: 0;">Karnataka <span style="color: #2563eb;">Trade Directory</span></h1>
+          <p style="color: #64748b; font-size: 13px; margin: 4px 0 0 0;">B2B Commerce Index & Merchant Registry</p>
         </div>
 
         <div style="border-top: 1px solid #f1f5f9; padding-top: 20px;">
@@ -75,7 +75,7 @@ export async function sendPasswordResetEmail({ to, userName, resetUrl }: SendRes
             Hello ${userName || "there"},
           </p>
           <p style="color: #475569; font-size: 14px; line-height: 22px; margin: 0 0 24px 0;">
-            We received a request to reset the password for your NivoLeads account (${to}). Click the button below to choose a new password. This link is valid for <strong>30 minutes</strong>.
+            We received a request to reset the password for your Karnataka Trade Directory account (${to}). Click the button below to choose a new password. This link is valid for <strong>30 minutes</strong>.
           </p>
 
           <div style="text-align: center; margin: 32px 0;">
@@ -97,7 +97,7 @@ export async function sendPasswordResetEmail({ to, userName, resetUrl }: SendRes
         </div>
 
         <div style="border-top: 1px solid #f1f5f9; margin-top: 32px; padding-top: 16px; text-align: center; color: #94a3b8; font-size: 11px;">
-          © ${new Date().getFullYear()} NivoLeads. All rights reserved.
+          © ${new Date().getFullYear()} Karnataka Trade Directory. All rights reserved.
         </div>
       </div>
     `;
@@ -105,9 +105,9 @@ export async function sendPasswordResetEmail({ to, userName, resetUrl }: SendRes
     await transporter.sendMail({
       from,
       to,
-      subject: "Reset your NivoLeads password",
+      subject: "Reset your Karnataka Trade Directory password",
       html,
-      text: `Hello ${userName || "there"},\n\nWe received a request to reset your NivoLeads password. Visit the link below to set a new password:\n\n${resetUrl}\n\nThis link expires in 30 minutes.\n\nIf you did not request this, you can ignore this message.`,
+      text: `Hello ${userName || "there"},\n\nWe received a request to reset your Karnataka Trade Directory password. Visit the link below to set a new password:\n\n${resetUrl}\n\nThis link expires in 30 minutes.\n\nIf you did not request this, you can ignore this message.`,
     });
 
     console.log(`[Email Service] Successfully dispatched password reset email to: ${to}`);

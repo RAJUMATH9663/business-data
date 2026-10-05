@@ -7,30 +7,30 @@ import DownloadSampleButton from "@/components/DownloadSampleButton";
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
 export const metadata: Metadata = {
-  title: "Karnataka Business Leads Directory by District & Industry | NivoLeads",
+  title: "Karnataka B2B Commerce Directory & Merchant Index | Karnataka Trade Directory",
   description:
-    "Explore verified B2B leads, company databases, and verified 10-digit phone numbers across all 31 districts and 12 core industries in Karnataka.",
+    "Explore verified public enterprise registry, verified trade profiles, and commercial business listings across all 31 districts and 20 core industries in Karnataka.",
   keywords: [
     "Karnataka business directory",
-    "Karnataka B2B leads",
-    "Karnataka company database",
-    "business leads Karnataka",
-    "local business leads Karnataka",
-    "Karnataka business phone numbers",
-    "district business contacts Karnataka",
+    "Karnataka trade directory",
+    "Karnataka commerce index",
+    "Karnataka merchant registry",
+    "local business listings Karnataka",
+    "commercial enterprises Karnataka",
+    "district business directory Karnataka",
   ],
   alternates: {
-    canonical: "/leads",
+    canonical: "/directory",
   },
   openGraph: {
-    title: "Karnataka Business Leads Directory by District & Industry | NivoLeads",
+    title: "Karnataka B2B Commerce Directory & Merchant Index | Karnataka Trade Directory",
     description:
-      "Explore verified B2B leads, company databases, and verified 10-digit phone numbers across all 31 districts and 12 core industries in Karnataka.",
-    url: "/leads",
+      "Explore verified public enterprise registry, verified trade profiles, and commercial business listings across all 31 districts and 20 core industries in Karnataka.",
+    url: "/directory",
   },
 };
 
-export default async function LeadsDirectoryPage() {
+export default async function DirectoryPage() {
   const [districts, categories, totalBusinesses] = await Promise.all([
     prisma.district.findMany({
       where: { status: "ACTIVE" },
@@ -59,7 +59,6 @@ export default async function LeadsDirectoryPage() {
 
   const appUrl = getAppUrl();
 
-  // Schema.org CollectionPage + Breadcrumb
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -75,18 +74,18 @@ export default async function LeadsDirectoryPage() {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Leads Directory",
-            item: `${appUrl}/leads`,
+            name: "Trade Directory",
+            item: `${appUrl}/directory`,
           },
         ],
       },
       {
         "@type": "CollectionPage",
-        "@id": `${appUrl}/leads/#page`,
-        name: "Karnataka B2B Leads & Business Directory",
+        "@id": `${appUrl}/directory/#page`,
+        name: "Karnataka B2B Commerce Directory & Merchant Index",
         description:
-          "Complete directory of verified business phone numbers and commercial contacts across all 31 districts of Karnataka.",
-        url: `${appUrl}/leads`,
+          "Complete directory of verified enterprise listings and commercial business profiles across all 31 districts of Karnataka.",
+        url: `${appUrl}/directory`,
       },
     ],
   };
@@ -102,7 +101,7 @@ export default async function LeadsDirectoryPage() {
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
         <Link href="/" className="hover:text-[var(--text-main)] transition-colors">Home</Link>
         <span>/</span>
-        <span className="text-[var(--text-main)] font-semibold">Leads Directory</span>
+        <span className="text-[var(--text-main)] font-semibold">Trade Directory</span>
       </nav>
 
       {/* Hero Section */}
@@ -110,13 +109,13 @@ export default async function LeadsDirectoryPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400">
-              📍 31 Districts · 12 Core Sectors · 100% Phone Verified
+              📍 31 Districts · 20 Commercial Sectors · Verified Public Registry
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-main)]">
-              Karnataka B2B Business Leads Directory
+              Karnataka B2B Trade Directory & Merchant Registry
             </h1>
             <p className="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed">
-              Explore verified company contacts, 10-digit mobile numbers, and decision-maker databases organized by district and industry sector.
+              Explore verified commercial listings, public trade phone numbers, and enterprise profiles organized by district and industry sector for commercial trade discovery.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 md:flex-col shrink-0">
@@ -124,7 +123,7 @@ export default async function LeadsDirectoryPage() {
               href="/explore"
               className="btn btn-primary bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 px-6 py-3 text-sm font-semibold rounded-xl text-center"
             >
-              Filter & Export Custom Leads →
+              Search & Filter Directory →
             </Link>
             <DownloadSampleButton variant="outline" />
           </div>
@@ -138,22 +137,22 @@ export default async function LeadsDirectoryPage() {
           </div>
           <div className="p-3">
             <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{categories.length}</div>
-            <div className="text-xs text-[var(--text-muted)] mt-1">Industry Categories</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Commercial Sectors</div>
           </div>
           <div className="p-3">
             <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-              {totalBusinesses > 0 ? `${totalBusinesses}+` : "50,000+"}
+              {totalBusinesses > 0 ? `${totalBusinesses.toLocaleString("en-IN")}` : "8,000+"}
             </div>
-            <div className="text-xs text-[var(--text-muted)] mt-1">Verified Contacts</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Verified Listings</div>
           </div>
           <div className="p-3">
-            <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">0</div>
-            <div className="text-xs text-[var(--text-muted)] mt-1">Duplicate Policy</div>
+            <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">100%</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Normalized Records</div>
           </div>
         </div>
       </div>
 
-      {/* Free Sample Leads Download Banner */}
+      {/* Free Sample Download Banner */}
       <DownloadSampleButton variant="banner" />
 
       {/* Browse by District Section */}
@@ -161,7 +160,7 @@ export default async function LeadsDirectoryPage() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)]">
-              Browse Leads by Karnataka District
+              Browse Directory by Karnataka District
             </h2>
             <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
               Select a district to view industry sectors, live sample records, and localized B2B databases.
@@ -173,7 +172,7 @@ export default async function LeadsDirectoryPage() {
           {districts.map((d) => (
             <Link
               key={d.id}
-              href={`/leads/${d.slug}`}
+              href={`/directory/${d.slug}`}
               className="group flex items-center justify-between rounded-2xl border border-[var(--border-card)] bg-[var(--tile-bg)] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500/50 hover:shadow-md hover:bg-[var(--tile-hover)]"
             >
               <div className="flex items-center gap-3">
@@ -185,7 +184,7 @@ export default async function LeadsDirectoryPage() {
                     {d.name}
                   </div>
                   <div className="text-xs text-[var(--text-muted)]">
-                    {d._count.businesses > 0 ? `${d._count.businesses} verified records` : "District Leads"}
+                    {d._count.businesses > 0 ? `${d._count.businesses.toLocaleString("en-IN")} verified listings` : "Commercial Listings"}
                   </div>
                 </div>
               </div>
@@ -201,10 +200,10 @@ export default async function LeadsDirectoryPage() {
       <section className="space-y-6 pt-6 border-t border-[var(--border-card)]">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-main)]">
-            Browse Leads by Industry Category
+            Browse Directory by Industry Sector
           </h2>
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
-            Target decision-makers and business owners in high-demand commercial sectors.
+            Discover verified commercial enterprises and registered vendors in key trade sectors.
           </p>
         </div>
 
@@ -224,7 +223,7 @@ export default async function LeadsDirectoryPage() {
                     {c.name}
                   </div>
                   <div className="text-xs text-[var(--text-muted)]">
-                    {c._count.businesses > 0 ? `${c._count.businesses} verified leads` : "Commercial category"}
+                    {c._count.businesses > 0 ? `${c._count.businesses.toLocaleString("en-IN")} active listings` : "Commercial sector"}
                   </div>
                 </div>
               </div>

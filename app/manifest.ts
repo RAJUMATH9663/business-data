@@ -2,9 +2,9 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "NivoLeads — Global Business Leads & Contact Database",
-    short_name: "NivoLeads",
-    description: "Verified business phone numbers, company databases, and B2B leads directory.",
+    name: "Karnataka Trade Directory — B2B Commerce Index & Merchant Registry",
+    short_name: "Karnataka Trade",
+    description: "Verified commercial business directory, enterprise listings, and trade index across Karnataka.",
     start_url: "/",
     display: "standalone",
     background_color: "#0f172a",

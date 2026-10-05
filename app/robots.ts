@@ -9,8 +9,8 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: [
           "/",
-          "/leads",
-          "/leads/",
+          "/directory",
+          "/directory/",
           "/explore",
           "/login",
           "/register",
@@ -40,7 +40,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: ["GPTBot", "PerplexityBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"],
-        allow: ["/", "/explore", "/llms.txt", "/privacy", "/terms", "/contact", "/leads"],
+        allow: ["/", "/explore", "/llms.txt", "/privacy", "/terms", "/contact", "/directory"],
         disallow: ["/admin/", "/api/", "/purchases/", "/account/", "/reset-password/"],
       },
     ],

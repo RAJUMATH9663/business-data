@@ -11,112 +11,44 @@ const appUrl = getAppUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "NivoLeads | Global Business Leads, B2B Contacts & Company Phone Numbers",
-    template: "%s · NivoLeads",
+    default: "Karnataka Trade Directory | Verified B2B Enterprise Index & Commercial Listings",
+    template: "%s · Karnataka Trade Directory",
   },
   description:
-    "Access verified business phone numbers, B2B company leads, and decision-maker databases across the US, India, and global markets. Filter by country, city, and industry for instant Excel downloads.",
+    "Explore verified commercial business listings, enterprise directory profiles, and local trade registries across all 31 districts of Karnataka. Instant Excel export for B2B procurement and market research.",
   keywords: [
-    // 🌎 Global Primary Keywords
-    "business phone numbers",
-    "business contact numbers",
-    "business contact database",
-    "business contact list",
-    "company phone numbers",
-    "company contact database",
-    "company contact list",
-    "business leads",
-    "B2B leads",
-    "B2B contact database",
-    "business leads database",
-    "business directory",
-    "local business contacts",
-    "business prospects",
-    "business leads by industry",
-    "business leads by location",
-    "business database",
-    "company database",
-    "local business leads",
-    "verified business contacts",
-
-    // 🇺🇸 US-Focused Keywords
-    "US business phone numbers",
-    "USA business phone numbers",
-    "US business contacts",
-    "USA business contacts",
-    "US business contact database",
-    "USA business contact database",
-    "US B2B leads",
-    "USA B2B leads",
-    "US company phone numbers",
-    "USA company contact list",
-    "US business leads",
-    "USA business leads",
-    "American business directory",
-    "US local business leads",
-    "US company database",
-
-    // 🏥 Industry + Country Keywords
-    "US hospital phone numbers",
-    "US hospital contact list",
-    "USA hospital contacts",
-    "US clinic phone numbers",
-    "US real estate company contacts",
-    "US construction company contacts",
-    "US restaurant contacts",
-    "US hotel contact numbers",
-    "US IT company contacts",
-    "US software company contacts",
-    "US marketing agency contacts",
-    "US manufacturing company contacts",
-    "US automobile dealer contacts",
-    "US logistics company contacts",
-    "US travel company contacts",
-
-    // 📍 Global Cities & Regions
-    "New York business contacts",
-    "New York hospital contacts",
-    "New York real estate leads",
-    "Los Angeles business contacts",
-    "Chicago business leads",
-    "Houston business contacts",
-    "Karnataka business leads",
-    "Karnataka business database",
+    "Karnataka trade directory",
     "Karnataka business directory",
-    "Karnataka B2B leads",
-    "Bengaluru business leads",
-    "Vijayapura business leads",
-    "Mumbai business leads",
-    "Delhi business contacts",
-
-    // 👨‍💻 Freelancer & Agency Intent Keywords
-    "business contacts for freelancers",
-    "business leads for freelancers",
-    "US leads for freelancers",
-    "USA client leads",
-    "US business leads for freelancers",
-    "business contacts for digital marketers",
-    "leads for web designers",
-    "leads for SEO agencies",
-    "leads for marketing agencies",
-    "local business leads for agencies",
-    "potential clients for freelancers",
-    "B2B leads for agencies",
-    "company contacts for sales prospecting",
+    "B2B commerce directory Karnataka",
+    "Karnataka merchant index",
+    "commercial enterprise listings Karnataka",
+    "local business directory Karnataka",
+    "verified business profiles Karnataka",
+    "Karnataka industry registry",
+    "B2B marketplace Karnataka",
+    "Karnataka wholesale and retail directory",
+    "business listings by district",
+    "commercial trade index Karnataka",
+    // 📍 Karnataka Districts & Regions
+    "Bengaluru business directory",
+    "Belagavi trade directory",
+    "Mysuru commercial directory",
+    "Ballari trade directory",
+    "Bagalkote enterprise directory",
+    "Hubballi Dharwad business directory",
+    "Vijayapura commercial directory",
+    "Mangaluru trade directory",
 
     // 🚀 Brand Keywords
-    "NivoLeads",
-    "Nivo Leads",
-    "Nivoleads India",
-    "Nivoleads USA",
-    "Nivoleads business leads",
-    "Nivoleads business database",
-    "Nivoleads global",
-    "Nivoleads B2B leads",
+    "Karnataka Trade Directory",
+    "Karnataka B2B Directory",
+    "Karnataka Commerce Index",
+    "Karnataka Merchant Registry",
+    "Karnataka Business Portal",
   ],
-  authors: [{ name: "NivoLeads Team" }],
-  creator: "NivoLeads",
-  publisher: "NivoLeads",
+  authors: [{ name: "Karnataka Trade Directory Team" }],
+  creator: "Karnataka Trade Directory",
+  publisher: "Karnataka Trade Directory",
   formatDetection: {
     email: false,
     address: false,
@@ -135,26 +67,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     url: appUrl,
-    siteName: "NivoLeads",
-    title: "NivoLeads | Global Business Leads, B2B Contacts & Company Phone Numbers",
+    siteName: "Karnataka Trade Directory",
+    title: "Karnataka Trade Directory | Verified B2B Enterprise Index & Commercial Listings",
     description:
-      "Access verified business phone numbers, decision makers, and company contact directories across the US, India, and international markets.",
+      "Explore verified commercial enterprise directory profiles, registered businesses, and local trade listings across all 31 districts of Karnataka.",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "NivoLeads — Global Business Leads & Contact Database",
+        alt: "Karnataka Trade Directory — B2B Enterprise Index & Commercial Listings",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NivoLeads | Global Business Leads, B2B Contacts & Company Phone Numbers",
+    title: "Karnataka Trade Directory | Verified B2B Enterprise Index & Commercial Listings",
     description:
-      "Access verified business phone numbers, decision makers, and company contact directories across the US, India, and international markets.",
+      "Explore verified commercial enterprise directory profiles, registered businesses, and local trade listings across all 31 districts of Karnataka.",
     images: ["/logo.png"],
   },
   alternates: {
@@ -170,7 +102,7 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "IN-KA",
     "geo.placename": "Karnataka, India",
-    "target-country": "IN, US",
+    "target-country": "IN",
   },
   icons: {
     icon: [
@@ -208,23 +140,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {
                   "@type": "Organization",
                   "@id": `${appUrl}/#organization`,
-                  name: "NivoLeads",
+                  name: "Karnataka Trade Directory",
                   url: appUrl,
                   logo: `${appUrl}/logo.png`,
                   description:
-                    "Verified business leads, B2B company contacts, and phone directories across 31 Karnataka districts and 12 core industry sectors.",
+                    "Verified commercial enterprise directory profiles, trade listings, and business registry across 31 Karnataka districts and 20 core industry sectors.",
                   contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "Customer Support",
-                    email: "support@nivoleads.com",
+                    email: "support@karnatakatradedirectory.com",
                   },
                 },
                 {
                   "@type": "WebSite",
                   "@id": `${appUrl}/#website`,
                   url: appUrl,
-                  name: "NivoLeads",
-                  description: "Business Leads, B2B Contacts & Phone Numbers in India & USA",
+                  name: "Karnataka Trade Directory",
+                  description: "Verified B2B Business Directory & Commercial Enterprise Registry in Karnataka",
                   publisher: {
                     "@id": `${appUrl}/#organization`,
                   },
@@ -260,14 +192,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex items-center gap-3">
               <Image
                 src="/logo.png"
-                alt="NivoLeads"
+                alt="Karnataka Trade Directory"
                 width={40}
                 height={40}
                 className="h-10 w-10 rounded-xl object-contain shadow-sm"
               />
               <div>
-                <div className="text-base font-bold text-[var(--text-main)]">Nivo<span className="text-blue-500">Leads</span></div>
-                <div className="text-[var(--text-muted)]">Verified B2B & Commercial Directory</div>
+                <div className="text-base font-bold text-[var(--text-main)]">Karnataka <span className="text-blue-500">Trade Directory</span></div>
+                <div className="text-[var(--text-muted)]">Verified B2B Commercial Enterprise Registry</div>
               </div>
             </div>
 
@@ -276,12 +208,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 About Us
               </Link>
               <span>·</span>
-              <Link href="/leads" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+              <Link href="/directory" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                 Directory
               </Link>
               <span>·</span>
               <Link href="/explore" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
-                Explore Data
+                Explore Directory
               </Link>
               <span>·</span>
               <Link href="/terms" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
@@ -306,7 +238,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="text-center sm:text-right text-[var(--text-muted)]">
-              © {new Date().getFullYear()} NivoLeads. All rights reserved.
+              © {new Date().getFullYear()} Karnataka Trade Directory. All rights reserved.
             </div>
           </div>
         </footer>

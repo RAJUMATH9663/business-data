@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us | NivoLeads B2B Business Directory",
-  description: "Learn about NivoLeads — Karnataka's premier verified B2B commercial enterprise directory and market intelligence platform.",
+  title: "About Us | Karnataka Trade Directory",
+  description: "Learn about Karnataka Trade Directory — Karnataka's premier verified B2B commercial enterprise directory and market intelligence platform.",
 };
 
 export default function AboutUsPage() {
@@ -13,7 +13,7 @@ export default function AboutUsPage() {
         <div className="border-b border-[var(--border-card)] pb-6">
           <span className="badge-brand">Corporate Overview</span>
           <h1 className="mt-2 text-3xl font-extrabold text-[var(--text-main)] sm:text-4xl">
-            About NivoLeads
+            About Karnataka Trade Directory
           </h1>
           <p className="mt-2 text-sm text-[var(--text-muted)]">
             Empowering Karnataka’s small, medium, and large enterprises with verified B2B commercial intelligence.
@@ -24,10 +24,10 @@ export default function AboutUsPage() {
           <section className="space-y-3">
             <h2 className="text-xl font-bold text-[var(--text-main)]">Who We Are</h2>
             <p className="text-[var(--text-muted)]">
-              <strong>NivoLeads</strong> is an Indian B2B digital enterprise directory and commercial trade intelligence platform headquartered in Karnataka. Our mission is to bridge the information gap across Karnataka’s 31 districts, enabling verified local manufacturers, distributors, traders, and service providers to connect seamlessly.
+              <strong>Karnataka Trade Directory</strong> is an Indian B2B digital enterprise directory and commercial trade intelligence platform headquartered in Karnataka. Our mission is to bridge the information gap across Karnataka’s 31 districts, enabling verified local manufacturers, distributors, traders, and service providers to connect seamlessly.
             </p>
             <p className="text-[var(--text-muted)]">
-              From fast-growing metro hubs like Bengaluru, Belagavi, and Mysuru to vital industrial and heritage commerce zones like Bagalkote, Vijayapura, Hubballi-Dharwad, and Kalaburagi, NivoLeads organizes publicly available corporate information into an accessible, structured digital registry.
+              From fast-growing metro hubs like Bengaluru, Belagavi, and Mysuru to vital industrial and heritage commerce zones like Bagalkote, Vijayapura, Hubballi-Dharwad, and Kalaburagi, Karnataka Trade Directory organizes publicly available corporate information into an accessible, structured digital registry.
             </p>
           </section>
 
@@ -71,7 +71,7 @@ export default function AboutUsPage() {
           <section className="space-y-3 pt-4">
             <h2 className="text-xl font-bold text-[var(--text-main)]">Data Governance & Compliance</h2>
             <p className="text-[var(--text-muted)]">
-              NivoLeads complies with the <strong>Digital Personal Data Protection (DPDP) Act</strong> and Indian Information Technology laws. We index only legitimate corporate, trade, and commercial enterprise contact details that businesses have voluntarily made public or registered for commercial trade identification.
+              Karnataka Trade Directory complies with the <strong>Digital Personal Data Protection (DPDP) Act</strong> and Indian Information Technology laws. We index only legitimate corporate, trade, and commercial enterprise contact details that businesses have voluntarily made public or registered for commercial trade identification.
             </p>
           </section>
 

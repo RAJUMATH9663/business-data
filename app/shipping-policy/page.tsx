@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Shipping & Delivery Policy | NivoLeads",
-  description: "Shipping and digital delivery terms for NivoLeads commercial business directory platform.",
+  title: "Shipping & Delivery Policy | Karnataka Trade Directory",
+  description: "Shipping and digital delivery terms for Karnataka Trade Directory commercial platform.",
 };
 
 export default function ShippingPolicyPage() {
@@ -24,7 +24,7 @@ export default function ShippingPolicyPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">1. Nature of Products & Services</h2>
             <p className="text-[var(--text-muted)]">
-              NivoLeads is an online B2B business directory and commercial data analytics portal. We provide digital goods, namely verified business enterprise directory profiles, commercial listings, and downloadable business research spreadsheets (.xlsx and .csv formats).
+              Karnataka Trade Directory is an online B2B business directory and commercial enterprise index. We provide digital goods, namely verified business enterprise directory profiles, commercial listings, and downloadable business research spreadsheets (.xlsx and .csv formats).
             </p>
             <p className="text-[var(--text-muted)]">
               We do <strong>not</strong> ship any physical merchandise or tangible paper goods to postal addresses. All deliveries occur electronically over the Internet.
@@ -34,7 +34,7 @@ export default function ShippingPolicyPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">2. Delivery Method & Fulfillment Timeline</h2>
             <p className="text-[var(--text-muted)]">
-              All digital orders placed on NivoLeads are delivered via <strong>Instant Electronic Fulfillment</strong>:
+              All digital orders placed on Karnataka Trade Directory are delivered via <strong>Instant Electronic Fulfillment</strong>:
             </p>
             <ul className="list-disc pl-5 space-y-2 text-[var(--text-muted)]">
               <li><strong>Instant Dashboard Access:</strong> Immediately upon successful transaction confirmation from our payment gateway (Razorpay), your purchased business directory profiles are automatically credited to your user account and unlocked under the &ldquo;My Purchases&rdquo; tab.</li>
@@ -58,7 +58,7 @@ export default function ShippingPolicyPage() {
             <ol className="list-decimal pl-5 space-y-1 text-[var(--text-muted)]">
               <li>Check your email Spam or Promotions folder.</li>
               <li>Refresh your <Link href="/purchases" className="text-blue-500 font-semibold hover:underline">My Purchases</Link> dashboard page.</li>
-              <li>Contact our support team at <a href="mailto:support@nivoleads.com" className="text-blue-500 font-semibold hover:underline">support@nivoleads.com</a> with your Payment Reference ID / Order ID for immediate manual resolution.</li>
+              <li>Contact our support team at <a href="mailto:support@karnatakatradedirectory.com" className="text-blue-500 font-semibold hover:underline">support@karnatakatradedirectory.com</a> with your Payment Reference ID / Order ID for immediate manual resolution.</li>
             </ol>
           </section>
         </div>

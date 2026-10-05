@@ -121,16 +121,16 @@ export default function DataViewer({
               ✓
             </span>
             <span className="text-sm font-bold text-[var(--text-main)]">
-              Contacts #{data.startOffset} to #{data.endOffset}
+              Listings #{data.startOffset} to #{data.endOffset}
             </span>
             {data.startOffset > 1 && (
               <span className="badge-brand">
-                Fresh Contacts #{data.startOffset}+ (New Numbers Only)
+                Fresh Listings #{data.startOffset}+ (New Listings Only)
               </span>
             )}
           </div>
           <span className="font-semibold text-[var(--text-muted)]">
-            Guaranteed 100% Unique · No Duplicate Numbers
+            Guaranteed 100% Unique · No Duplicate Records
           </span>
         </div>
       )}
@@ -143,7 +143,7 @@ export default function DataViewer({
           placeholder="Search by business name, area or phone…"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          aria-label="Search purchased contacts"
+          aria-label="Search purchased directory listings"
         />
         <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
           🔍
@@ -163,7 +163,7 @@ export default function DataViewer({
       <div className="relative min-h-[240px]">
         {data && data.items.length === 0 && !loading && (
           <p className="card p-8 text-center text-sm text-[var(--text-muted)]">
-            No contacts match "{dq}".
+            No listings match "{dq}".
           </p>
         )}
 
@@ -260,7 +260,7 @@ export default function DataViewer({
           </button>
           <span className="text-center text-xs font-medium text-[var(--text-muted)] sm:text-sm">
             Page <b>{page}</b> of <b>{data.pages}</b> ·{" "}
-            <b>{data.total.toLocaleString("en-IN")}</b> contacts in this purchase
+            <b>{data.total.toLocaleString("en-IN")}</b> listings in this report
           </span>
           <button
             className="btn btn-ghost"
@@ -273,7 +273,7 @@ export default function DataViewer({
       )}
 
       <p className="mt-3 text-center text-xs text-[var(--text-muted)]">
-        Licensed data · Watermarked with your licensee identity and purchase code.
+        Verified B2B Directory · Watermarked with your licensee identity and order code.
       </p>
     </div>
   );

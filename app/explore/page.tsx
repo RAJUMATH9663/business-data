@@ -9,9 +9,9 @@ export async function generateMetadata({
   searchParams: { d?: string; c?: string };
 }): Promise<Metadata> {
   const { d, c } = searchParams;
-  let title = "Explore Business Leads, Contacts & Phone Numbers | NivoLeads";
+  let title = "Explore Karnataka Trade Directory | B2B Business Listings & Market Reports";
   let description =
-    "Browse verified B2B leads, company databases, and verified 10-digit mobile numbers across 31 districts and 12 core sectors in Karnataka.";
+    "Browse verified Karnataka enterprise directory profiles, commercial listings, and industry trade intelligence across 31 districts and 20+ sectors.";
 
   try {
     if (d && c) {
@@ -20,20 +20,20 @@ export async function generateMetadata({
         prisma.category.findUnique({ where: { slug: c }, select: { name: true } }),
       ]);
       if (district && category) {
-        title = `${category.name} in ${district.name} — Business Leads & Phone Numbers`;
-        description = `Find verified ${category.name} phone numbers, contacts, and company addresses in ${district.name}, Karnataka. Instant digital access and Excel export on NivoLeads.`;
+        title = `${category.name} in ${district.name} — B2B Trade Directory & Business Listings`;
+        description = `Browse verified ${category.name} enterprises, business addresses, and commercial directory profiles in ${district.name}, Karnataka. Instant digital access and verified trade reports.`;
       }
     } else if (d) {
       const district = await prisma.district.findUnique({ where: { slug: d }, select: { name: true } });
       if (district) {
-        title = `${district.name} Business Leads & Company Contact Database`;
-        description = `Access verified B2B leads and business contact lists in ${district.name}, Karnataka across all major industries. Instant download on NivoLeads.`;
+        title = `${district.name} B2B Trade Directory & Commercial Business Index`;
+        description = `Access verified enterprise listings and commercial business profiles in ${district.name}, Karnataka across all major industries. Instant directory access.`;
       }
     } else if (c) {
       const category = await prisma.category.findUnique({ where: { slug: c }, select: { name: true } });
       if (category) {
-        title = `${category.name} Phone Numbers & Business Leads in Karnataka`;
-        description = `Target decision makers in ${category.name} across Karnataka. Verified 10-digit phone numbers and commercial datasets ready for sales outreach on NivoLeads.`;
+        title = `${category.name} B2B Directory & Commercial Index in Karnataka`;
+        description = `Discover verified ${category.name} enterprises and verified supplier listings across Karnataka. Search and download structured B2B trade reports.`;
       }
     }
   } catch {

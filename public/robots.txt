@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
-Allow: /leads
-Allow: /leads/
+Allow: /directory
+Allow: /directory/
 Allow: /explore
 Allow: /login
 Allow: /register

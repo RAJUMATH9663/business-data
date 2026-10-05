@@ -149,7 +149,7 @@ export default function ListBusinessForm({
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
           {distSlug && catSlug && (
             <Link
-              href={`/leads/${distSlug}/${catSlug}`}
+              href={`/directory/${distSlug}/${catSlug}`}
               className="btn btn-primary bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 px-6 py-3 text-xs font-semibold rounded-xl"
             >
               View Category Directory →
@@ -379,7 +379,7 @@ export default function ListBusinessForm({
 
       <div className="border-t border-[var(--border-card)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-xs text-[var(--text-muted)]">
-          🔒 By submitting, you agree to list your business profile on NivoLeads.
+          🔒 By submitting, you agree to list your business profile on Karnataka Trade Directory.
         </p>
         <button
           type="submit"

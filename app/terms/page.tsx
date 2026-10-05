@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | NivoLeads B2B Directory",
-  description: "Terms and conditions of service for using NivoLeads commercial business directory platform.",
+  title: "Terms of Service | Karnataka Trade Directory",
+  description: "Terms and conditions of service for using Karnataka Trade Directory commercial enterprise platform.",
 };
 
 export default function TermsOfService() {
@@ -24,21 +24,21 @@ export default function TermsOfService() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">1. Acceptance of Terms</h2>
             <p className="text-[var(--text-muted)]">
-              By accessing, browsing, or utilizing the business directory services on <strong>NivoLeads</strong> (&ldquo;the Platform&rdquo;), you agree to comply with and be bound by these Terms of Service, along with our Privacy Policy, Cancellation & Refund Policy, and Shipping & Delivery Policy. If you do not agree with any part of these terms, you must discontinue using this website.
+              By accessing, browsing, or utilizing the business directory services on <strong>Karnataka Trade Directory</strong> (&ldquo;the Platform&rdquo;), you agree to comply with and be bound by these Terms of Service, along with our Privacy Policy, Cancellation & Refund Policy, and Shipping & Delivery Policy. If you do not agree with any part of these terms, you must discontinue using this website.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">2. Nature of Service</h2>
             <p className="text-[var(--text-muted)]">
-              NivoLeads operates as an online business information portal and commercial enterprise directory. We compile, categorize, and index publicly available business trade information, company profiles, and registered enterprise contact points across Karnataka’s 31 administrative districts.
+              Karnataka Trade Directory operates as an online business information portal and commercial enterprise directory. We compile, categorize, and index publicly available business trade information, company profiles, and registered enterprise contact points across Karnataka’s 31 administrative districts.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">3. Commercial Use & Legal Compliance</h2>
             <p className="text-[var(--text-muted)]">
-              Directory information accessed or exported from NivoLeads is intended strictly for legitimate B2B trade inquiries, commercial procurement, market research, vendor discovery, and business-to-business communications. Users explicitly agree to comply with all applicable laws, including the Information Technology Act 2000, DPDP Act 2023, and TRAI telecom commercial communications regulations. Unsolicited consumer spam or abusive mass-marketing is strictly forbidden.
+              Directory information accessed or exported from Karnataka Trade Directory is intended strictly for legitimate B2B trade inquiries, commercial procurement, market research, vendor discovery, and business-to-business communications. Users explicitly agree to comply with all applicable laws, including the Information Technology Act 2000, DPDP Act 2023, and TRAI telecom commercial communications regulations. Unsolicited consumer spam or abusive mass-marketing is strictly forbidden.
             </p>
           </section>
 
@@ -72,7 +72,7 @@ export default function TermsOfService() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">7. Limitation of Liability</h2>
             <p className="text-[var(--text-muted)]">
-              While NivoLeads employs rigorous data hygiene, normalization, and verification pipelines, business trade data evolves continuously. Information is provided on an &ldquo;as-is&rdquo; commercial intelligence basis without warranties of uninterrupted availability.
+              While Karnataka Trade Directory employs rigorous data hygiene, normalization, and verification pipelines, business trade data evolves continuously. Information is provided on an &ldquo;as-is&rdquo; commercial intelligence basis without warranties of uninterrupted availability.
             </p>
           </section>
 
@@ -83,7 +83,7 @@ export default function TermsOfService() {
               <Link href="/contact" className="text-blue-500 font-semibold hover:underline">
                 Contact Page
               </Link>{" "}
-              or email <a href="mailto:support@nivoleads.com" className="text-blue-500 font-semibold hover:underline">support@nivoleads.com</a>.
+              or email <a href="mailto:support@karnatakatradedirectory.com" className="text-blue-500 font-semibold hover:underline">support@karnatakatradedirectory.com</a>.
             </p>
           </section>
         </div>

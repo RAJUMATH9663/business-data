@@ -6,9 +6,9 @@ import ListBusinessForm from "./ListBusinessForm";
 export const revalidate = 3600; // 1 hour cache on Edge CDN
 
 export const metadata: Metadata = {
-  title: "List Your Business Free — Connect with B2B Buyers in Karnataka | NivoLeads",
+  title: "List Your Business Free — Connect with B2B Buyers in Karnataka | Karnataka Trade Directory",
   description:
-    "List your business listing on NivoLeads for 100% free. Reach thousands of verified B2B buyers, tele-calling teams, and commercial partners across all 31 districts of Karnataka.",
+    "List your commercial enterprise on Karnataka Trade Directory for 100% free. Reach verified B2B buyers, procurement teams, and commercial trade partners across all 31 districts of Karnataka.",
   keywords: [
     "list business free Karnataka",
     "free business listing Karnataka",
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     canonical: "/list-business",
   },
   openGraph: {
-    title: "List Your Business Free — Connect with B2B Buyers in Karnataka | NivoLeads",
+    title: "List Your Business Free — Connect with B2B Buyers in Karnataka | Karnataka Trade Directory",
     description:
-      "List your business listing on NivoLeads for 100% free. Reach thousands of verified B2B buyers, tele-calling teams, and commercial partners across all 31 districts of Karnataka.",
+      "List your commercial enterprise on Karnataka Trade Directory for 100% free. Reach verified B2B buyers, procurement teams, and commercial trade partners across all 31 districts of Karnataka.",
     url: "/list-business",
   },
 };
@@ -58,10 +58,10 @@ export default async function ListBusinessPage() {
               🚀 100% Free · Get Discovered across 31 Districts
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-main)]">
-              List Your Business Free on NivoLeads
+              List Your Business Free on Karnataka Trade Directory
             </h1>
             <p className="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed">
-              Get direct inquiries, leads, and orders from active B2B buyers and commercial clients across Karnataka. Takes under 1 minute.
+              Get direct B2B inquiries and commercial discovery from procurement teams and business partners across Karnataka. Takes under 1 minute.
             </p>
           </div>
           <div className="flex flex-col gap-2 shrink-0 text-center">

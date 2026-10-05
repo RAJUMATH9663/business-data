@@ -18,6 +18,20 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   eslint: { ignoreDuringBuilds: true }, // run `npm run lint` separately
+  async redirects() {
+    return [
+      {
+        source: "/leads",
+        destination: "/directory",
+        permanent: true,
+      },
+      {
+        source: "/leads/:path*",
+        destination: "/directory/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

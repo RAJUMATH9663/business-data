@@ -1,13 +1,13 @@
-# NivoLeads
+# Karnataka Trade Directory
 
-> NivoLeads is a verified commercial B2B lead generation platform and business contact directory providing direct 10-digit mobile phone numbers, company names, areas, addresses, and websites.
+> Karnataka Trade Directory is an authenticated B2B commercial directory and public merchant registry index providing verified enterprise listings, trade discovery, and market research intelligence across all 31 districts of Karnataka.
 
 ## Core Capabilities & Offerings
-- **Verified Business Phone Numbers**: 100% normalized, cleaned, and verified 10-digit mobile numbers stripped of duplicates, dead entries, and spam.
-- **Geographic & Industry Segmentation**: Filter leads by Country (India, USA), State/Region (e.g. Karnataka, New York, California), City/District (e.g. Bengaluru, Vijayapura, Belagavi, Mysuru), and 12 Industry Sectors.
-- **Smart Zero-Duplicate Engine**: Automatic deduplication tracking ensuring repeat buyers never pay for the same phone number twice.
-- **Instant Excel & CSV Export**: Immediate digital downloads in .xlsx and .csv format for sales prospecting, cold calling, and WhatsApp marketing campaigns.
-- **Target Audience**: B2B sales teams, freelancers, web designers, digital marketing agencies, SEO consultants, and enterprise growth teams.
+- **Public Merchant Registry**: Standardized business trade profiles featuring official company names, trade classifications, commercial addresses, verified mobile helplines, and web portals.
+- **Geographic & Industry Segmentation**: Filter Karnataka enterprises across 31 districts (e.g., Bengaluru Urban, Belagavi, Ballari, Mysuru, Vijayapura) and 20+ core industry sectors.
+- **Deduplicated Trade Records**: Algorithmic record deduplication ensuring accurate, deduplicated vendor directories and research reports.
+- **Instant Digital Report Export**: Instant export of structured B2B directory reports (.xlsx and .csv) for market analysis, vendor sourcing, and supply-chain research.
+- **Target Audience**: Procurement managers, supply chain operators, B2B vendors, market researchers, distributors, and commercial enterprises.
 
 ## Key Industry Sectors Covered
 - Healthcare (Hospitals, Clinics & Diagnostic Labs)
@@ -24,12 +24,13 @@
 - Agriculture & Agro Businesses (Farms, Agro-tech & Equipment)
 
 ## Key Endpoints & Directory Links
-- [Homepage](https://nivoleads.com): Overview, search filters, and pricing tiers.
-- [Leads Directory](https://nivoleads.com/leads): Master directory index of all 31 Karnataka districts and 12 core industries.
-- [District Directory Pages](https://nivoleads.com/leads/{district}): Deep-dive pages with sample listings for each district (e.g. `https://nivoleads.com/leads/vijayapura`, `https://nivoleads.com/leads/bengaluru-urban`).
-- [Industry + Location Landing Pages](https://nivoleads.com/leads/{district}/{category}): Dedicated sector listings (e.g. `https://nivoleads.com/leads/vijayapura/healthcare`).
-- [Explore Data & Lead Builder](https://nivoleads.com/explore): Search businesses by location, district, and sector.
-- [Client Portal](https://nivoleads.com/login): Account sign in and dataset management.
-- [Terms & Licensing](https://nivoleads.com/terms): Commercial data use and compliance terms.
-- [Privacy Policy](https://nivoleads.com/privacy): Data protection standards and compliance.
-- [Support Desk](https://nivoleads.com/contact): Customer service and custom enterprise dataset orders.
+- [Homepage](/): Platform overview, district directory navigator, and trade sector index.
+- [B2B Trade Directory](/directory): Master directory index covering all 31 Karnataka districts and 20+ sectors.
+- [District Directory Index](/directory/{district}): Regional enterprise listings for each district (e.g. `/directory/vijayapura`, `/directory/bengaluru-urban`).
+- [Sector-Specific Directory](/directory/{district}/{category}): Dedicated industry listings (e.g. `/directory/vijayapura/healthcare`).
+- [Explore & Research Engine](/explore): Interactive multi-attribute directory search and research tool.
+- [Merchant Listing Portal](/list-business): Free public listing registration for verified Karnataka business proprietors.
+- [Client Portal](/login): Account sign in and unlocked directory report management.
+- [Terms & Conditions](/terms): B2B directory access licensing and compliance terms.
+- [Privacy Policy](/privacy): DPDP Act 2023 compliance, merchant data protection, and grievance redressal.
+- [Support & Redressal Desk](/contact): Official registered office details and merchant assistance.

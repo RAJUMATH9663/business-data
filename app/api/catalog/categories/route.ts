@@ -2,6 +2,8 @@ import { handler, json, limit, ApiError } from "@/lib/api";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 // Returns category listing and live counts, accounting for contacts already purchased by the logged-in user.
 export const GET = handler(async (req) => {
   limit(req, "catalog", 120, 60_000);

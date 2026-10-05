@@ -29,8 +29,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               Admin
             </span>
           </div>
-          <div className="text-xs text-[var(--text-muted)]">
-            Database Management & Bulk Import
+          <div className="flex items-center gap-3">
+            <a
+              href="/api/admin/export"
+              download
+              target="_blank"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 transition-colors"
+            >
+              <span>📊</span>
+              <span>Download All Listings (Excel)</span>
+            </a>
           </div>
         </div>
 

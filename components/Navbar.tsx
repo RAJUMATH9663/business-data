@@ -8,12 +8,15 @@ export default async function Navbar() {
   const s = await getSession();
   const links = s
     ? [
-        { href: "/explore", label: "Explore Data", icon: "🔎" },
-        { href: "/purchases", label: "My Purchases", icon: "🧾" },
+        { href: "/directory", label: "Directory", icon: "📖" },
+        { href: "/explore", label: "Explore", icon: "🔍" },
+        { href: "/purchases", label: "Orders", icon: "📦" },
         { href: "/account", label: "Account", icon: "👤" },
       ]
     : [
-        { href: "/login", label: "Login", icon: "👤" },
+        { href: "/directory", label: "Directory", icon: "📖" },
+        { href: "/explore", label: "Explore", icon: "🔍" },
+        { href: "/login", label: "Login", icon: "🔑" },
       ];
 
   return (
@@ -23,7 +26,7 @@ export default async function Navbar() {
           <Link href="/" className="group flex items-center gap-2.5">
             <Image
               src="/logo.png"
-              alt="NivoLeads"
+              alt="Karnataka Trade Directory"
               width={240}
               height={64}
               className="h-12 sm:h-14 w-auto rounded-xl object-contain transition-transform duration-200 group-hover:scale-105"

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import * as XLSX from "xlsx";
 import { prisma } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -156,14 +158,14 @@ export async function GET(req: Request) {
     ];
 
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "5 Free Sample Leads");
+    XLSX.utils.book_append_sheet(wb, ws, "Sample Directory Listings");
 
     const safeDistName = districtName.replace(/[^a-zA-Z0-9]/g, "-");
     const safeCatName = categoryName.replace(/[^a-zA-Z0-9]/g, "-");
 
     if (format === "csv") {
       const csvOutput = XLSX.utils.sheet_to_csv(ws);
-      const filename = `NivoLeads-5-Sample-Leads-${safeDistName}-${safeCatName}.csv`;
+      const filename = `Karnataka-Trade-Directory-Sample-${safeDistName}-${safeCatName}.csv`;
 
       return new NextResponse(csvOutput, {
         status: 200,
@@ -177,7 +179,7 @@ export async function GET(req: Request) {
 
     // Default: XLSX
     const buf = XLSX.write(wb, { type: "buffer", bookType: "xlsx" });
-    const filename = `NivoLeads-5-Sample-Leads-${safeDistName}-${safeCatName}.xlsx`;
+    const filename = `Karnataka-Trade-Directory-Sample-${safeDistName}-${safeCatName}.xlsx`;
 
     return new NextResponse(buf, {
       status: 200,
@@ -188,9 +190,9 @@ export async function GET(req: Request) {
       },
     });
   } catch (error) {
-    console.error("Error generating sample leads file:", error);
+    console.error("Error generating sample directory file:", error);
     return NextResponse.json(
-      { error: "Failed to generate sample leads spreadsheet." },
+      { error: "Failed to generate sample directory spreadsheet." },
       { status: 500 }
     );
   }

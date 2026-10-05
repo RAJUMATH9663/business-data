@@ -5,13 +5,13 @@ import { formatDate, rupees } from "@/lib/format";
 import PurchaseView from "@/components/PurchaseView";
 import { StatusBadge } from "@/components/ui";
 
-export const metadata = { title: "Purchase" };
+export const metadata = { title: "Order Details | Karnataka Trade Directory" };
 
 const STATUS_HELP: Record<string, string> = {
   PENDING: "This payment has not been completed. If money was deducted it will be confirmed automatically within a few minutes.",
   FAILED: "This payment failed and you were not charged. You can start a new purchase any time.",
   CANCELLED: "This payment was cancelled and you were not charged.",
-  REFUND_REQUIRED: "Your payment was received but the contacts could not be allocated. Our team will refund you shortly.",
+  REFUND_REQUIRED: "Your payment was received but the directory records could not be allocated. Our team will refund you shortly.",
 };
 
 export default async function PurchasePage({ params, searchParams }: { params: { id: string }; searchParams: { paid?: string } }) {
@@ -61,7 +61,7 @@ export default async function PurchasePage({ params, searchParams }: { params: {
       <div className="card grid grid-cols-2 gap-4 p-4 text-sm sm:grid-cols-4">
         <div><p className="text-xs">District</p><p className="font-semibold">{p.district.name}</p></div>
         <div><p className="text-xs">Category</p><p className="font-semibold">{p.category.name}</p></div>
-        <div><p className="text-xs">Contacts</p><p className="font-semibold">{p.quantity.toLocaleString("en-IN")}</p></div>
+        <div><p className="text-xs">Listings</p><p className="font-semibold">{p.quantity.toLocaleString("en-IN")}</p></div>
         <div><p className="text-xs">Date</p><p className="font-semibold">{formatDate(p.createdAt)}</p></div>
         <div><p className="text-xs">Base</p><p className="font-semibold">{rupees(p.baseAmountPaise)}</p></div>
         <div><p className="text-xs">Discount</p><p className="font-semibold">{p.discountPercent}%</p></div>
@@ -85,7 +85,7 @@ export default async function PurchasePage({ params, searchParams }: { params: {
       ) : (
         <div className="card p-6 text-center text-sm">
           <p>{STATUS_HELP[p.paymentStatus]}</p>
-          <Link href="/explore" className="btn btn-primary mt-4 !text-paper">Explore Business Data</Link>
+          <Link href="/explore" className="btn btn-primary mt-4 !text-paper">Explore Business Directory</Link>
         </div>
       )}
     </div>

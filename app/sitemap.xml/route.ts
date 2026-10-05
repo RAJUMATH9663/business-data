@@ -33,7 +33,7 @@ export async function GET() {
   // Core Static Pages
   const staticPages = [
     { loc: "", priority: "1.0", changefreq: "daily" },
-    { loc: "/leads", priority: "0.9", changefreq: "daily" },
+    { loc: "/directory", priority: "0.9", changefreq: "daily" },
     { loc: "/explore", priority: "0.9", changefreq: "daily" },
     { loc: "/list-business", priority: "0.9", changefreq: "daily" },
     { loc: "/login", priority: "0.5", changefreq: "monthly" },
@@ -52,21 +52,21 @@ export async function GET() {
     xml += `  </url>\n`;
   }
 
-  // 31 District Landing Pages (/leads/[district])
+  // 31 District Landing Pages (/directory/[district])
   for (const d of DISTRICT_SLUGS) {
     xml += `  <url>\n`;
-    xml += `    <loc>${baseUrl}/leads/${d}</loc>\n`;
+    xml += `    <loc>${baseUrl}/directory/${d}</loc>\n`;
     xml += `    <lastmod>${dateStr}</lastmod>\n`;
     xml += `    <changefreq>weekly</changefreq>\n`;
     xml += `    <priority>0.8</priority>\n`;
     xml += `  </url>\n`;
   }
 
-  // 372 District + Category Programmatic Pages (/leads/[district]/[category])
+  // 372 District + Category Programmatic Pages (/directory/[district]/[category])
   for (const d of DISTRICT_SLUGS) {
     for (const c of CATEGORY_SLUGS) {
       xml += `  <url>\n`;
-      xml += `    <loc>${baseUrl}/leads/${d}/${c}</loc>\n`;
+      xml += `    <loc>${baseUrl}/directory/${d}/${c}</loc>\n`;
       xml += `    <lastmod>${dateStr}</lastmod>\n`;
       xml += `    <changefreq>weekly</changefreq>\n`;
       xml += `    <priority>0.8</priority>\n`;

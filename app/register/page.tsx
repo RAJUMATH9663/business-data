@@ -4,7 +4,7 @@ import { getSession, safeNext } from "@/lib/auth";
 
 export const metadata = {
   title: "Create an Account",
-  description: "Register for a free NivoLeads account to unlock verified Karnataka business contact directories.",
+  description: "Register for an account to explore verified Karnataka business trade directories.",
 };
 
 export default async function RegisterPage({ searchParams }: { searchParams: { next?: string } }) {

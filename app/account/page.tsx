@@ -5,8 +5,8 @@ import { formatDate } from "@/lib/format";
 import LogoutButton from "@/components/LogoutButton";
 
 export const metadata = {
-  title: "Account Settings & Active Sessions",
-  description: "Manage your NivoLeads account profile and active device sessions.",
+  title: "Account Settings & Active Sessions | Karnataka Trade Directory",
+  description: "Manage your Karnataka Trade Directory account profile and active device sessions.",
 };
 
 export default async function AccountPage() {

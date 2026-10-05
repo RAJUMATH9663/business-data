@@ -50,7 +50,12 @@ export default async function BusinessesAdmin({ searchParams }: { searchParams: 
   };
   return (
     <div className="space-y-5">
-      <h1 className="text-2xl">Business data ({total.toLocaleString("en-IN")})</h1>
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <h1 className="text-2xl">Business data ({total.toLocaleString("en-IN")})</h1>
+        <a href="/api/admin/export" download target="_blank" className="btn bg-[var(--brand)] text-white hover:opacity-90">
+          ↓ Download Excel
+        </a>
+      </div>
       <form className="card grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-4" method="GET">
         <select name="d" defaultValue={d ?? ""} className="input" aria-label="District"><option value="">All districts</option>{districts.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select>
         <select name="c" defaultValue={c ?? ""} className="input" aria-label="Category"><option value="">All categories</option>{cats.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select>

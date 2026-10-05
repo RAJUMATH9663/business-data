@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Contact Us & Support | NivoLeads",
-  description: "Official contact information, registered office address, and customer support for NivoLeads B2B business directory.",
+  title: "Contact Us & Support | Karnataka Trade Directory",
+  description: "Official contact information, registered office address, and customer support for Karnataka Trade Directory B2B platform.",
 };
 
 export default function ContactPage() {
@@ -25,8 +25,8 @@ export default function ContactPage() {
             <div className="text-2xl mb-2">📧</div>
             <h2 className="text-base font-bold text-[var(--text-main)]">Email Support</h2>
             <p className="mt-1 text-xs text-[var(--text-muted)]">Fast responses within 2–4 business hours.</p>
-            <a href="mailto:support@nivoleads.com" className="mt-3 inline-block text-sm font-semibold text-blue-500 hover:underline">
-              support@nivoleads.com
+            <a href="mailto:support@karnatakatradedirectory.com" className="mt-3 inline-block text-sm font-semibold text-blue-500 hover:underline">
+              support@karnatakatradedirectory.com
             </a>
           </div>
 
@@ -56,7 +56,7 @@ export default function ContactPage() {
             <div>
               <h3 className="text-base font-bold text-[var(--text-main)]">Registered Operational Office</h3>
               <p className="mt-1 text-sm text-[var(--text-muted)] leading-relaxed">
-                <strong>NivoLeads Commercial Enterprises</strong><br />
+                <strong>Karnataka Trade Directory Services</strong><br />
                 Sector 16, Navanagar Commercial Hub,<br />
                 Bagalkote, Karnataka – 587103, India.<br />
                 <strong>State:</strong> Karnataka | <strong>Country:</strong> India
@@ -73,8 +73,8 @@ export default function ContactPage() {
           </p>
           <div className="pt-2 font-mono text-[var(--text-main)] space-y-1">
             <div><strong>Designation:</strong> Head of Consumer Grievances & Compliance</div>
-            <div><strong>Email:</strong> <a href="mailto:grievance@nivoleads.com" className="text-blue-500 hover:underline">grievance@nivoleads.com</a> / <a href="mailto:support@nivoleads.com" className="text-blue-500 hover:underline">support@nivoleads.com</a></div>
-            <div><strong>Address:</strong> NivoLeads, Sector 16, Navanagar, Bagalkote, Karnataka 587103</div>
+            <div><strong>Email:</strong> <a href="mailto:grievance@karnatakatradedirectory.com" className="text-blue-500 hover:underline">grievance@karnatakatradedirectory.com</a> / <a href="mailto:support@karnatakatradedirectory.com" className="text-blue-500 hover:underline">support@karnatakatradedirectory.com</a></div>
+            <div><strong>Address:</strong> Karnataka Trade Directory Services, Sector 16, Navanagar, Bagalkote, Karnataka 587103</div>
             <div><strong>Response Time:</strong> Within 48 business hours</div>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function ContactPage() {
             </div>
 
             <div className="rounded-xl border border-[var(--border-card)] p-4">
-              <h3 className="text-sm font-bold text-[var(--text-main)]">Can I list my own business on NivoLeads?</h3>
+              <h3 className="text-sm font-bold text-[var(--text-main)]">Can I list my own business on Karnataka Trade Directory?</h3>
               <p className="mt-1 text-xs text-[var(--text-muted)] leading-relaxed">
                 Yes! Any legitimate business proprietor in Karnataka can submit their enterprise details for free through our <Link href="/list-business" className="text-blue-500 font-semibold hover:underline">List Your Business Free</Link> page.
               </p>

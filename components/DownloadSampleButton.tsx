@@ -45,8 +45,8 @@ export default function DownloadSampleButton({
       a.href = url;
       
       const safeDist = (districtName || districtSlug || "Karnataka").replace(/[^a-zA-Z0-9]/g, "-");
-      const safeCat = (categoryName || categorySlug || "Leads").replace(/[^a-zA-Z0-9]/g, "-");
-      a.download = `NivoLeads-5-Sample-Leads-${safeDist}-${safeCat}.${format}`;
+      const safeCat = (categoryName || categorySlug || "Directory").replace(/[^a-zA-Z0-9]/g, "-");
+      a.download = `Karnataka-Trade-Directory-Sample-Listings-${safeDist}-${safeCat}.${format}`;
       
       document.body.appendChild(a);
       a.click();
@@ -73,13 +73,13 @@ export default function DownloadSampleButton({
             </div>
             <div>
               <h4 className="text-sm font-bold text-[var(--text-main)] flex items-center gap-2">
-                <span>Test Before Buying: Download 5 Free Sample Leads</span>
+                <span>Preview Format: Download 5 Sample Listings</span>
                 <span className="rounded-md bg-emerald-500/20 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
-                  Free
+                  Sample
                 </span>
               </h4>
               <p className="text-xs text-[var(--text-muted)] mt-0.5">
-                Download a 5-contact sample spreadsheet (.xlsx) for {districtName || "this district"} {categoryName ? `(${categoryName})` : ""} to verify phone quality instantly.
+                Download a 5-listing sample spreadsheet (.xlsx) for {districtName || "this district"} {categoryName ? `(${categoryName})` : ""} to review data schema and formatting.
               </p>
             </div>
           </div>
@@ -92,17 +92,17 @@ export default function DownloadSampleButton({
               {downloading ? (
                 <>
                   <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  <span>Preparing 5 Leads...</span>
+                  <span>Preparing Sample...</span>
                 </>
               ) : downloaded ? (
                 <>
                   <span>✓</span>
-                  <span>5 Leads Downloaded!</span>
+                  <span>Sample Listings Downloaded!</span>
                 </>
               ) : (
                 <>
                   <span>📥</span>
-                  <span>Download 5 Free Sample Leads (.xlsx)</span>
+                  <span>Download 5 Sample Listings (.xlsx)</span>
                 </>
               )}
             </button>
@@ -121,7 +121,7 @@ export default function DownloadSampleButton({
       >
         <span>📥</span>
         <span>
-          {downloading ? "Preparing sample..." : downloaded ? "✓ Downloaded!" : "Download 5 Free Sample Leads"}
+          {downloading ? "Preparing sample..." : downloaded ? "✓ Downloaded!" : "Download 5 Sample Listings"}
         </span>
       </button>
     );
@@ -142,12 +142,12 @@ export default function DownloadSampleButton({
         ) : downloaded ? (
           <span className="flex items-center gap-1.5">
             <span>✓</span>
-            <span>5 Sample Leads Downloaded</span>
+            <span>Sample Listings Downloaded</span>
           </span>
         ) : (
           <span className="flex items-center gap-1.5">
             <span>📥</span>
-            <span>Download 5 Free Sample Leads (.xlsx)</span>
+            <span>Download 5 Sample Listings (.xlsx)</span>
           </span>
         )}
       </button>
@@ -164,17 +164,17 @@ export default function DownloadSampleButton({
       {downloading ? (
         <span className="flex items-center gap-2">
           <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-          <span>Generating 5 Sample Leads...</span>
+          <span>Generating Sample...</span>
         </span>
       ) : downloaded ? (
         <span className="flex items-center gap-2">
           <span>✓</span>
-          <span>Downloaded 5 Sample Leads!</span>
+          <span>Downloaded 5 Sample Listings!</span>
         </span>
       ) : (
         <span className="flex items-center gap-2">
           <span>📥</span>
-          <span>Download 5 Free Sample Leads (.xlsx)</span>
+          <span>Download 5 Sample Listings (.xlsx)</span>
         </span>
       )}
     </button>

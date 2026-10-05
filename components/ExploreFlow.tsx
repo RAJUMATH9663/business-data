@@ -329,9 +329,9 @@ export default function ExploreFlow({
       key: o.keyId,
       amount: o.amountPaise,
       currency: "INR",
-      name: "NivoLeads",
+      name: "Karnataka Trade Directory",
       image: "/logo.png",
-      description: `${o.quantity} contacts · ${district?.name} · ${category?.name}`,
+      description: `B2B Directory Access · ${o.quantity} Listings · ${district?.name}`,
       order_id: o.orderId,
       prefill: o.prefill,
       theme: { color: "#2563EB" },
@@ -528,7 +528,7 @@ export default function ExploreFlow({
 
             {available === 0 && (
               <p className="card mt-3 p-4 text-sm text-[var(--text-muted)]">
-                No contacts are available for you in this category right now. You may already own all of them.
+                No enterprise listings are available in this category right now. You may already have full access to all available records.
               </p>
             )}
 
@@ -537,12 +537,12 @@ export default function ExploreFlow({
                 <div>
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <p className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wide">Available Fresh Contacts</p>
+                      <p className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wide">Available Verified Listings</p>
                       <p className="text-3xl font-extrabold text-blue-500">{num(available)}</p>
                     </div>
                     {quote?.alreadyPurchased !== undefined && quote.alreadyPurchased > 0 && (
                       <div className="text-right">
-                        <p className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wide">Already Owned</p>
+                        <p className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wide">Already Unlocked</p>
                         <p className="text-lg font-bold text-[var(--text-main)]">{num(quote.alreadyPurchased)}</p>
                       </div>
                     )}
@@ -552,20 +552,20 @@ export default function ExploreFlow({
                     <div className="mt-3 rounded-xl border border-blue-500/30 bg-blue-500/10 p-3.5 text-xs text-[var(--text-main)] shadow-sm">
                       <div className="flex items-center gap-1.5 font-bold text-blue-500">
                         <span>✨</span>
-                        <span>Starts from Contact #{quote.nextStartNumber}</span>
+                        <span>Starts from Listing #{quote.nextStartNumber}</span>
                       </div>
                       <p className="mt-1 text-[var(--text-muted)] leading-relaxed">
-                        You will receive brand-new contacts from <b>#{quote.nextStartNumber} to #{quote.nextStartNumber + qty - 1}</b>.
-                        Zero duplicates guaranteed with your previous purchases!
+                        You will receive brand-new enterprise records from <b>#{quote.nextStartNumber} to #{quote.nextStartNumber + qty - 1}</b>.
+                        Zero duplicates guaranteed with your previous directory orders!
                       </p>
                     </div>
                   )}
 
-                  <p className="mt-5 text-sm font-semibold">How many contacts do you need?</p>
+                  <p className="mt-5 text-sm font-semibold">How many enterprise listings do you need in your report?</p>
                   <div className="mt-2 flex items-center gap-2">
                     <button aria-label="Decrease" className="btn btn-ghost !min-h-[52px] !w-14 text-xl" onClick={() => setQuantity(qty - 10)}>−</button>
                     <input
-                      aria-label="Number of contacts"
+                      aria-label="Number of listings"
                       className="input !min-h-[52px] text-center text-2xl font-bold"
                       inputMode="numeric"
                       value={qty}
@@ -586,7 +586,7 @@ export default function ExploreFlow({
                     ))}
                   </div>
                   <button className="mt-3 text-sm font-semibold text-brand underline" onClick={() => setQuantity(available)}>
-                    Buy all {num(available)}
+                    Access all {num(available)} listings
                   </button>
                   {tierText.length > 0 && <p className="mt-4 text-xs text-[var(--text-muted)]">Volume discounts — {tierText.join(" · ")}</p>}
                 </div>
@@ -610,12 +610,12 @@ export default function ExploreFlow({
                       </div>
                     </dl>
                   )}
-                  {quote?.exceeds && <p className="mt-3 text-sm font-medium text-amber-500">Only {num(available)} contacts are available.</p>}
+                  {quote?.exceeds && <p className="mt-3 text-sm font-medium text-amber-500">Only {num(available)} listings are available.</p>}
                   <button className="btn btn-primary mt-5 w-full !py-3.5 !text-base shadow-lg shadow-blue-500/25" disabled={!quote || quote.exceeds || busy} onClick={pay}>
-                    {busy ? "Processing…" : quote ? `Pay ${money(quote.finalPaise)} →` : "Pay"}
+                    {busy ? "Processing…" : quote ? `Access Directory (${money(quote.finalPaise)}) →` : "Pay"}
                   </button>
                   <p className="mt-3 text-center text-xs text-[var(--text-muted)]">
-                    {loggedIn ? "Secure payment via Razorpay. Data appears right after payment." : "You will be asked to log in or register before paying."}
+                    {loggedIn ? "Instant electronic delivery via Razorpay / UPI. Excel report downloads immediately." : "You will be asked to log in or register before downloading."}
                   </p>
                 </div>
               </div>

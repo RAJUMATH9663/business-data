@@ -4,7 +4,7 @@ import { getSession, safeNext } from "@/lib/auth";
 
 export const metadata = {
   title: "Client Login",
-  description: "Sign in to your NivoLeads account to access and download your purchased verified business contact datasets.",
+  description: "Sign in to your client account to access and download your purchased verified business directory datasets.",
 };
 
 export default async function LoginPage({ searchParams }: { searchParams: { next?: string } }) {

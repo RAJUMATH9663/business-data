@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Cancellation & Refund Policy | NivoLeads",
-  description: "Official cancellation and refund policy for NivoLeads B2B business directory platform.",
+  title: "Cancellation & Refund Policy | Karnataka Trade Directory",
+  description: "Official cancellation and refund policy for Karnataka Trade Directory B2B platform.",
 };
 
 export default function RefundPolicyPage() {
@@ -24,7 +24,7 @@ export default function RefundPolicyPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">1. Digital Services Overview</h2>
             <p className="text-[var(--text-muted)]">
-              NivoLeads operates as an online B2B business directory and commercial enterprise intelligence platform. Upon completing a payment via Razorpay, UPI, Credit/Debit Cards, or Net Banking, access to the selected verified business profiles and directory listings is delivered immediately in digital format (via dashboard unlock and downloadable Excel/CSV format).
+              Karnataka Trade Directory operates as an online B2B business directory and commercial enterprise intelligence platform. Upon completing a payment via Razorpay, UPI, Credit/Debit Cards, or Net Banking, access to the selected verified business profiles and directory listings is delivered immediately in digital format (via dashboard unlock and downloadable Excel/CSV format).
             </p>
           </section>
 
@@ -50,7 +50,7 @@ export default function RefundPolicyPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">4. Refund Processing & Timelines</h2>
             <p className="text-[var(--text-muted)]">
-              To request a refund, please email our support desk at <a href="mailto:support@nivoleads.com" className="text-blue-500 font-semibold hover:underline">support@nivoleads.com</a> with your Order ID, registered email, and payment receipt.
+              To request a refund, please email our support desk at <a href="mailto:support@karnatakatradedirectory.com" className="text-blue-500 font-semibold hover:underline">support@karnatakatradedirectory.com</a> with your Order ID, registered email, and payment receipt.
             </p>
             <p className="text-[var(--text-muted)]">
               Approved refunds will be credited back to the original source payment method (Bank Account, Credit/Debit Card, or UPI handle) within <strong>5 to 7 business days</strong> as per standard Reserve Bank of India (RBI) and banking partner settlement cycles.
@@ -60,7 +60,7 @@ export default function RefundPolicyPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-[var(--text-main)]">5. Contact for Billing Grievances</h2>
             <p className="text-[var(--text-muted)]">
-              For any payment or billing inquiries, please reach out to our accounts team at <a href="mailto:support@nivoleads.com" className="text-blue-500 font-semibold hover:underline">support@nivoleads.com</a> or visit our <Link href="/contact" className="text-blue-500 font-semibold hover:underline">Contact Us page</Link>.
+              For any payment or billing inquiries, please reach out to our accounts team at <a href="mailto:support@karnatakatradedirectory.com" className="text-blue-500 font-semibold hover:underline">support@karnatakatradedirectory.com</a> or visit our <Link href="/contact" className="text-blue-500 font-semibold hover:underline">Contact Us page</Link>.
             </p>
           </section>
         </div>

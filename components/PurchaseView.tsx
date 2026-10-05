@@ -33,7 +33,7 @@ export default function PurchaseView({
         {justPaid && (
           <div className="mx-auto mb-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-4 py-1 text-xs font-bold text-emerald-500 border border-emerald-500/30">
             <span>🎉</span>
-            <span>Payment Successful & Data Unlocked</span>
+            <span>Payment Successful & Directory Report Unlocked</span>
           </div>
         )}
         <h2 className="text-3xl font-bold text-[var(--text-main)]">{district}</h2>
@@ -44,17 +44,17 @@ export default function PurchaseView({
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
           {startNumber && endNumber ? (
             <span className="badge-brand">
-              Contacts #{startNumber} to #{endNumber} ({quantity.toLocaleString("en-IN")} Unique Contacts)
+              Listings #{startNumber} to #{endNumber} ({quantity.toLocaleString("en-IN")} Verified Business Listings)
             </span>
           ) : (
             <span className="badge">
-              {quantity.toLocaleString("en-IN")} Contacts Purchased
+              {quantity.toLocaleString("en-IN")} Directory Listings Unlocked
             </span>
           )}
 
           {startNumber && startNumber > 1 && (
             <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-500 border border-emerald-500/30">
-              ✓ Guaranteed New Numbers Only
+              ✓ Deduplicated Enterprise Records
             </span>
           )}
         </div>
@@ -64,7 +64,7 @@ export default function PurchaseView({
             className="btn btn-primary mt-6 !px-10 !py-3.5 !text-base shadow-lg shadow-blue-500/25"
             onClick={() => setOpen(true)}
           >
-            Access & View Contacts Online →
+            Access & View Directory Listings →
           </button>
         )}
       </div>

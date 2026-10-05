@@ -103,7 +103,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        message: `Congratulations! "${newBusiness.name}" has been successfully listed on NivoLeads for free.`,
+        message: `Congratulations! "${newBusiness.name}" has been successfully listed on Karnataka Trade Directory for free.`,
         success: true,
         business: newBusiness,
       },

@@ -63,7 +63,7 @@ function ResetPasswordForm() {
         <div className="mx-auto flex justify-center mb-4">
           <Image
             src="/logo.png"
-            alt="NivoLeads"
+            alt="Karnataka Trade Directory"
             width={240}
             height={64}
             className="h-14 w-auto rounded-xl object-contain shadow-md"
@@ -72,7 +72,7 @@ function ResetPasswordForm() {
         </div>
         <h1 className="text-2xl font-bold text-[var(--text-main)]">Set New Password</h1>
         <p className="mt-1.5 text-xs text-[var(--text-muted)] leading-relaxed">
-          Create a new secure password for your NivoLeads account.
+          Create a new secure password for your Karnataka Trade Directory account.
         </p>
       </div>
 

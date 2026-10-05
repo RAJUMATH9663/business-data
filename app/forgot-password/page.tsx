@@ -46,7 +46,7 @@ export default function ForgotPasswordPage() {
         <div className="mx-auto flex justify-center mb-4">
           <Image
             src="/logo.png"
-            alt="NivoLeads"
+            alt="Karnataka Trade Directory"
             width={240}
             height={64}
             className="h-14 w-auto rounded-xl object-contain shadow-md"
