@@ -153,11 +153,13 @@ export default function ExploreFlow({
     return [100, 250, 500, 1000].filter((v) => v <= available || v === 100);
   }, [available]);
 
-  // Load categories whenever a district is chosen (using in-memory cache for instant switching)
+  // Load categories whenever a district is chosen (SWR: render instant, revalidate live)
   useEffect(() => {
     if (!district) return;
     
-    // Check cache first
+    let cancelled = false;
+
+    // Show cached categories immediately if available
     if (categoryCache.current[district.slug]) {
       const cached = categoryCache.current[district.slug];
       setCats(cached);
@@ -167,12 +169,12 @@ export default function ExploreFlow({
         wantedCat.current = null;
         if (c) pickCategory(c, district);
       }
-      return;
+    } else {
+      setCats(null);
+      setCatError("");
     }
 
-    let cancelled = false;
-    setCats(null);
-    setCatError("");
+    // Always revalidate with live server data
     fetch(`/api/catalog/categories?district=${encodeURIComponent(district.slug)}`)
       .then(async (r) => {
         const j = await r.json();
@@ -189,7 +191,11 @@ export default function ExploreFlow({
           if (c) pickCategory(c, district);
         }
       })
-      .catch((e) => !cancelled && setCatError(netErr(e)));
+      .catch((e) => {
+        if (!cancelled && !categoryCache.current[district.slug]) {
+          setCatError(netErr(e));
+        }
+      });
 
     return () => {
       cancelled = true;
