@@ -73,12 +73,11 @@ async function runProductionVerification() {
   }
 
   // 3. District Ingestion Verification
-  console.log("📊 Populated Districts Overview:");
-  for (const slug of ["bagalkote", "ballari", "belagavi", "bengaluru-rural"]) {
-    const d = districts.find((item) => item.slug === slug);
-    if (!d) continue;
+  console.log("📊 Populated Districts Overview (All 31 Districts):");
+  const sortedDistricts = [...districts].sort((a, b) => a.name.localeCompare(b.name));
+  for (const d of sortedDistricts) {
     const count = await prisma.business.count({ where: { districtId: d.id } });
-    console.log(`   - ${d.name.padEnd(12)} : ${count} verified leads across 20 categories`);
+    console.log(`   - ${d.name.padEnd(20)} : ${count} verified leads across 20 categories`);
   }
 
   console.log("\n==========================================================================");
