@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { computePrice } from "@/lib/pricing-core";
+import DownloadSampleButton from "@/components/DownloadSampleButton";
 
 type District = { id: number; name: string; slug: string };
 type Cat = { id: number; name: string; slug: string; icon: string; count: number; purchased?: number; available?: number };
@@ -506,9 +507,18 @@ export default function ExploreFlow({
       {district && category && (
         <section ref={qtyRef} aria-labelledby="s3" className="fade-in scroll-mt-20">
           <div className="card p-5 sm:p-7 shadow-lg border border-[var(--border-card)]">
-            <h2 id="s3" className="text-2xl font-bold">
-              {district.name} — {category.name}
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-[var(--border-card)]">
+              <h2 id="s3" className="text-2xl font-bold">
+                {district.name} — {category.name}
+              </h2>
+              <DownloadSampleButton
+                districtSlug={district.slug}
+                districtName={district.name}
+                categorySlug={category.slug}
+                categoryName={category.name}
+                variant="outline"
+              />
+            </div>
 
             {available === 0 && (
               <p className="card mt-3 p-4 text-sm text-[var(--text-muted)]">

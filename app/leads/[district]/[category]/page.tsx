@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getAppUrl } from "@/lib/seo";
+import DownloadSampleButton from "@/components/DownloadSampleButton";
 
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
@@ -228,6 +229,13 @@ export default async function DistrictCategoryLandingPage({
             >
               Export {category.name} Leads →
             </Link>
+            <DownloadSampleButton
+              districtSlug={district.slug}
+              districtName={district.name}
+              categorySlug={category.slug}
+              categoryName={category.name}
+              variant="outline"
+            />
             <Link
               href={`/leads/${district.slug}`}
               className="btn rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] px-4 py-2.5 text-xs font-semibold text-[var(--text-main)] hover:bg-[var(--tile-hover)] text-center"
@@ -259,6 +267,15 @@ export default async function DistrictCategoryLandingPage({
           </div>
         </div>
       </div>
+
+      {/* Free Sample Download High-Converting Banner */}
+      <DownloadSampleButton
+        districtSlug={district.slug}
+        districtName={district.name}
+        categorySlug={category.slug}
+        categoryName={category.name}
+        variant="banner"
+      />
 
       {/* Live Sample Preview Table */}
       <section className="space-y-4">

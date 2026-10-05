@@ -14,16 +14,24 @@ const DISTRICTS: [string, string][] = [
 ];
 
 const CATEGORIES: [string, string, string][] = [
-  ["🏥", "Healthcare", "healthcare"],
-  ["🎓", "Education & Training", "education-training"],
-  ["🏠", "Real Estate & Construction", "real-estate-construction"],
-  ["💪", "Health, Fitness & Beauty", "health-fitness-beauty"],
-  ["🍽️", "Food, Restaurants & Hotels", "food-restaurants-hotels"],
-  ["🛒", "Shopping & Retail", "shopping-retail"],
-  ["💻", "IT & Digital Services", "it-digital-services"],
-  ["⚖️", "Professional Services", "professional-services"],
-  ["🚗", "Automobile & Transport", "automobile-transport"],
-  ["🏭", "Industries & Manufacturing", "industries-manufacturing"],
+  ["🏥", "Hospitals & Clinics", "hospitals-clinics"],
+  ["🏠", "Real Estate", "real-estate"],
+  ["🎓", "Colleges & Universities", "colleges-universities"],
+  ["🏫", "Schools", "schools"],
+  ["📚", "Coaching & Training Institutes", "coaching-training-institutes"],
+  ["💪", "Gyms & Fitness Centers", "gyms-fitness-centers"],
+  ["💇", "Salons & Beauty Parlours", "salons-beauty-parlours"],
+  ["🍽️", "Restaurants & Hotels", "restaurants-hotels"],
+  ["🛒", "Retail & Supermarkets", "retail-supermarkets"],
+  ["🏗️", "Construction & Builders", "construction-builders"],
+  ["💻", "IT & Software Companies", "it-software-companies"],
+  ["📸", "Photography & Videography", "photography-videography"],
+  ["📢", "Digital Marketing & Advertising", "digital-marketing-advertising"],
+  ["⚖️", "Legal & CA Services", "legal-ca-services"],
+  ["🏦", "Finance, Insurance & Loans", "finance-insurance-loans"],
+  ["🚗", "Automobile & Dealers", "automobile-dealers"],
+  ["🏭", "Manufacturing & Industries", "manufacturing-industries"],
+  ["🚛", "Transport & Logistics", "transport-logistics"],
   ["✈️", "Travel & Tourism", "travel-tourism"],
   ["🌾", "Agriculture & Agro Businesses", "agriculture-agro-businesses"],
 ];
@@ -61,7 +69,30 @@ async function main() {
     const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     await prisma.district.upsert({ where: { name }, update: { code, slug }, create: { name, slug, code, sortOrder: i + 1 } });
   }
-  console.log("Seeding categories…");
+  console.log("Migrating and seeding categories…");
+  const migrationMap: Record<string, { name: string; slug: string; icon: string }> = {
+    "healthcare": { name: "Hospitals & Clinics", slug: "hospitals-clinics", icon: "🏥" },
+    "real-estate-construction": { name: "Real Estate", slug: "real-estate", icon: "🏠" },
+    "education-training": { name: "Colleges & Universities", slug: "colleges-universities", icon: "🎓" },
+    "health-fitness-beauty": { name: "Gyms & Fitness Centers", slug: "gyms-fitness-centers", icon: "💪" },
+    "food-restaurants-hotels": { name: "Restaurants & Hotels", slug: "restaurants-hotels", icon: "🍽️" },
+    "shopping-retail": { name: "Retail & Supermarkets", slug: "retail-supermarkets", icon: "🛒" },
+    "it-digital-services": { name: "IT & Software Companies", slug: "it-software-companies", icon: "💻" },
+    "professional-services": { name: "Legal & CA Services", slug: "legal-ca-services", icon: "⚖️" },
+    "automobile-transport": { name: "Automobile & Dealers", slug: "automobile-dealers", icon: "🚗" },
+    "industries-manufacturing": { name: "Manufacturing & Industries", slug: "manufacturing-industries", icon: "🏭" },
+  };
+
+  for (const [oldSlug, target] of Object.entries(migrationMap)) {
+    const existing = await prisma.category.findUnique({ where: { slug: oldSlug } });
+    if (existing) {
+      await prisma.category.update({
+        where: { id: existing.id },
+        data: { name: target.name, slug: target.slug, icon: target.icon },
+      });
+    }
+  }
+
   const validSlugs = CATEGORIES.map(([, , slug]) => slug);
   await prisma.category.deleteMany({
     where: {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getAppUrl } from "@/lib/seo";
+import DownloadSampleButton from "@/components/DownloadSampleButton";
 
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
@@ -223,6 +224,11 @@ export default async function DistrictLandingPage({
             >
               Explore & Download {district.name} Leads →
             </Link>
+            <DownloadSampleButton
+              districtSlug={district.slug}
+              districtName={district.name}
+              variant="outline"
+            />
           </div>
         </div>
 
@@ -250,6 +256,13 @@ export default async function DistrictLandingPage({
           </div>
         </div>
       </div>
+
+      {/* Free Sample Download High-Converting Banner */}
+      <DownloadSampleButton
+        districtSlug={district.slug}
+        districtName={district.name}
+        variant="banner"
+      />
 
       {/* Live Sample Preview Section (Google SEO Anti-Thin Content Proof) */}
       <section className="space-y-4">

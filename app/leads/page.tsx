@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getAppUrl } from "@/lib/seo";
+import DownloadSampleButton from "@/components/DownloadSampleButton";
 
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
@@ -125,6 +126,7 @@ export default async function LeadsDirectoryPage() {
             >
               Filter & Export Custom Leads →
             </Link>
+            <DownloadSampleButton variant="outline" />
           </div>
         </div>
 
@@ -150,6 +152,9 @@ export default async function LeadsDirectoryPage() {
           </div>
         </div>
       </div>
+
+      {/* Free Sample Leads Download Banner */}
+      <DownloadSampleButton variant="banner" />
 
       {/* Browse by District Section */}
       <section className="space-y-6">

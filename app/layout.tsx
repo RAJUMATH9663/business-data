@@ -271,25 +271,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
+            <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
+              <Link href="/about" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                About Us
+              </Link>
+              <span>·</span>
               <Link href="/leads" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
-                Leads Directory
+                Directory
               </Link>
               <span>·</span>
               <Link href="/explore" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                 Explore Data
               </Link>
               <span>·</span>
-              <Link href="/contact" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
-                Support & Contact
+              <Link href="/terms" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                Terms of Service
               </Link>
               <span>·</span>
               <Link href="/privacy" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                 Privacy Policy
               </Link>
               <span>·</span>
-              <Link href="/terms" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
-                Terms of Service
+              <Link href="/refund-policy" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                Refund Policy
+              </Link>
+              <span>·</span>
+              <Link href="/shipping-policy" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                Shipping & Delivery
+              </Link>
+              <span>·</span>
+              <Link href="/contact" className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                Contact Us
               </Link>
             </div>
 

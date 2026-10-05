@@ -43,6 +43,14 @@ export default async function Navbar() {
               </Link>
             ))}
 
+            <Link
+              href="/list-business"
+              className="rounded-xl px-3.5 py-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5"
+            >
+              <span>🚀</span>
+              <span>List Business Free</span>
+            </Link>
+
             {s?.user.role === "ADMIN" && (
               <Link
                 href="/admin"

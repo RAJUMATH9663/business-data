@@ -68,7 +68,7 @@ const benefits = [
   {
     icon: "✅",
     title: "100% Normalized Mobile Numbers",
-    desc: "Every lead includes a validated 10-digit mobile number stripped of duplicates, invalid formats, and dead numbers ready for cold calling and WhatsApp outreach.",
+    desc: "Every enterprise listing includes a validated 10-digit business phone number, formatted and checked against active telecom standards for verified commercial trade inquiries and business networking.",
   },
   {
     icon: "💰",
@@ -92,8 +92,8 @@ const faqs = [
     a: "Yes. NivoLeads is built on a scalable Country → State → City → Industry directory structure. While our deepest verified coverage currently starts across Karnataka's 31 districts in India, our database architecture natively scales to US business phone numbers, American company databases, and international B2B sales prospect lists.",
   },
   {
-    q: "How can freelancers and marketing agencies use NivoLeads for client acquisition?",
-    a: "Freelancers, web designers, digital marketing agencies, and SEO consultants use NivoLeads to find local and global business leads who need client services. Instead of spending days scraping Google Maps, agencies can purchase 100 to 1,000+ verified contacts in specific high-value sectors (like hospitals, real estate, gyms, or IT firms) to run high-converting outreach.",
+    q: "How can businesses and marketing agencies use NivoLeads?",
+    a: "Freelancers, web consultants, B2B vendors, and agencies use NivoLeads to discover commercial partners and corporate clients who need enterprise services. Instead of spending weeks manually searching directories, businesses can access verified profiles in specific high-value sectors (like hospitals, real estate, manufacturing, or retail) for commercial trade collaboration.",
   },
   {
     q: "Can I find hospital and clinic contact lists with direct phone numbers?",
@@ -162,7 +162,7 @@ export default function Home() {
 
           {/* Subtitle / Value Proposition */}
           <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-[var(--text-muted)] leading-relaxed">
-            High-accuracy B2B leads, company databases & local business phone numbers. Filter by country, region, and industry sector to acquire clean decision-maker contacts ready for sales prospecting.
+            Verified B2B company directory, corporate profiles & commercial business listings. Filter by region and industry sector to discover authentic commercial partners and business contacts for trade collaboration.
           </p>
 
           {/* Direct CTA Action Box */}

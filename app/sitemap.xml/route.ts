@@ -14,10 +14,13 @@ const DISTRICT_SLUGS = [
 ];
 
 const CATEGORY_SLUGS = [
-  "healthcare", "education-training", "real-estate-construction",
-  "health-fitness-beauty", "food-restaurants-hotels", "shopping-retail",
-  "it-digital-services", "professional-services", "automobile-transport",
-  "industries-manufacturing", "travel-tourism", "agriculture-agro-businesses"
+  "hospitals-clinics", "real-estate", "colleges-universities", "schools",
+  "coaching-training-institutes", "gyms-fitness-centers", "salons-beauty-parlours",
+  "restaurants-hotels", "retail-supermarkets", "construction-builders",
+  "it-software-companies", "photography-videography", "digital-marketing-advertising",
+  "legal-ca-services", "finance-insurance-loans", "automobile-dealers",
+  "manufacturing-industries", "transport-logistics", "travel-tourism",
+  "agriculture-agro-businesses"
 ];
 
 export async function GET() {
@@ -32,6 +35,7 @@ export async function GET() {
     { loc: "", priority: "1.0", changefreq: "daily" },
     { loc: "/leads", priority: "0.9", changefreq: "daily" },
     { loc: "/explore", priority: "0.9", changefreq: "daily" },
+    { loc: "/list-business", priority: "0.9", changefreq: "daily" },
     { loc: "/login", priority: "0.5", changefreq: "monthly" },
     { loc: "/register", priority: "0.6", changefreq: "monthly" },
     { loc: "/contact", priority: "0.5", changefreq: "monthly" },
