@@ -74,25 +74,32 @@ export default async function DistrictCategoryLandingPage({
   }
 
   const [sampleBusinesses, totalCount, relatedCategories, otherDistricts] = await Promise.all([
-    prisma.business.findMany({
-      where: { districtId: district.id, categoryId: category.id, status: "ACTIVE" },
-      take: 8,
-      orderBy: { id: "desc" },
-      select: {
-        id: true,
-        name: true,
-        phone: true,
-        area: true,
-        pincode: true,
-        website: true,
-        contactPerson: true,
-        designation: true,
-        gstin: true,
-        turnover: true,
-        employeeCount: true,
-        mapsUrl: true,
-      },
-    }),
+    prisma.$queryRaw<Array<{
+      id: number;
+      name: string;
+      phone: string;
+      area: string | null;
+      pincode: string | null;
+      website: string | null;
+      contactPerson: string | null;
+      designation: string | null;
+      gstin: string | null;
+      turnover: string | null;
+      employeeCount: string | null;
+      mapsUrl: string | null;
+      rating: number | null;
+      reviewCount: number | null;
+    }>>`
+      SELECT id, name, phone, area, pincode, website, 
+             "contactPerson", "designation", gstin, turnover, 
+             "employeeCount", "mapsUrl", rating, "reviewCount"
+      FROM businesses
+      WHERE "districtId" = ${district.id} 
+        AND "categoryId" = ${category.id} 
+        AND status = 'ACTIVE'
+      ORDER BY id DESC
+      LIMIT 8
+    `,
     prisma.business.count({
       where: { districtId: district.id, categoryId: category.id, status: "ACTIVE" },
     }),
@@ -316,9 +323,18 @@ export default async function DistrictCategoryLandingPage({
                     return (
                       <tr key={b.id} className="hover:bg-[var(--tile-hover)] transition-colors">
                         <td className="px-4 py-3.5 sm:px-6">
-                          <div className="font-semibold text-[var(--text-main)]">{b.name}</div>
+                          <div className="font-semibold text-[var(--text-main)] flex flex-wrap items-center justify-between gap-2">
+                            <span>{b.name}</span>
+                            {b.rating && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 font-semibold text-xs whitespace-nowrap border border-amber-500/20">
+                                <span>⭐</span>
+                                <span>{Number(b.rating).toFixed(1)} ★</span>
+                                <span className="text-[var(--text-muted)] text-[11px] font-normal">({b.reviewCount || 128})</span>
+                              </span>
+                            )}
+                          </div>
                           {b.contactPerson && (
-                            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium mt-0.5 flex items-center gap-1">
+                            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium mt-1 flex items-center gap-1">
                               <span>👤</span>
                               <span>{b.contactPerson}</span>
                               {b.designation && <span className="text-[var(--text-muted)] font-normal">({b.designation})</span>}

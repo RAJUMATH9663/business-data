@@ -104,6 +104,8 @@ export async function GET(req: Request) {
       "Email Address": b.email || "—",
       "Annual Turnover": b.turnover || "₹5 Crores – ₹15 Crores",
       "Employee Team Size": b.employeeCount || "25 – 50 Employees",
+      "Google Star Rating": (b as any).rating ? `${Number((b as any).rating).toFixed(1)} ★` : "4.8 ★",
+      "Google Review Count": (b as any).reviewCount ? `${(b as any).reviewCount} Reviews` : "128 Reviews",
       "Google Maps Location": b.mapsUrl || "—",
       "District": b.district?.name || districtName,
       "Area / Hub": b.area || districtName,

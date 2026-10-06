@@ -107,6 +107,8 @@ model Business {
   gstin         String?      @db.VarChar(20)
   turnover      String?      @db.VarChar(50)
   employeeCount String?      @db.VarChar(30)
+  rating        Float?
+  reviewCount   Int?
   status        RecordStatus @default(ACTIVE)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
