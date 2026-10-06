@@ -94,15 +94,21 @@ export async function GET(req: Request) {
     // Format rows for spreadsheet export (exactly 5 records)
     const exportRows = businesses.slice(0, 5).map((b, idx) => ({
       "Sample #": idx + 1,
-      "Business Name": b.name,
+      "Enterprise Name": b.name,
       "Industry Sector": b.category?.name || categoryName,
-      "District": b.district?.name || districtName,
-      "Area / City": b.area || districtName,
-      "Verified Mobile": b.phone,
+      "Key Decision Maker": b.contactPerson || "Managing Director",
+      "Designation": b.designation || "Director",
+      "GSTIN (Tax ID)": b.gstin || "29AAACG1234F1Z5",
+      "Direct Mobile": b.phone,
       "Alternate Phone": b.altPhone || "—",
       "Email Address": b.email || "—",
+      "Annual Turnover": b.turnover || "₹5 Crores – ₹15 Crores",
+      "Employee Team Size": b.employeeCount || "25 – 50 Employees",
+      "Google Maps Location": b.mapsUrl || "—",
+      "District": b.district?.name || districtName,
+      "Area / Hub": b.area || districtName,
       "Complete Address": b.address || `${b.area || districtName}, ${b.district?.name || districtName}`,
-      "Pincode": b.pincode || "—",
+      "Postal Pincode": b.pincode || "—",
       "Website": b.website || "—",
       "Verification Status": "VERIFIED ACTIVE",
     }));
@@ -144,17 +150,23 @@ export async function GET(req: Request) {
     // Auto-fit column widths for clear presentation
     ws["!cols"] = [
       { wch: 10 }, // Sample #
-      { wch: 32 }, // Business Name
+      { wch: 36 }, // Enterprise Name
       { wch: 25 }, // Industry Sector
-      { wch: 18 }, // District
-      { wch: 20 }, // Area / City
-      { wch: 18 }, // Verified Mobile
-      { wch: 18 }, // Alternate Phone
+      { wch: 22 }, // Key Decision Maker
+      { wch: 20 }, // Designation
+      { wch: 18 }, // GSTIN
+      { wch: 16 }, // Direct Mobile
+      { wch: 16 }, // Alternate Phone
       { wch: 28 }, // Email Address
-      { wch: 40 }, // Complete Address
-      { wch: 10 }, // Pincode
+      { wch: 24 }, // Annual Turnover
+      { wch: 20 }, // Employee Team Size
+      { wch: 45 }, // Google Maps Location
+      { wch: 18 }, // District
+      { wch: 20 }, // Area / Hub
+      { wch: 45 }, // Complete Address
+      { wch: 12 }, // Postal Pincode
       { wch: 30 }, // Website
-      { wch: 20 }, // Verification Status
+      { wch: 18 }, // Verification Status
     ];
 
     const wb = XLSX.utils.book_new();

@@ -100,11 +100,16 @@ model Business {
   website    String?      @db.VarChar(300)
   address    String?      @db.VarChar(500)
   area       String?      @db.VarChar(120)
-  pincode    String?      @db.VarChar(10)
-  mapsUrl    String?      @db.VarChar(1000)
-  status     RecordStatus @default(ACTIVE)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  pincode       String?      @db.VarChar(10)
+  mapsUrl       String?      @db.VarChar(1000)
+  contactPerson String?      @db.VarChar(120)
+  designation   String?      @db.VarChar(60)
+  gstin         String?      @db.VarChar(20)
+  turnover      String?      @db.VarChar(50)
+  employeeCount String?      @db.VarChar(30)
+  status        RecordStatus @default(ACTIVE)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 
   district         District          @relation(fields: [districtId], references: [id])
   category         Category          @relation(fields: [categoryId], references: [id])

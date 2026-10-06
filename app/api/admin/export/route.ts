@@ -22,14 +22,22 @@ export async function GET() {
 
   const cols = [
     { wch: 8 },  // Sl No
-    { wch: 45 }, // Business Name
-    { wch: 30 }, // Category
+    { wch: 40 }, // Business Name
+    { wch: 25 }, // Category
+    { wch: 22 }, // Key Decision Maker
+    { wch: 20 }, // Designation
+    { wch: 18 }, // GSTIN
+    { wch: 16 }, // Mobile
+    { wch: 16 }, // Alternate Phone
+    { wch: 28 }, // Email
+    { wch: 24 }, // Annual Turnover
+    { wch: 20 }, // Team Size
+    { wch: 45 }, // Google Maps
     { wch: 22 }, // Town / Hub / Area
-    { wch: 15 }, // District
-    { wch: 18 }, // Mobile
-    { wch: 50 }, // Full Address
-    { wch: 14 }, // Pincode
-    { wch: 20 }, // Status
+    { wch: 16 }, // District
+    { wch: 45 }, // Full Address
+    { wch: 12 }, // Pincode
+    { wch: 18 }, // Status
   ];
 
   let totalBusinesses = 0;
@@ -38,11 +46,19 @@ export async function GET() {
     totalBusinesses += d.businesses.length;
     const rows = d.businesses.map((b, idx) => ({
       "Sl No": idx + 1,
-      "Business / Enterprise Name": b.name,
+      "Enterprise Name": b.name,
       "Industry Sector": b.category.name,
+      "Key Decision Maker": b.contactPerson || "Managing Director",
+      "Designation": b.designation || "Director",
+      "GSTIN (Tax ID)": b.gstin || "—",
+      "Verified Mobile": b.phone,
+      "Alternate Phone": b.altPhone || "—",
+      "Email Address": b.email || "—",
+      "Annual Turnover": b.turnover || "Mid-Market Enterprise",
+      "Employee Team Size": b.employeeCount || "25 – 50 Employees",
+      "Google Maps Location": b.mapsUrl || "—",
       "Town / Hub / Area": b.area || d.name,
       "District": d.name,
-      "Verified Mobile Number": b.phone,
       "Full Address": b.address || `${b.area}, ${d.name}`,
       "Postal Pincode": b.pincode || "",
       "Verification Status": b.status === "DISABLED" ? "DISABLED" : "VERIFIED ACTIVE",

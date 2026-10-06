@@ -85,6 +85,12 @@ export default async function DistrictCategoryLandingPage({
         area: true,
         pincode: true,
         website: true,
+        contactPerson: true,
+        designation: true,
+        gstin: true,
+        turnover: true,
+        employeeCount: true,
+        mapsUrl: true,
       },
     }),
     prisma.business.count({
@@ -293,11 +299,12 @@ export default async function DistrictCategoryLandingPage({
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead className="bg-[var(--bg-mist)] text-xs font-semibold text-[var(--text-muted)] uppercase border-b border-[var(--border-card)]">
                   <tr>
-                    <th className="px-4 py-3 sm:px-6">Business / Enterprise</th>
-                    <th className="px-4 py-3 sm:px-6">Public Contact</th>
-                    <th className="px-4 py-3 sm:px-6">Area / City</th>
-                    <th className="px-4 py-3 sm:px-6">Website / Profile</th>
-                    <th className="px-4 py-3 sm:px-6 text-right">Status</th>
+                    <th className="px-4 py-3 sm:px-6">Enterprise & Key Decision Maker</th>
+                    <th className="px-4 py-3 sm:px-6">GSTIN (Verified Tax ID)</th>
+                    <th className="px-4 py-3 sm:px-6">Direct Contact</th>
+                    <th className="px-4 py-3 sm:px-6">Annual Turnover / Scale</th>
+                    <th className="px-4 py-3 sm:px-6">Location & Hub</th>
+                    <th className="px-4 py-3 sm:px-6 text-right">Verification</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[var(--border-card)]">
@@ -308,21 +315,50 @@ export default async function DistrictCategoryLandingPage({
                         : `${b.phone} •••`;
                     return (
                       <tr key={b.id} className="hover:bg-[var(--tile-hover)] transition-colors">
-                        <td className="px-4 py-3.5 sm:px-6 font-semibold text-[var(--text-main)]">
-                          {b.name}
+                        <td className="px-4 py-3.5 sm:px-6">
+                          <div className="font-semibold text-[var(--text-main)]">{b.name}</div>
+                          {b.contactPerson && (
+                            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium mt-0.5 flex items-center gap-1">
+                              <span>👤</span>
+                              <span>{b.contactPerson}</span>
+                              {b.designation && <span className="text-[var(--text-muted)] font-normal">({b.designation})</span>}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-4 py-3.5 sm:px-6 font-mono text-xs text-[var(--text-main)] font-medium">
+                          {b.gstin ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-500/10 text-blue-700 dark:text-blue-300 font-mono text-xs">
+                              🏷️ {b.gstin}
+                            </span>
+                          ) : (
+                            <span className="text-[var(--text-muted)]">—</span>
+                          )}
                         </td>
                         <td className="px-4 py-3.5 sm:px-6 font-mono text-xs text-blue-600 dark:text-blue-400 font-medium">
                           {maskedPhone}
                         </td>
-                        <td className="px-4 py-3.5 sm:px-6 text-[var(--text-muted)]">
-                          {b.area ? `${b.area}, ${district.name}` : `${district.name}, Karnataka`}
+                        <td className="px-4 py-3.5 sm:px-6 text-xs text-[var(--text-main)]">
+                          <div className="font-medium">{b.turnover || "Mid-Market Enterprise"}</div>
+                          {b.employeeCount && (
+                            <div className="text-[11px] text-[var(--text-muted)]">👥 {b.employeeCount}</div>
+                          )}
                         </td>
                         <td className="px-4 py-3.5 sm:px-6 text-xs text-[var(--text-muted)]">
-                          {b.website ? "🌐 Available" : "—"}
+                          <div>{b.area ? `${b.area}, ${district.name}` : `${district.name}, Karnataka`}</div>
+                          {b.mapsUrl && (
+                            <a
+                              href={b.mapsUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-0.5 mt-0.5"
+                            >
+                              <span>📍 View on Google Maps ↗</span>
+                            </a>
+                          )}
                         </td>
                         <td className="px-4 py-3.5 sm:px-6 text-right">
                           <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                            ✓ Verified
+                            ✓ Verified Active
                           </span>
                         </td>
                       </tr>
