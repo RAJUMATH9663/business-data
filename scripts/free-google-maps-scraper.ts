@@ -47,22 +47,69 @@ interface ScrapedPlace {
 }
 
 const CATEGORY_SEARCH_KEYWORDS: Record<string, string[]> = {
-  "travel-tourism": ["Travel agency", "Tours and Travels", "Car rentals", "Resorts", "Homestays"],
-  "healthcare": ["Hospitals", "Clinics", "Diagnostic center", "Medical center"],
-  "retail-supermarkets": ["Supermarket", "Department store", "Provision store"],
-  "industrial-manufacturing": ["Manufacturing company", "Engineering works", "Steel fabrication", "Foundry"],
-  "information-technology": ["Software company", "IT services", "Computer sales service"],
-  "education-coaching": ["Coaching center", "Colleges", "Public School"],
-  "food-processing-beverages": ["Food processing", "Rice mill", "Flour mill", "Oil mill"],
-  "transport-logistics": ["Logistics company", "Transporters", "Courier services"],
-  "agriculture-agro-businesses": ["Agro agencies", "Seeds fertilizers", "Tractor dealer"],
-  "textiles-apparel": ["Silk sarees", "Textile showroom", "Garments store"],
-  "hotels-restaurants-hospitality": ["Hotels", "Restaurants", "Lodging"],
-  "automotive-dealers-service": ["Car showroom", "Two wheeler service", "Auto parts"],
-  "construction-real-estate": ["Builders", "Real estate agency", "Building materials"],
-  "electrical-electronics-solar": ["Electricals", "Solar systems", "Electronics store"],
-  "pharmaceutical-ayurveda": ["Ayurvedic clinic", "Pharma distributor", "Medical store"],
-  "finance-insurance-loans": ["Financial services", "Cooperative bank", "Loan agency"],
+  "hospitals-clinics": ["Hospitals", "Clinics", "Diagnostic center", "Nursing home"],
+  "travel-tourism": ["Travel agency", "Tours and Travels", "Car rentals", "Resorts and Hotels"],
+  "restaurants-hotels": ["Restaurants", "Hotels and Lodges", "Pure Veg Restaurant", "Family Restaurant"],
+  "retail-supermarkets": ["Supermarket", "Departmental store", "Grocery store", "Provision store"],
+  "colleges-universities": ["Degree College", "Engineering College", "Polytechnic", "Medical College"],
+  "schools": ["Public School", "High School", "CBSE School"],
+  "coaching-training-institutes": ["Coaching center", "Tuition classes", "Computer training institute"],
+  "gyms-fitness-centers": ["Gym", "Fitness center", "Yoga center"],
+  "salons-beauty-parlours": ["Beauty parlour", "Hair salon", "Spa"],
+  "construction-builders": ["Builders and developers", "Building materials", "Cement and Steel supplier"],
+  "it-software-companies": ["Software company", "IT solutions", "Computer repair sales"],
+  "photography-videography": ["Photo studio", "Wedding photography", "Digital studio"],
+  "digital-marketing-advertising": ["Advertising agency", "Flex printing", "Digital marketing"],
+  "legal-ca-services": ["Chartered Accountants", "Tax consultant", "Advocates legal office"],
+  "finance-insurance-loans": ["Cooperative Bank", "Finance company", "Loan agency", "Insurance advisor"],
+  "automobile-dealers": ["Car showroom", "Two wheeler showroom", "Bike service center", "Auto spare parts"],
+  "manufacturing-industries": ["Manufacturing industry", "Engineering works", "Steel fabrication", "Foundry"],
+  "transport-logistics": ["Logistics company", "Transporters", "Courier service", "Lorry transport"],
+  "agriculture-agro-businesses": ["Agro agencies", "Seeds and fertilizers", "Tractor dealer", "APMC grain mandi"],
+  "real-estate": ["Real estate agent", "Property consultants", "Plot developers"],
+  "solar-renewable-energy": ["Solar rooftop company", "Solar panel dealers", "Inverter battery shop"],
+  "cold-storage-warehousing": ["Cold storage", "Warehouse", "Logistics park"],
+  "packaging-corrugated-boxes": ["Corrugated box manufacturer", "Packaging material", "Carton boxes"],
+  "coworking-commercial-parks": ["Commercial complex", "Business park", "Office space"],
+  "security-facility-manpower": ["Security services agency", "Facility management", "Manpower services"],
+  "biotechnology-medical-devices": ["Diagnostic lab", "Medical devices distributor", "Surgical supplies"],
+  "coffee-tea-plantation-estates": ["Coffee estate", "Tea plantation", "Estate office"],
+  "event-management-banquets": ["Kalyana Mantapa", "Convention center", "Banquet hall", "Event management"],
+};
+
+const CATEGORY_ALIASES: Record<string, string> = {
+  healthcare: "hospitals-clinics",
+  hospital: "hospitals-clinics",
+  hospitals: "hospitals-clinics",
+  clinic: "hospitals-clinics",
+  clinics: "hospitals-clinics",
+  hotels: "restaurants-hotels",
+  hotel: "restaurants-hotels",
+  restaurants: "restaurants-hotels",
+  restaurant: "restaurants-hotels",
+  supermarket: "retail-supermarkets",
+  supermarkets: "retail-supermarkets",
+  retail: "retail-supermarkets",
+  travel: "travel-tourism",
+  travels: "travel-tourism",
+  tourism: "travel-tourism",
+  education: "schools",
+  colleges: "colleges-universities",
+  college: "colleges-universities",
+  software: "it-software-companies",
+  it: "it-software-companies",
+  manufacturing: "manufacturing-industries",
+  industry: "manufacturing-industries",
+  industries: "manufacturing-industries",
+  automobile: "automobile-dealers",
+  automotive: "automobile-dealers",
+  transport: "transport-logistics",
+  logistics: "transport-logistics",
+  agriculture: "agriculture-agro-businesses",
+  agro: "agriculture-agro-businesses",
+  finance: "finance-insurance-loans",
+  construction: "construction-builders",
+  solar: "solar-renewable-energy",
 };
 
 async function scrapeCategory(
@@ -228,7 +275,16 @@ async function main() {
   const headless = !args.includes("--show-browser");
   const exportExcel = !args.includes("--no-export");
 
-  const district = await prisma.district.findUnique({ where: { slug: districtArg } });
+  const cleanDist = districtArg.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const district = await prisma.district.findFirst({
+    where: {
+      OR: [
+        { slug: districtArg.toLowerCase() },
+        { slug: { startsWith: cleanDist.slice(0, 7) } },
+        { name: { contains: districtArg, mode: "insensitive" } },
+      ],
+    },
+  });
   if (!district) {
     console.error(`❌ District "${districtArg}" not found in database.`);
     process.exit(1);
@@ -241,7 +297,17 @@ async function main() {
       orderBy: { sortOrder: "asc" },
     });
   } else {
-    const singleCat = await prisma.category.findUnique({ where: { slug: categoryArg } });
+    const rawCat = (categoryArg || "").toLowerCase().trim();
+    const mappedSlug = CATEGORY_ALIASES[rawCat] || rawCat;
+    const singleCat = await prisma.category.findFirst({
+      where: {
+        OR: [
+          { slug: mappedSlug },
+          { slug: { contains: rawCat } },
+          { name: { contains: rawCat, mode: "insensitive" } },
+        ],
+      },
+    });
     if (!singleCat) {
       console.error(`❌ Category "${categoryArg}" not found in database.`);
       process.exit(1);
