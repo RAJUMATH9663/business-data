@@ -51,6 +51,8 @@ interface PlaceItem {
   pincode?: string;
   website?: string;
   mapsUrl?: string;
+  rating?: number | null;
+  reviewCount?: number | null;
 }
 
 // 1. Try New Places API v1 ( searchText )
@@ -61,7 +63,7 @@ async function fetchViaPlacesV1(query: string, apiKey: string): Promise<PlaceIte
     headers: {
       "Content-Type": "application/json",
       "X-Goog-Api-Key": apiKey,
-      "X-Goog-FieldMask": "places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.googleMapsUri,places.addressComponents",
+      "X-Goog-FieldMask": "places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.googleMapsUri,places.addressComponents,places.rating,places.userRatingCount",
     },
     body: JSON.stringify({ textQuery: query }),
   });
@@ -97,6 +99,8 @@ async function fetchViaPlacesV1(query: string, apiKey: string): Promise<PlaceIte
       pincode,
       website: p.websiteUri,
       mapsUrl: p.googleMapsUri,
+      rating: p.rating ? Number(p.rating) : null,
+      reviewCount: p.userRatingCount ? Number(p.userRatingCount) : null,
     };
   });
 }
@@ -251,6 +255,8 @@ async function main() {
         pincode: item.pincode || null,
         website: item.website || null,
         mapsUrl: item.mapsUrl || null,
+        rating: item.rating || null,
+        reviewCount: item.reviewCount || null,
         status: "ACTIVE",
       },
     });
