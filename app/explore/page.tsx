@@ -9,9 +9,9 @@ export async function generateMetadata({
   searchParams: { d?: string; c?: string };
 }): Promise<Metadata> {
   const { d, c } = searchParams;
-  let title = "Explore Karnataka Trade Directory | B2B Business Listings & Market Reports";
+  let title = "Explore B2B Business Leads & Company Directory | NivoLeads";
   let description =
-    "Browse verified Karnataka enterprise directory profiles, commercial listings, and industry trade intelligence across 31 districts and 20+ sectors.";
+    "Browse verified Karnataka enterprise directory profiles, commercial listings, and business intelligence across 31 districts and 20+ sectors.";
 
   try {
     if (d && c) {
@@ -20,13 +20,13 @@ export async function generateMetadata({
         prisma.category.findUnique({ where: { slug: c }, select: { name: true } }),
       ]);
       if (district && category) {
-        title = `${category.name} in ${district.name} — B2B Trade Directory & Business Listings`;
+        title = `${category.name} in ${district.name} — B2B Directory & Business Leads`;
         description = `Browse verified ${category.name} enterprises, business addresses, and commercial directory profiles in ${district.name}, Karnataka. Instant digital access and verified trade reports.`;
       }
     } else if (d) {
       const district = await prisma.district.findUnique({ where: { slug: d }, select: { name: true } });
       if (district) {
-        title = `${district.name} B2B Trade Directory & Commercial Business Index`;
+        title = `${district.name} B2B Directory & Commercial Business Index`;
         description = `Access verified enterprise listings and commercial business profiles in ${district.name}, Karnataka across all major industries. Instant directory access.`;
       }
     } else if (c) {

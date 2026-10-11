@@ -1,5 +1,5 @@
 /**
- * SEO & Canonical URL Helper for Karnataka Trade Directory
+ * SEO & Canonical URL Helper for NivoLeads B2B
  * Ensures consistent domain resolution across local, preview, and production environments.
  */
 
@@ -17,7 +17,7 @@ export function getAppUrl(): string {
     return `https://${process.env.VERCEL_URL}`.replace(/\/$/, "");
   }
 
-  return "https://karnatakatradedirectory.com";
+  return "https://nivoleads.com";
 }
 
 export function absoluteUrl(path: string = ""): string {

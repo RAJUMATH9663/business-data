@@ -1,6 +1,6 @@
-# Karnataka Trade Directory
+# NivoLeads — B2B Business Leads & Company Directory
 
-> Karnataka Trade Directory is an authenticated B2B commercial directory and public merchant registry index providing verified enterprise listings, trade discovery, and market research intelligence across all 31 districts of Karnataka.
+> NivoLeads is an authenticated B2B commercial directory and public merchant registry index providing verified enterprise listings, trade discovery, and market research intelligence across all 31 districts of Karnataka.
 
 ## Core Capabilities & Offerings
 - **Public Merchant Registry**: Standardized business trade profiles featuring official company names, trade classifications, commercial addresses, verified mobile helplines, and web portals.

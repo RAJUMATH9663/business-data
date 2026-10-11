@@ -11,13 +11,13 @@ const appUrl = getAppUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "Karnataka Trade Directory | Verified B2B Enterprise Index & Commercial Listings",
-    template: "%s · Karnataka Trade Directory",
+    default: "NivoLeads | Verified B2B Enterprise Index & Commercial Listings",
+    template: "%s · NivoLeads",
   },
   description:
     "Explore verified commercial business listings, enterprise directory profiles, and local trade registries across all 31 districts of Karnataka. Instant Excel export for B2B procurement and market research.",
   keywords: [
-    "Karnataka trade directory",
+    "B2B trade directory",
     "Karnataka business directory",
     "B2B commerce directory Karnataka",
     "Karnataka merchant index",
@@ -40,15 +40,17 @@ export const metadata: Metadata = {
     "Mangaluru trade directory",
 
     // 🚀 Brand Keywords
-    "Karnataka Trade Directory",
+    "NivoLeads",
+    "Nivo Leads",
+    "NivoLeads B2B",
     "Karnataka B2B Directory",
     "Karnataka Commerce Index",
     "Karnataka Merchant Registry",
     "Karnataka Business Portal",
   ],
-  authors: [{ name: "Karnataka Trade Directory Team" }],
-  creator: "Karnataka Trade Directory",
-  publisher: "Karnataka Trade Directory",
+  authors: [{ name: "NivoLeads Team" }],
+  creator: "NivoLeads",
+  publisher: "NivoLeads",
   formatDetection: {
     email: false,
     address: false,
@@ -69,8 +71,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: appUrl,
-    siteName: "Karnataka Trade Directory",
-    title: "Karnataka Trade Directory | Verified B2B Enterprise Index & Commercial Listings",
+    siteName: "NivoLeads",
+    title: "NivoLeads | Verified B2B Enterprise Index & Commercial Listings",
     description:
       "Explore verified commercial enterprise directory profiles, registered businesses, and local trade listings across all 31 districts of Karnataka.",
     images: [
@@ -78,13 +80,13 @@ export const metadata: Metadata = {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Karnataka Trade Directory — B2B Enterprise Index & Commercial Listings",
+        alt: "NivoLeads — B2B Enterprise Index & Commercial Listings",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Karnataka Trade Directory | Verified B2B Enterprise Index & Commercial Listings",
+    title: "NivoLeads | Verified B2B Enterprise Index & Commercial Listings",
     description:
       "Explore verified commercial enterprise directory profiles, registered businesses, and local trade listings across all 31 districts of Karnataka.",
     images: ["/logo.png"],
@@ -140,7 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {
                   "@type": "Organization",
                   "@id": `${appUrl}/#organization`,
-                  name: "Karnataka Trade Directory",
+                  name: "NivoLeads",
                   url: appUrl,
                   logo: `${appUrl}/logo.png`,
                   description:
@@ -148,14 +150,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "Customer Support",
-                    email: "support@karnatakatradedirectory.com",
+                    email: "support@nivoleads.com",
                   },
                 },
                 {
                   "@type": "WebSite",
                   "@id": `${appUrl}/#website`,
                   url: appUrl,
-                  name: "Karnataka Trade Directory",
+                  name: "NivoLeads",
                   description: "Verified B2B Business Directory & Commercial Enterprise Registry in Karnataka",
                   publisher: {
                     "@id": `${appUrl}/#organization`,
@@ -192,14 +194,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex items-center gap-3">
               <Image
                 src="/logo.png"
-                alt="Karnataka Trade Directory"
+                alt="NivoLeads"
                 width={40}
                 height={40}
                 className="h-10 w-10 rounded-xl object-contain shadow-sm"
               />
               <div>
-                <div className="text-base font-bold text-[var(--text-main)]">Karnataka <span className="text-blue-500">Trade Directory</span></div>
-                <div className="text-[var(--text-muted)]">Verified B2B Commercial Enterprise Registry</div>
+                <div className="text-base font-bold text-[var(--text-main)]">Nivo<span className="text-blue-500">Leads</span></div>
+                <div className="text-[var(--text-muted)]">Verified B2B & Commercial Directory</div>
               </div>
             </div>
 
@@ -238,7 +240,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="text-center sm:text-right text-[var(--text-muted)]">
-              © {new Date().getFullYear()} Karnataka Trade Directory. All rights reserved.
+              © {new Date().getFullYear()} NivoLeads. All rights reserved.
             </div>
           </div>
         </footer>

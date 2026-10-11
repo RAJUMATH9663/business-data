@@ -5,7 +5,7 @@ import { formatDate, rupees } from "@/lib/format";
 import PurchaseView from "@/components/PurchaseView";
 import { StatusBadge } from "@/components/ui";
 
-export const metadata = { title: "Order Details | Karnataka Trade Directory" };
+export const metadata = { title: "Order Details | NivoLeads" };
 
 const STATUS_HELP: Record<string, string> = {
   PENDING: "This payment has not been completed. If money was deducted it will be confirmed automatically within a few minutes.",

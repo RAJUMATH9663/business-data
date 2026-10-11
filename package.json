@@ -15,7 +15,12 @@
     "seed": "prisma db seed",
     "test:unit": "tsx scripts/unit-tests.ts",
     "scrape:places": "tsx scripts/scrape-google-places.ts",
-    "scrape:free": "tsx scripts/free-google-maps-scraper.ts"
+    "scrape:free": "tsx scripts/free-google-maps-scraper.ts",
+    "scrape:bagalkote": "tsx scripts/free-google-maps-scraper.ts --district=bagalkote --all-categories --max=20",
+    "scrape:ballari": "tsx scripts/auto-deep-scraper.ts --district=ballari",
+    "scrape:all": "tsx scripts/master-karnataka-scraper.ts",
+    "scrape:fast": "tsx scripts/ultra-fast-karnataka-scraper.ts",
+    "verify:audit": "tsx scripts/audit-and-verify-data.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

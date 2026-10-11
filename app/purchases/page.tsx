@@ -5,7 +5,7 @@ import { formatDate, rupees } from "@/lib/format";
 import { StatusBadge } from "@/components/ui";
 
 export const metadata = {
-  title: "My Orders & Unlocked Directory Reports | Karnataka Trade Directory",
+  title: "My Orders & Unlocked Reports | NivoLeads",
   description: "View and access your unlocked verified business directory reports and commercial listings.",
 };
 

@@ -379,7 +379,7 @@ export default function ListBusinessForm({
 
       <div className="border-t border-[var(--border-card)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-xs text-[var(--text-muted)]">
-          🔒 By submitting, you agree to list your business profile on Karnataka Trade Directory.
+          🔒 By submitting, you agree to list your business profile on NivoLeads.
         </p>
         <button
           type="submit"

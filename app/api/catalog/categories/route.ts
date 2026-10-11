@@ -1,32 +1,25 @@
 import { handler, json, limit, ApiError } from "@/lib/api";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { getCachedMetadata, getDistrictCategoryCounts } from "@/lib/catalog-cache";
 
 export const dynamic = "force-dynamic";
 
 // Returns category listing and live counts, accounting for contacts already purchased by the logged-in user.
 export const GET = handler(async (req) => {
-  limit(req, "catalog", 120, 60_000);
+  limit(req, "catalog", 240, 60_000);
   const slug = req.nextUrl.searchParams.get("district") ?? "";
 
-  const [district, session, cats] = await Promise.all([
-    prisma.district.findFirst({ where: { slug, status: "ACTIVE" }, select: { id: true, name: true, slug: true } }),
+  const [{ districts, categories }, session] = await Promise.all([
+    getCachedMetadata(),
     getSession(),
-    prisma.category.findMany({
-      where: { status: "ACTIVE" },
-      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-      select: { id: true, name: true, slug: true, icon: true },
-    }),
   ]);
 
+  const district = districts.find((d) => d.slug === slug);
   if (!district) throw new ApiError(404, "District not found");
 
-  const [counts, purchasedRows] = await Promise.all([
-    prisma.business.groupBy({
-      by: ["categoryId"],
-      where: { districtId: district.id, status: "ACTIVE" },
-      _count: { _all: true },
-    }),
+  const [totalMap, purchasedRows] = await Promise.all([
+    getDistrictCategoryCounts(district.id),
     session?.user.id
       ? prisma.purchaseContact.findMany({
           where: {
@@ -45,8 +38,6 @@ export const GET = handler(async (req) => {
       : Promise.resolve([]),
   ]);
 
-  const totalMap = new Map(counts.map((c) => [c.categoryId, c._count._all]));
-
   // Count already purchased per category
   const purchasedMap = new Map<number, number>();
   for (const r of purchasedRows) {
@@ -55,7 +46,7 @@ export const GET = handler(async (req) => {
   }
 
   return json({
-    categories: cats.map((c) => {
+    categories: categories.map((c) => {
       const total = totalMap.get(c.id) ?? 0;
       const purchased = purchasedMap.get(c.id) ?? 0;
       const available = Math.max(0, total - purchased);

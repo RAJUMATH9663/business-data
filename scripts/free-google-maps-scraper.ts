@@ -47,34 +47,34 @@ interface ScrapedPlace {
 }
 
 const CATEGORY_SEARCH_KEYWORDS: Record<string, string[]> = {
-  "hospitals-clinics": ["Hospitals", "Clinics", "Diagnostic center", "Nursing home"],
-  "travel-tourism": ["Travel agency", "Tours and Travels", "Car rentals", "Resorts and Hotels"],
-  "restaurants-hotels": ["Restaurants", "Hotels and Lodges", "Pure Veg Restaurant", "Family Restaurant"],
-  "retail-supermarkets": ["Supermarket", "Departmental store", "Grocery store", "Provision store"],
-  "colleges-universities": ["Degree College", "Engineering College", "Polytechnic", "Medical College"],
-  "schools": ["Public School", "High School", "CBSE School"],
-  "coaching-training-institutes": ["Coaching center", "Tuition classes", "Computer training institute"],
-  "gyms-fitness-centers": ["Gym", "Fitness center", "Yoga center"],
-  "salons-beauty-parlours": ["Beauty parlour", "Hair salon", "Spa"],
-  "construction-builders": ["Builders and developers", "Building materials", "Cement and Steel supplier"],
-  "it-software-companies": ["Software company", "IT solutions", "Computer repair sales"],
+  "hospitals-clinics": ["Hospitals", "Clinics", "Diagnostic center", "Nursing home", "Ayurvedic Hospital"],
+  "travel-tourism": ["Travel agency", "Tours and Travels", "Car rentals", "Resorts and Hotels", "Homestay"],
+  "restaurants-hotels": ["Restaurants", "Hotels and Lodges", "Pure Veg Restaurant", "Family Restaurant", "Dhaba"],
+  "retail-supermarkets": ["Supermarket", "Departmental store", "Grocery store", "Provision store", "Cloth store"],
+  "colleges-universities": ["Degree College", "Engineering College", "Polytechnic", "Medical College", "PU College"],
+  "schools": ["Public School", "High School", "CBSE School", "International School"],
+  "coaching-training-institutes": ["Coaching center", "Tuition classes", "Computer training institute", "Competitive exam coaching"],
+  "gyms-fitness-centers": ["Gym", "Fitness center", "Yoga center", "Crossfit gym"],
+  "salons-beauty-parlours": ["Beauty parlour", "Hair salon", "Spa and wellness", "Men salon"],
+  "construction-builders": ["Builders and developers", "Building materials", "Cement and Steel supplier", "Granite and Marble"],
+  "it-software-companies": ["Software company", "IT solutions", "Computer sales and service", "Web development"],
   "photography-videography": ["Photo studio", "Wedding photography", "Digital studio"],
-  "digital-marketing-advertising": ["Advertising agency", "Flex printing", "Digital marketing"],
-  "legal-ca-services": ["Chartered Accountants", "Tax consultant", "Advocates legal office"],
-  "finance-insurance-loans": ["Cooperative Bank", "Finance company", "Loan agency", "Insurance advisor"],
-  "automobile-dealers": ["Car showroom", "Two wheeler showroom", "Bike service center", "Auto spare parts"],
-  "manufacturing-industries": ["Manufacturing industry", "Engineering works", "Steel fabrication", "Foundry"],
-  "transport-logistics": ["Logistics company", "Transporters", "Courier service", "Lorry transport"],
-  "agriculture-agro-businesses": ["Agro agencies", "Seeds and fertilizers", "Tractor dealer", "APMC grain mandi"],
-  "real-estate": ["Real estate agent", "Property consultants", "Plot developers"],
+  "digital-marketing-advertising": ["Advertising agency", "Flex printing", "Digital marketing", "Offset Printers"],
+  "legal-ca-services": ["Chartered Accountants", "Tax consultant", "Advocates legal office", "Auditor"],
+  "finance-insurance-loans": ["Cooperative Bank", "Finance company", "Loan agency", "Insurance advisor", "Gramin Bank"],
+  "automobile-dealers": ["Car showroom", "Two wheeler showroom", "Bike service center", "Auto spare parts", "Tractor dealer"],
+  "manufacturing-industries": ["Manufacturing industry", "Engineering works", "Steel fabrication", "Foundry", "Sugar factory"],
+  "transport-logistics": ["Logistics company", "Transporters", "Courier service", "Lorry transport", "Cargo packers"],
+  "agriculture-agro-businesses": ["Agro agencies", "Seeds and fertilizers", "Tractor dealer", "APMC grain mandi", "Pesticides shop"],
+  "real-estate": ["Real estate agent", "Property consultants", "Plot developers", "Layout promoters"],
   "solar-renewable-energy": ["Solar rooftop company", "Solar panel dealers", "Inverter battery shop"],
-  "cold-storage-warehousing": ["Cold storage", "Warehouse", "Logistics park"],
-  "packaging-corrugated-boxes": ["Corrugated box manufacturer", "Packaging material", "Carton boxes"],
-  "coworking-commercial-parks": ["Commercial complex", "Business park", "Office space"],
-  "security-facility-manpower": ["Security services agency", "Facility management", "Manpower services"],
-  "biotechnology-medical-devices": ["Diagnostic lab", "Medical devices distributor", "Surgical supplies"],
-  "coffee-tea-plantation-estates": ["Coffee estate", "Tea plantation", "Estate office"],
-  "event-management-banquets": ["Kalyana Mantapa", "Convention center", "Banquet hall", "Event management"],
+  "cold-storage-warehousing": ["Cold storage", "Warehouse", "Logistics park", "Godown"],
+  "packaging-corrugated-boxes": ["Corrugated box manufacturer", "Packaging material", "Carton boxes", "Polythene packaging"],
+  "coworking-business-parks": ["Commercial complex", "Business park", "Office space", "Coworking"],
+  "security-facility-management": ["Security services agency", "Facility management", "Manpower services", "Housekeeping services"],
+  "biotechnology-medical-devices": ["Diagnostic lab", "Medical devices distributor", "Surgical supplies", "Pharma distributor"],
+  "coffee-tea-plantations": ["Coffee estate", "Tea plantation", "Estate office", "Spices plantation"],
+  "events-exhibitions-banquets": ["Kalyana Mantapa", "Convention center", "Banquet hall", "Event management"],
 };
 
 const CATEGORY_ALIASES: Record<string, string> = {
@@ -112,25 +112,64 @@ const CATEGORY_ALIASES: Record<string, string> = {
   solar: "solar-renewable-energy",
 };
 
+const DISTRICT_HUBS: Record<string, string[]> = {
+  bagalkote: ["Bagalkot", "Badami", "Aihole", "Pattadakal", "Ilkal", "Guledgudda", "Jamkhandi", "Mudhol", "Banhatti", "Mahalingpur", "Bilagi", "Hunagund"],
+  mandya: ["Mandya", "Maddur", "Malavalli", "Pandavapura", "Srirangapatna", "KR Pet", "Nagamangala"],
+  "bengaluru-urban": ["Bengaluru", "Koramangala", "Indiranagar", "Whitefield", "HSR Layout", "Jayanagar", "Electronic City", "Yelahanka"],
+  "bengaluru-rural": ["Doddaballapura", "Devanahalli", "Hosakote", "Nelamangala"],
+  mysuru: ["Mysuru", "Nanjangud", "Hunsur", "T Narasipura", "KR Nagara"],
+  belagavi: ["Belagavi", "Gokak", "Chikkodi", "Athani", "Bailhongal", "Nipani"],
+  dharwad: ["Hubballi", "Dharwad", "Navalgund", "Kundgol", "Kalghatgi"],
+  ballari: ["Ballari", "Hosapete", "Sandur", "Siruguppa", "Kudligi"],
+  tumakuru: ["Tumakuru", "Tiptur", "Kunigal", "Sira", "Madhugiri"],
+  shivamogga: ["Shivamogga", "Bhadravathi", "Sagara", "Shikaripura", "Thirthahalli"],
+  dakshina_kannada: ["Mangaluru", "Bantwal", "Puttur", "Belthangady", "Sullia"],
+  udupi: ["Udupi", "Kundapura", "Karkala", "Manipal"],
+  hassan: ["Hassan", "Arsikere", "Channarayapatna", "Holenarasipura", "Sakleshpur"],
+  davangere: ["Davangere", "Harihara", "Honnali", "Channagiri", "Jagalur"],
+  kalaburagi: ["Kalaburagi", "Sedam", "Chincholi", "Aland", "Afzalpur"],
+  vijayapura: ["Vijayapura", "Indi", "Sindagi", "Basavana Bagewadi", "Muddebihal"],
+  raichur: ["Raichur", "Sindhanur", "Manvi", "Devadurga", "Lingasugur"],
+  koppal: ["Koppal", "Gangavathi", "Kushtagi", "Yelburga"],
+  gadag: ["Gadag", "Betageri", "Ron", "Shirhatti", "Nargund"],
+  uttara_kannada: ["Karwar", "Sirsi", "Kumta", "Bhatkal", "Ankola", "Honavar"],
+  chikkamagaluru: ["Chikkamagaluru", "Tarikere", "Kadur", "Mudigere", "Koppa"],
+  kodagu: ["Madikeri", "Virajpet", "Somwarpet", "Kushalnagar"],
+};
+
 async function scrapeCategory(
   browser: any,
   districtName: string,
   districtSlug: string,
   categoryName: string,
   categorySlug: string,
-  maxLimit: number
+  maxLimit: number,
+  customTowns?: string[]
 ): Promise<ScrapedPlace[]> {
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 900 });
 
   const keywords = CATEGORY_SEARCH_KEYWORDS[categorySlug] || [categoryName];
+  const hubs = customTowns && customTowns.length > 0 ? customTowns : (DISTRICT_HUBS[districtSlug] || [districtName]);
   const scraped: ScrapedPlace[] = [];
   const seenUrls = new Set<string>();
 
-  for (const kw of keywords) {
+  // Build list of target queries (combining keywords + district hubs / towns)
+  const searchQueries: string[] = [];
+  for (const hub of hubs) {
+    for (const kw of keywords) {
+      if (hub.toLowerCase() === districtName.toLowerCase()) {
+        searchQueries.push(`${kw} in ${districtName} Karnataka`);
+      } else {
+        searchQueries.push(`${kw} in ${hub} ${districtName} Karnataka`);
+        searchQueries.push(`${kw} near ${hub} Karnataka`);
+      }
+    }
+  }
+
+  for (const query of searchQueries) {
     if (scraped.length >= maxLimit) break;
 
-    const query = `${kw} in ${districtName} Karnataka`;
     const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}?hl=en`;
     console.log(`\n🔍 Searching Google Maps: "${query}"...`);
 
@@ -149,7 +188,6 @@ async function scrapeCategory(
       });
       console.log(`   ↳ Direct single place opened: "${singleName}"`);
       seenUrls.add(currentUrl);
-      // We will process this single place
     }
 
     // Scroll feed to load multiple listings
@@ -158,9 +196,9 @@ async function scrapeCategory(
       await page.evaluate(async () => {
         const feed = document.querySelector('div[role="feed"]');
         if (feed) {
-          for (let i = 0; i < 3; i++) {
+          for (let i = 0; i < 5; i++) {
             feed.scrollTop = feed.scrollHeight;
-            await new Promise((r) => setTimeout(r, 1000));
+            await new Promise((r) => setTimeout(r, 800));
           }
         }
       });
@@ -168,7 +206,7 @@ async function scrapeCategory(
       // Continue
     }
 
-    // Collect place links (using official a.hfpxzc and a[href*="/maps/place/"])
+    // Collect place links
     const listingLinks: Array<{ name: string; url: string }> = await page.evaluate(() => {
       const list: Array<{ name: string; url: string }> = [];
       const links = document.querySelectorAll('a.hfpxzc, a[href*="/maps/place/"]');
@@ -182,7 +220,7 @@ async function scrapeCategory(
       return list;
     });
 
-    console.log(`   ↳ Found ${listingLinks.length} listings for "${kw}".`);
+    console.log(`   ↳ Found ${listingLinks.length} listings for query.`);
 
     for (const item of listingLinks) {
       if (scraped.length >= maxLimit) break;
@@ -190,8 +228,8 @@ async function scrapeCategory(
       seenUrls.add(item.url);
 
       try {
-        await page.goto(item.url, { waitUntil: "networkidle2", timeout: 15000 });
-        await page.waitForSelector('h1, button[data-item-id^="phone:tel:"]', { timeout: 3500 }).catch(() => {});
+        await page.goto(item.url, { waitUntil: "domcontentloaded", timeout: 12000 });
+        await page.waitForSelector('h1, button[data-item-id^="phone:tel:"]', { timeout: 2500 }).catch(() => {});
 
         const details = await page.evaluate(() => {
           const titleEl = document.querySelector("h1.DUwDvf, h1");
@@ -236,10 +274,24 @@ async function scrapeCategory(
         const fullAddress = details.address || `${districtName}, Karnataka - ${pincode}`;
 
         let area = districtName;
+        const knownTowns = [
+          "Badami", "Aihole", "Pattadakal", "Ilkal", "Guledgudda",
+          "Jamkhandi", "Mudhol", "Banhatti", "Mahalingpur", "Bilagi",
+          "Hunagund", "Navanagar", "Vidyagiri", "Maddur", "Malavalli",
+          "Pandavapura", "Srirangapatna", "KR Pet", "Nagamangala"
+        ];
         if (details.address) {
-          const parts = details.address.split(",");
-          if (parts.length > 2) {
-            area = parts[parts.length - 3].trim();
+          for (const kt of knownTowns) {
+            if (new RegExp(`\\b${kt}\\b`, "i").test(details.address)) {
+              area = kt;
+              break;
+            }
+          }
+          if (area === districtName) {
+            const parts = details.address.split(",");
+            if (parts.length > 2) {
+              area = parts[parts.length - 3].trim();
+            }
           }
         }
 
@@ -290,6 +342,9 @@ async function main() {
     process.exit(1);
   }
 
+  const townArg = args.find((a) => a.startsWith("--town=") || a.startsWith("--towns="))?.split("=")[1];
+  const customTowns = townArg ? townArg.split(",").map((t) => t.trim()).filter(Boolean) : undefined;
+
   let categoriesToScrape = [];
   if (allCategories) {
     categoriesToScrape = await prisma.category.findMany({
@@ -319,6 +374,9 @@ async function main() {
   console.log("🌐 100% FREE GOOGLE MAPS REAL LEAD SCRAPER (NO API KEY / NO BILLING)");
   console.log("==========================================================================");
   console.log(`📍 District   : ${district.name} (${district.slug})`);
+  if (customTowns && customTowns.length > 0) {
+    console.log(`🏛️ Focus Towns: ${customTowns.join(", ")}`);
+  }
   console.log(`📁 Categories : ${categoriesToScrape.length} categories to process`);
   console.log(`🎯 Limit      : Up to ${maxLimit} verified places per category`);
   console.log(`⚙️ Mode       : Headless Browser (Edge Automator)`);
@@ -340,10 +398,34 @@ async function main() {
   let grandUpdated = 0;
   const allExportRows: Array<Record<string, unknown>> = [];
 
+  const force = args.includes("--force") || args.includes("--refresh");
+
   for (let cIdx = 0; cIdx < categoriesToScrape.length; cIdx++) {
     const cat = categoriesToScrape[cIdx];
+    
+    // Check how many verified businesses already exist for this district & category
+    const existingCount = await prisma.business.count({
+      where: {
+        districtId: district.id,
+        categoryId: cat.id,
+      },
+    });
+
+    if (!force && existingCount >= maxLimit) {
+      console.log(`\n==========================================================================`);
+      console.log(`[${cIdx + 1}/${categoriesToScrape.length}] 📂 Sector: ${cat.name} (${cat.slug})`);
+      console.log(`   ⏩ Already has ${existingCount} verified places in DB (Target: ${maxLimit}). Skipping!`);
+      console.log(`==========================================================================`);
+      continue;
+    }
+
+    const needed = force ? maxLimit : maxLimit - existingCount;
+
     console.log(`\n==========================================================================`);
     console.log(`[${cIdx + 1}/${categoriesToScrape.length}] 📂 Processing Sector: ${cat.name} (${cat.slug})`);
+    if (existingCount > 0) {
+      console.log(`   📊 Existing in DB: ${existingCount} | 🎯 Searching for ${needed} more new places across ${district.name} taluks`);
+    }
     console.log(`==========================================================================`);
 
     const scrapedResults = await scrapeCategory(
@@ -352,7 +434,8 @@ async function main() {
       district.slug,
       cat.name,
       cat.slug,
-      maxLimit
+      needed,
+      customTowns
     );
 
     for (const b of scrapedResults) {

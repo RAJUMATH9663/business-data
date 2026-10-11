@@ -41,7 +41,7 @@ export default function AuthForm({ mode, next }: { mode: "login" | "register"; n
         <div className="mx-auto flex justify-center">
           <Image
             src="/logo.png"
-            alt="Karnataka Trade Directory"
+            alt="NivoLeads B2B"
             width={260}
             height={70}
             className="h-16 sm:h-20 w-auto rounded-xl object-contain shadow-md"
@@ -49,10 +49,10 @@ export default function AuthForm({ mode, next }: { mode: "login" | "register"; n
           />
         </div>
         <h1 className="mt-4 text-2xl font-bold text-[var(--text-main)]">
-          {isReg ? "Create your Directory Account" : "Sign in to your Account"}
+          {isReg ? "Create your Account" : "Sign in to your Account"}
         </h1>
         <p className="mt-1 text-sm text-[var(--text-muted)]">
-          {isReg ? "Register once to explore and download verified directory listings." : "Sign in to access your purchased trade directory files."}
+          {isReg ? "Register once to explore and download verified business leads." : "Sign in to access your purchased lead packages."}
         </p>
       </div>
 

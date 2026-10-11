@@ -26,7 +26,7 @@ export default async function Navbar() {
           <Link href="/" className="group flex items-center gap-2.5">
             <Image
               src="/logo.png"
-              alt="Karnataka Trade Directory"
+              alt="NivoLeads B2B"
               width={240}
               height={64}
               className="h-12 sm:h-14 w-auto rounded-xl object-contain transition-transform duration-200 group-hover:scale-105"

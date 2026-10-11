@@ -25,11 +25,11 @@ export async function generateMetadata({
 
   if (!district || !category) {
     return {
-      title: "Sector or District Not Found | Karnataka Trade Directory",
+      title: "Sector or District Not Found | NivoLeads",
     };
   }
 
-  const title = `${category.name} in ${district.name} — Commercial Business Directory | Karnataka Trade Directory`;
+  const title = `${category.name} in ${district.name} — Commercial Business Directory | NivoLeads`;
   const description = `Verified enterprise listings and commercial trade directory of ${category.name} in ${district.name}, Karnataka. Instant digital report in Microsoft Excel (.xlsx).`;
   const canonicalUrl = `/directory/${district.slug}/${category.slug}`;
 
@@ -160,11 +160,11 @@ export default async function DistrictCategoryLandingPage({
         keywords: [
           `${category.name} ${district.name}`,
           `${district.name} business directory`,
-          "Karnataka trade directory",
+          "B2B business leads",
         ],
         creator: {
           "@type": "Organization",
-          name: "Karnataka Trade Directory",
+          name: "NivoLeads",
           url: appUrl,
         },
         spatialCoverage: `${district.name}, Karnataka, India`,

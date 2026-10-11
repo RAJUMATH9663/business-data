@@ -8,3 +8,6 @@ out
 next-env.d.ts
 .DS_Store
 scraped_leads/
+scraped_data/.edge_profile/
+scraped_data/.edge_turbo_profile/
+scraped_data/.test*

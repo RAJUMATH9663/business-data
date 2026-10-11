@@ -329,7 +329,7 @@ export default function ExploreFlow({
       key: o.keyId,
       amount: o.amountPaise,
       currency: "INR",
-      name: "Karnataka Trade Directory",
+      name: "NivoLeads B2B",
       image: "/logo.png",
       description: `B2B Directory Access · ${o.quantity} Listings · ${district?.name}`,
       order_id: o.orderId,

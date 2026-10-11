@@ -84,8 +84,8 @@ const benefits = [
 
 const faqs = [
   {
-    q: "What is Karnataka Trade Directory?",
-    a: "Karnataka Trade Directory is an organized digital B2B commerce index cataloging registered commercial enterprises, manufacturers, distributors, and service providers across Karnataka's 31 administrative districts.",
+    q: "What is NivoLeads?",
+    a: "NivoLeads is an organized digital B2B commerce index cataloging registered commercial enterprises, manufacturers, distributors, and service providers across Karnataka's 31 administrative districts.",
   },
   {
     q: "How do procurement teams and businesses use this directory?",
@@ -140,7 +140,7 @@ export default function Home() {
           <div className="mx-auto flex flex-col items-center justify-center gap-3">
             <Image
               src="/logo.png"
-              alt="Karnataka Trade Directory"
+              alt="NivoLeads B2B"
               width={340}
               height={90}
               className="h-16 sm:h-24 md:h-28 w-auto rounded-2xl object-contain shadow-md transition-transform hover:scale-105"
@@ -148,7 +148,7 @@ export default function Home() {
             />
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-              Karnataka Trade Directory · B2B Commerce Index & Merchant Registry
+              NivoLeads · B2B Commerce Index & Merchant Registry
             </div>
           </div>
 
@@ -162,7 +162,7 @@ export default function Home() {
 
           {/* Subtitle / Value Proposition */}
           <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-[var(--text-muted)] leading-relaxed">
-            Karnataka’s premier B2B trade directory and merchant registry. Filter by district and industry sector to explore verified local suppliers, manufacturers, distributors, and registered commercial enterprises.
+            Karnataka’s premier B2B directory and merchant registry. Filter by district and industry sector to explore verified local suppliers, manufacturers, distributors, and registered commercial enterprises.
           </p>
 
           {/* Direct CTA Action Box */}
@@ -383,7 +383,7 @@ export default function Home() {
         <div className="text-center sm:text-left">
           <span className="badge-brand">Got Questions?</span>
           <h2 id="faq-section-title" className="mt-2 text-2xl sm:text-3xl font-bold text-[var(--text-main)]">
-            Frequently Asked Questions About Karnataka Trade Directory
+            Frequently Asked Questions About NivoLeads B2B
           </h2>
           <p className="text-sm text-[var(--text-muted)]">
             Everything you need to know about our commercial enterprise registry and digital directory fulfillment.
@@ -405,7 +405,7 @@ export default function Home() {
 
         <div className="text-center pt-6 border-t border-[var(--border-card)]">
           <Link href="/explore" className="btn btn-primary !px-8 !py-3 !text-sm">
-            Explore Karnataka Trade Directory →
+            Explore B2B Directory →
           </Link>
         </div>
       </section>

@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className="mx-auto flex justify-center mb-6">
         <Image
           src="/logo.png"
-          alt="Karnataka Trade Directory"
+          alt="NivoLeads B2B"
           width={180}
           height={48}
           className="h-12 w-auto object-contain"
@@ -28,7 +28,7 @@ export default function NotFound() {
 
       <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
         <Link href="/explore" className="btn btn-primary w-full sm:w-auto !px-6 !py-3 !text-sm">
-          🔍 Explore Karnataka Trade Directory
+          🔍 Explore B2B Directory
         </Link>
         <Link href="/" className="btn btn-ghost w-full sm:w-auto !px-6 !py-3 !text-sm">
           🏠 Return to Homepage

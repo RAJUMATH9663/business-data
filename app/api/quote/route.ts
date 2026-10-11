@@ -1,12 +1,12 @@
 import { handler, json, limit, ApiError } from "@/lib/api";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { availableWhere } from "@/lib/catalog";
 import { priceFor } from "@/lib/pricing";
 import { quoteQuery } from "@/lib/validators";
+import { getCachedMetadata, getDistrictCategoryCounts } from "@/lib/catalog-cache";
 
 export const GET = handler(async (req) => {
-  limit(req, "quote", 240, 60_000);
+  limit(req, "quote", 480, 60_000);
   const sp = req.nextUrl.searchParams;
   const q = quoteQuery.parse({
     district: sp.get("district") ?? "",
@@ -14,22 +14,19 @@ export const GET = handler(async (req) => {
     qty: sp.get("qty") ?? undefined,
   });
 
-  const [district, category, session, price] = await Promise.all([
-    prisma.district.findFirst({ where: { slug: q.district, status: "ACTIVE" }, select: { id: true, name: true } }),
-    prisma.category.findFirst({ where: { slug: q.category, status: "ACTIVE" }, select: { id: true, name: true } }),
+  const [{ districts, categories }, session, price] = await Promise.all([
+    getCachedMetadata(),
     getSession(),
     q.qty !== undefined ? priceFor(q.qty) : Promise.resolve(null),
   ]);
 
+  const district = districts.find((d) => d.slug === q.district);
+  const category = categories.find((c) => c.slug === q.category);
+
   if (!district || !category) throw new ApiError(404, "District or category not found");
 
-  const [available, totalInCategory, alreadyPurchased] = await Promise.all([
-    prisma.business.count({
-      where: availableWhere(district.id, category.id, session?.user.id),
-    }),
-    prisma.business.count({
-      where: { districtId: district.id, categoryId: category.id, status: "ACTIVE" },
-    }),
+  const [totalMap, alreadyPurchased] = await Promise.all([
+    getDistrictCategoryCounts(district.id),
     session?.user.id
       ? prisma.purchaseContact.count({
           where: {
@@ -44,6 +41,8 @@ export const GET = handler(async (req) => {
       : Promise.resolve(0),
   ]);
 
+  const totalInCategory = totalMap.get(category.id) ?? 0;
+  const available = Math.max(0, totalInCategory - alreadyPurchased);
   const nextStartNumber = alreadyPurchased + 1;
 
   if (q.qty === undefined || !price) {

@@ -7,12 +7,12 @@ import DownloadSampleButton from "@/components/DownloadSampleButton";
 export const revalidate = 86400; // Cache for 24 hours on Vercel Edge CDN
 
 export const metadata: Metadata = {
-  title: "Karnataka B2B Commerce Directory & Merchant Index | Karnataka Trade Directory",
+  title: "Karnataka B2B Commerce Directory & Merchant Index | NivoLeads",
   description:
     "Explore verified public enterprise registry, verified trade profiles, and commercial business listings across all 31 districts and 20 core industries in Karnataka.",
   keywords: [
     "Karnataka business directory",
-    "Karnataka trade directory",
+    "B2B enterprise directory",
     "Karnataka commerce index",
     "Karnataka merchant registry",
     "local business listings Karnataka",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     canonical: "/directory",
   },
   openGraph: {
-    title: "Karnataka B2B Commerce Directory & Merchant Index | Karnataka Trade Directory",
+    title: "Karnataka B2B Commerce Directory & Merchant Index | NivoLeads",
     description:
       "Explore verified public enterprise registry, verified trade profiles, and commercial business listings across all 31 districts and 20 core industries in Karnataka.",
     url: "/directory",
