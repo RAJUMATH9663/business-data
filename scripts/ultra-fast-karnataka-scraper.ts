@@ -350,7 +350,7 @@ async function runTurboFastScraper() {
 
   const browser = await puppeteer.launch({
     executablePath: edgePath,
-    headless: "new",
+    headless: true,
     userDataDir: path.join(process.cwd(), "scraped_data", ".edge_turbo_profile"),
     args: [
       "--no-sandbox",
