@@ -49,54 +49,70 @@ async function safeDb<T>(fn: () => Promise<T>, retries = 4, delayMs = 1000): Pro
   return null;
 }
 
-// High-density commercial categories that yield real callable numbers across Karnataka
-const HIGH_YIELD_CATEGORIES: Record<string, string[]> = {
-  "hospitals-clinics": ["Hospitals", "Diagnostic center", "Clinics"],
-  "restaurants-hotels": ["Hotels and Lodges", "Restaurants", "Pure Veg Restaurant"],
-  "retail-supermarkets": ["Supermarket", "Wholesale store", "Departmental store"],
-  "manufacturing-industries": ["Manufacturing industry", "Engineering works", "Steel fabrication"],
-  "automobile-dealers": ["Automobile showroom", "Two wheeler showroom", "Car service center"],
-  "construction-builders": ["Building materials", "Cement Steel supplier", "Builders and developers"],
-  "transport-logistics": ["Logistics company", "Transporters", "Courier service"],
-  "colleges-universities": ["Degree College", "Engineering College", "Polytechnic"],
-  "agriculture-agro-businesses": ["Agro agencies", "Seeds and fertilizers", "Tractor dealer"],
+// All 28 comprehensive B2B & commercial categories with search keywords
+const ALL_COMMERCIAL_CATEGORIES: Record<string, string[]> = {
+  "hospitals-clinics": ["Hospitals", "Diagnostic center", "Multi Speciality Hospital", "Ayurvedic Hospital"],
+  "restaurants-hotels": ["Hotels and Lodges", "Restaurants", "Pure Veg Restaurant", "Resorts"],
+  "retail-supermarkets": ["Supermarket", "Wholesale store", "Departmental store", "Cloth store"],
+  "manufacturing-industries": ["Manufacturing industry", "Engineering works", "Steel fabrication", "Foundry", "Industrial unit"],
+  "automobile-dealers": ["Automobile showroom", "Two wheeler showroom", "Car service center", "Auto parts"],
+  "construction-builders": ["Building materials", "Cement Steel supplier", "Builders and developers", "Hardware store"],
+  "transport-logistics": ["Logistics company", "Transporters", "Courier service", "Lorry transport"],
+  "colleges-universities": ["Degree College", "Engineering College", "Polytechnic", "Medical College"],
+  "schools": ["Public School", "High School", "CBSE School"],
+  "coaching-training-institutes": ["Coaching center", "Tuition classes", "Computer training institute"],
+  "gyms-fitness-centers": ["Fitness Gym", "Gym center", "Yoga center"],
+  "salons-beauty-parlours": ["Beauty parlour", "Hair salon", "Spa and wellness"],
+  "it-software-companies": ["Software company", "IT solutions", "Computer service"],
+  "photography-videography": ["Photo studio", "Wedding photography"],
+  "digital-marketing-advertising": ["Advertising agency", "Flex printing", "Digital marketing"],
+  "legal-ca-services": ["Chartered Accountants", "Tax consultant", "Advocates legal office"],
   "finance-insurance-loans": ["Cooperative Bank", "Finance company", "Loan agency"],
-  "real-estate": ["Real estate consultants", "Property dealers"],
-  "gyms-fitness-centers": ["Fitness Gym", "Gym center"],
+  "agriculture-agro-businesses": ["Agro agencies", "Seeds and fertilizers", "Tractor dealer", "APMC grain mandi", "Rice mill"],
+  "real-estate": ["Real estate consultants", "Property dealers", "Plot developers"],
+  "solar-renewable-energy": ["Solar rooftop company", "Solar panel dealers", "Inverter battery shop"],
+  "cold-storage-warehousing": ["Cold storage", "Warehouse", "Godown"],
+  "packaging-corrugated-boxes": ["Corrugated box manufacturer", "Packaging material", "Carton boxes"],
+  "coworking-business-parks": ["Commercial complex", "Business park", "Office space"],
+  "security-facility-management": ["Security services agency", "Facility management", "Manpower services"],
+  "biotechnology-medical-devices": ["Diagnostic lab", "Medical devices distributor", "Pharma distributor"],
+  "coffee-tea-plantations": ["Coffee estate", "Tea plantation", "Spices estate"],
+  "events-exhibitions-banquets": ["Kalyana Mantapa", "Convention center", "Banquet hall"],
 };
 
+// Expanded commercial hubs, taluks, and industrial zones for all 31 districts
 const ALL_KARNATAKA_HUBS: Record<string, string[]> = {
-  "davanagere": ["Davanagere", "Harihara", "Honnali", "Channagiri"],
-  "haveri": ["Haveri", "Ranebennur", "Byadgi"],
-  "udupi": ["Udupi", "Manipal", "Kundapura", "Karkala"],
-  "bengaluru-rural": ["Doddaballapura", "Devanahalli", "Hosakote", "Nelamangala"],
-  "hassan": ["Hassan", "Arsikere", "Channarayapatna", "Sakleshpur"],
-  "gadag": ["Gadag", "Betageri", "Ron", "Nargund"],
-  "raichur": ["Raichur", "Sindhanur", "Manvi", "Lingasugur"],
-  "kolar": ["Kolar", "Bangarapet", "KGF", "Malur"],
-  "dakshina-kannada": ["Mangaluru", "Bantwal", "Puttur", "Belthangady", "Baikampady"],
-  "dharwad": ["Hubballi", "Dharwad", "Gokul Road Hubli", "Navalgund"],
-  "shivamogga": ["Shivamogga", "Bhadravathi", "Sagara", "Shikaripura"],
-  "vijayanagara": ["Hosapete", "Hampi", "Kudligi", "Harapanahalli"],
-  "chitradurga": ["Chitradurga", "Hiriyur", "Challakere"],
-  "koppal": ["Koppal", "Gangavathi", "Kushtagi"],
-  "yadgir": ["Yadgir", "Shahapur", "Shorapur"],
-  "vijayapura": ["Vijayapura", "Indi", "Sindagi", "Muddebihal"],
-  "ramanagara": ["Ramanagara", "Channapatna", "Kanakapura", "Bidadi Industrial Area"],
-  "kalaburagi": ["Kalaburagi", "Sedam", "Chincholi"],
-  "tumakuru": ["Tumakuru", "Tiptur", "Kunigal", "Sira"],
-  "kodagu": ["Madikeri", "Virajpet", "Kushalnagar"],
-  "bengaluru-urban": ["Bengaluru", "Koramangala", "Indiranagar", "Whitefield", "HSR Layout", "Peenya Industrial Area"],
-  "chikkamagaluru": ["Chikkamagaluru", "Tarikere", "Kadur"],
-  "uttara-kannada": ["Karwar", "Sirsi", "Kumta", "Bhatkal"],
-  "belagavi": ["Belagavi", "Gokak", "Chikkodi", "Athani"],
-  "chamarajanagar": ["Chamarajanagar", "Kollegal", "Gundlupet"],
-  "mysuru": ["Mysuru", "Nanjangud", "Hunsur"],
-  "chikkaballapur": ["Chikkaballapur", "Gowribidanur", "Chintamani"],
-  "bidar": ["Bidar", "Basavakalyan", "Humnabad"],
-  "mandya": ["Mandya", "Maddur", "Malavalli"],
-  "ballari": ["Ballari", "Sandur", "Siruguppa"],
-  "bagalkote": ["Jamkhandi", "Mudhol", "Ilkal", "Badami"],
+  "vijayanagara": ["Hosapete", "Hampi", "Kudligi", "Harapanahalli", "Hagaribommanahalli", "Kotturu", "Kampli"],
+  "gadag": ["Gadag", "Betageri", "Ron", "Nargund", "Shirhatti", "Mundargi", "Gajendragad", "Lakkundi"],
+  "haveri": ["Haveri", "Ranebennur", "Byadgi", "Hangal", "Shiggaon", "Savanur", "Hirekerur"],
+  "bengaluru-rural": ["Doddaballapura", "Devanahalli", "Hosakote", "Nelamangala", "Dobbaspet Industrial Area", "Anneswara"],
+  "shivamogga": ["Shivamogga", "Bhadravathi", "Sagara", "Shikaripura", "Thirthahalli", "Soraba", "Hosanagara", "Machenahalli Industrial Area"],
+  "davanagere": ["Davanagere", "Harihara", "Honnali", "Channagiri", "Jagalur", "Nyamathi", "Lokikere Industrial Area"],
+  "kolar": ["Kolar", "Bangarapet", "KGF Robertsonpet", "Malur", "Mulbagal", "Srinivaspur", "Narasapura Industrial Area", "Vemgal"],
+  "dakshina-kannada": ["Mangaluru", "Baikampady Industrial Area", "Surathkal", "Bantwal", "Puttur", "Belthangady", "Sullia", "Kadri", "Hampankatta"],
+  "hassan": ["Hassan", "Arsikere", "Channarayapatna", "Holenarasipura", "Sakleshpur", "Belur", "Alur", "Thimmanahalli Industrial Area"],
+  "dharwad": ["Hubballi", "Dharwad", "Gokul Road Hubli", "Tarihal Industrial Estate", "Navalgund", "Kundgol", "Kalghatgi", "Vidyanagar Hubli"],
+  "chitradurga": ["Chitradurga", "Hiriyur", "Challakere", "Holalkere", "Hosadurga", "Molakalmuru"],
+  "koppal": ["Koppal", "Gangavathi", "Kushtagi", "Yelburga", "Karatagi", "Kuknoor"],
+  "raichur": ["Raichur", "Sindhanur", "Manvi", "Lingasugur", "Devadurga", "Maski", "Sirwar"],
+  "udupi": ["Udupi", "Manipal", "Kundapura", "Karkala", "Malpe", "Brahmavar", "Byndoor", "Kaup"],
+  "yadgir": ["Yadgir", "Shahapur", "Shorapur", "Gurmitkal", "Hunsagi", "Wadagera"],
+  "ramanagara": ["Ramanagara", "Channapatna", "Kanakapura", "Magadi", "Bidadi Industrial Area", "Harohalli Industrial Area"],
+  "vijayapura": ["Vijayapura", "Indi", "Sindagi", "Basavana Bagewadi", "Muddebihal", "Talikoti", "Chadchan"],
+  "kalaburagi": ["Kalaburagi", "Sedam", "Chincholi", "Aland", "Afzalpur", "Shahabad", "Jewargi"],
+  "tumakuru": ["Tumakuru", "Tiptur", "Kunigal", "Sira", "Madhugiri", "Pavagada", "Koratagere", "Gubbi", "Vasanthanarasapura"],
+  "kodagu": ["Madikeri", "Virajpet", "Somwarpet", "Kushalnagar", "Gonikoppal", "Ponnampet"],
+  "bengaluru-urban": ["Bengaluru", "Koramangala", "Indiranagar", "Whitefield", "HSR Layout", "Jayanagar", "Electronic City", "Yelahanka", "Peenya Industrial Area", "Rajajinagar", "Marathahalli", "Malleshwaram"],
+  "chikkamagaluru": ["Chikkamagaluru", "Tarikere", "Kadur", "Mudigere", "Koppa", "Sringeri", "Narasimharajapura"],
+  "uttara-kannada": ["Karwar", "Sirsi", "Kumta", "Bhatkal", "Ankola", "Honavar", "Dandeli", "Yellapur", "Haliyal"],
+  "belagavi": ["Belagavi", "Gokak", "Chikkodi", "Athani", "Bailhongal", "Nipani", "Sankeshwar", "Ramdurg", "Saundatti", "Hukkeri", "Khanapur", "Udyambag"],
+  "chamarajanagar": ["Chamarajanagar", "Kollegal", "Gundlupet", "Yelandur", "Hanur"],
+  "mysuru": ["Mysuru", "Nanjangud", "Hunsur", "T Narasipura", "KR Nagara", "Periyapatna", "Gokulam", "Hebbal Industrial Area"],
+  "chikkaballapur": ["Chikkaballapur", "Gowribidanur", "Bagepalli", "Sidlaghatta", "Chintamani", "Gudibande"],
+  "bidar": ["Bidar", "Basavakalyan", "Humnabad", "Bhalki", "Aurad", "Chitguppa"],
+  "mandya": ["Mandya", "Maddur", "Malavalli", "Pandavapura", "Srirangapatna", "KR Pet", "Nagamangala"],
+  "ballari": ["Ballari", "Hosapete", "Hampi", "Sandur", "Siruguppa", "Kampli", "Kurugodu", "Kudligi"],
+  "bagalkote": ["Badami", "Aihole", "Pattadakal", "Jamkhandi", "Mudhol", "Ilkal", "Guledgudda", "Mahalingpur", "Banhatti", "Bilagi", "Hunagund", "Bagalkot Navanagar"],
 };
 
 const OFFICIAL_KARNATAKA_DISTRICTS = new Set([
@@ -130,7 +146,7 @@ async function setupTurboPage(browser: Browser): Promise<Page> {
   return page;
 }
 
-// Scrapes a single query fast
+// Scrapes a single query with deep listing extraction (top 8-10 places)
 async function scrapeQueryTurbo(
   page: Page,
   query: string,
@@ -151,12 +167,14 @@ async function scrapeQueryTurbo(
 
   try {
     await page.waitForSelector('div[role="feed"], a.hfpxzc, a[href*="/maps/place/"]', { timeout: 3500 });
+    // Scroll feed to load more listings
     await page.evaluate(async () => {
       const feed = document.querySelector('div[role="feed"]');
       if (feed) {
-        feed.scrollTop = feed.scrollHeight;
-        await new Promise((r) => setTimeout(r, 400));
-        feed.scrollTop = feed.scrollHeight;
+        for (let s = 0; s < 3; s++) {
+          feed.scrollTop = feed.scrollHeight;
+          await new Promise((r) => setTimeout(r, 350));
+        }
       }
     });
   } catch {
@@ -176,8 +194,8 @@ async function scrapeQueryTurbo(
     return list;
   });
 
-  // Top 4 results are highest-rated & contain validated phone numbers
-  for (const item of listingLinks.slice(0, 4)) {
+  // Deep extraction: process top 8 places per query
+  for (const item of listingLinks.slice(0, 8)) {
     try {
       await page.goto(item.url, { waitUntil: "domcontentloaded", timeout: 6500 });
       await page.waitForSelector('h1, button[data-item-id*="phone"]', { timeout: 1500 }).catch(() => {});
@@ -302,11 +320,11 @@ async function scrapeQueryTurbo(
   return collectedRows;
 }
 
-async function runTurboFastScraper() {
+async function runHighVolumeScraper() {
   console.log("==========================================================================");
-  console.log("⚡ STATEWIDE KARNATAKA 100% REAL DATA INGESTION ENGINE");
+  console.log("🚀 HIGH-VOLUME DEEP KARNATAKA DATA EXPANSION ENGINE (TARGET: 600–900+ / DISTRICT)");
   console.log("==========================================================================");
-  console.log("🎯 Mission       : Complete remaining Karnataka districts to reach 100%");
+  console.log("🎯 Mission       : Scale all districts to 600–900+ verified listings (like Bagalkote, Ballari, Mandya)");
   console.log("🛡️ Quality Rule  : 100% Real Google Maps Listings with Callable Numbers");
   console.log("==========================================================================\n");
 
@@ -314,12 +332,11 @@ async function runTurboFastScraper() {
     where: { status: "ACTIVE" },
   });
 
-  // Filter strictly to Karnataka's 31 districts
   const karnatakaDistricts = allDistricts.filter((d) =>
     OFFICIAL_KARNATAKA_DISTRICTS.has(d.name)
   );
 
-  // Calculate current count per district and sort ASCENDING (0-count districts first)
+  // Calculate current count per district and sort ASCENDING (lowest volume districts first)
   const districtsWithCounts = await Promise.all(
     karnatakaDistricts.map(async (d) => {
       const count = await prisma.business.count({
@@ -331,10 +348,10 @@ async function runTurboFastScraper() {
 
   districtsWithCounts.sort((a, b) => a.count - b.count);
 
-  console.log("📋 Current Karnataka District Priority Queue (Lowest Count First):");
+  console.log("📋 Expansion Priority Queue (Districts sorted by volume needed to reach 700+):");
   districtsWithCounts.forEach((d, i) => {
-    const mark = d.count >= 100 ? "✅" : d.count > 0 ? "🟡" : "⏳";
-    console.log(`   ${(i + 1).toString().padStart(2, " ")}. ${mark} ${d.name.padEnd(22)}: ${d.count} listings`);
+    const mark = d.count >= 700 ? "🏆" : d.count >= 200 ? "🟡" : "⚡";
+    console.log(`   ${(i + 1).toString().padStart(2, " ")}. ${mark} ${d.name.padEnd(22)}: ${d.count.toString().padStart(4, " ")} listings (Target: 700+)`);
   });
   console.log("");
 
@@ -350,6 +367,7 @@ async function runTurboFastScraper() {
   }
 
   let grandTotalAdded = 0;
+  const TARGET_VOLUME = 700;
 
   for (let dIdx = 0; dIdx < districtsWithCounts.length; dIdx++) {
     const district = districtsWithCounts[dIdx];
@@ -361,22 +379,22 @@ async function runTurboFastScraper() {
       })
     )) || district.count;
 
-    // If district already has >= 100 listings, skip to prioritize remaining districts
-    if (existingCount >= 100) {
+    // Only skip if already has 700+ listings (like Bagalkote: 913, Ballari: 793, Mandya: 777)
+    if (existingCount >= TARGET_VOLUME) {
       console.log(`\n==========================================================================`);
       console.log(`📍 [${dIdx + 1}/${districtsWithCounts.length}] DISTRICT: ${district.name.toUpperCase()}`);
-      console.log(`   ⏩ Already has ${existingCount} verified businesses in DB! Skipping...`);
+      console.log(`   🏆 Already has ${existingCount} verified businesses in DB! (Target reached). Skipping...`);
       console.log(`==========================================================================`);
       continue;
     }
 
     console.log(`\n==========================================================================`);
-    console.log(`📍 [${dIdx + 1}/${districtsWithCounts.length}] STARTING DISTRICT: ${district.name.toUpperCase()}`);
-    console.log(`   📊 Current in DB  : ${existingCount} businesses`);
-    console.log(`   🏛️ Towns / Hubs   : ${towns.join(", ")}`);
+    console.log(`📍 [${dIdx + 1}/${districtsWithCounts.length}] EXPANDING DISTRICT: ${district.name.toUpperCase()}`);
+    console.log(`   📊 Current in DB  : ${existingCount} businesses (Goal: ${TARGET_VOLUME}+)`);
+    console.log(`   🏛️ Towns & Hubs   : ${towns.join(", ")}`);
     console.log(`==========================================================================`);
 
-    // Launch a fresh, isolated browser per district to guarantee clean session & prevent rate-limiting
+    // Fresh isolated browser instance per district
     const browser = await puppeteer.launch({
       executablePath: edgePath,
       headless: true,
@@ -410,9 +428,9 @@ async function runTurboFastScraper() {
 
     const tasks: ScrapeTask[] = [];
 
-    // Top high-density categories
+    // Build comprehensive search queries across all commercial categories and towns
     for (const town of towns) {
-      for (const [catSlug, keywords] of Object.entries(HIGH_YIELD_CATEGORIES)) {
+      for (const [catSlug, keywords] of Object.entries(ALL_COMMERCIAL_CATEGORIES)) {
         const cat = categories.find((c) => c.slug === catSlug) || categories[0];
         tasks.push({
           query: `${keywords[0]} in ${town} Karnataka`,
@@ -435,7 +453,7 @@ async function runTurboFastScraper() {
       }
     }
 
-    console.log(`   📋 Queue generated: ${tasks.length} targeted search queries. Processing in 4 parallel tabs...`);
+    console.log(`   📋 Queue generated: ${tasks.length} targeted search queries across ${towns.length} towns. Expanding volume...`);
 
     // Process tasks in chunks of WORKER_COUNT
     for (let i = 0; i < tasks.length; i += WORKER_COUNT) {
@@ -462,15 +480,14 @@ async function runTurboFastScraper() {
         (await safeDb(() => prisma.business.count({ where: { districtId: district.id } }))) || 0;
       const pct = Math.min(100, Math.round(((i + chunk.length) / tasks.length) * 100));
       process.stdout.write(
-        `\r   🚀 [${district.name}] Progress: ${pct}% | Total in DB: ${currentCount} verified listings`
+        `\r   🚀 [${district.name}] Progress: ${pct}% | In DB: ${currentCount} / ${TARGET_VOLUME} listings`
       );
 
-      // Polite delay between batches
-      await new Promise((r) => setTimeout(r, 1000));
+      // Jitter delay between batches to maintain uninterrupted scraping
+      await new Promise((r) => setTimeout(r, 900));
 
-      // Once district reaches 80+ verified listings, advance to next district
-      if (currentCount >= 80) {
-        console.log(`\n   🎯 Target reached: 80+ verified listings in ${district.name}! Advancing...`);
+      if (currentCount >= TARGET_VOLUME) {
+        console.log(`\n   🎯 Target reached: ${TARGET_VOLUME}+ verified listings in ${district.name}! Advancing...`);
         break;
       }
     }
@@ -488,30 +505,30 @@ async function runTurboFastScraper() {
       if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
       const filename = path.join(
         outDir,
-        `Real_Verified_${district.slug.toUpperCase()}_All_Towns_${Date.now()}.xlsx`
+        `Real_Verified_${district.slug.toUpperCase()}_Master_Expanded_${Date.now()}.xlsx`
       );
       const ws = XLSX.utils.json_to_sheet(districtExportRows);
       const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, `${district.name} All Towns`);
+      XLSX.utils.book_append_sheet(wb, ws, `${district.name} Expanded`);
       XLSX.writeFile(wb, filename);
-      console.log(`\n📁 Master Excel exported for ${district.name}: ${filename}`);
+      console.log(`\n📁 Master Expanded Excel saved for ${district.name}: ${filename}`);
     }
 
     console.log(`\n==========================================================================`);
     console.log(
-      `🎉 [COMPLETED] DISTRICT ${district.name.toUpperCase()} FINISHED! (Added: ${addedInDistrict} | Total in DB: ${afterCount})`
+      `🎉 DISTRICT ${district.name.toUpperCase()} EXPANDED! (Added: ${addedInDistrict} | Total in DB: ${afterCount})`
     );
     console.log(`➡️  AUTOMATICALLY PROCEEDING TO NEXT DISTRICT IN QUEUE...`);
     console.log(`==========================================================================\n`);
   }
 
   console.log("\n==========================================================================");
-  console.log("🎉 ALL KARNATAKA DISTRICTS SCRAPE RUN COMPLETE!");
+  console.log("🎉 ALL KARNATAKA DISTRICTS EXPANDED TO MAXIMUM VOLUME!");
   console.log(`   ✅ Total New Real Businesses Added : ${grandTotalAdded}`);
   console.log("==========================================================================\n");
 }
 
-runTurboFastScraper()
+runHighVolumeScraper()
   .catch(console.error)
   .finally(async () => {
     await prisma.$disconnect();
