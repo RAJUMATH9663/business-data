@@ -66,22 +66,23 @@ const HIGH_YIELD_CATEGORIES: Record<string, string[]> = {
 };
 
 const ALL_KARNATAKA_HUBS: Record<string, string[]> = {
-  "yadgir": ["Yadgir", "Shahapur", "Shorapur"],
-  "vijayanagara": ["Hosapete", "Hampi", "Kudligi", "Harapanahalli"],
   "davanagere": ["Davanagere", "Harihara", "Honnali", "Channagiri"],
-  "gadag": ["Gadag", "Betageri", "Ron", "Nargund"],
-  "hassan": ["Hassan", "Arsikere", "Channarayapatna", "Sakleshpur"],
   "haveri": ["Haveri", "Ranebennur", "Byadgi"],
-  "kolar": ["Kolar", "Bangarapet", "KGF", "Malur"],
-  "ramanagara": ["Ramanagara", "Channapatna", "Kanakapura", "Bidadi Industrial Area"],
-  "shivamogga": ["Shivamogga", "Bhadravathi", "Sagara", "Shikaripura"],
   "udupi": ["Udupi", "Manipal", "Kundapura", "Karkala"],
-  "raichur": ["Raichur", "Sindhanur", "Manvi", "Lingasugur"],
   "bengaluru-rural": ["Doddaballapura", "Devanahalli", "Hosakote", "Nelamangala"],
+  "hassan": ["Hassan", "Arsikere", "Channarayapatna", "Sakleshpur"],
+  "gadag": ["Gadag", "Betageri", "Ron", "Nargund"],
+  "raichur": ["Raichur", "Sindhanur", "Manvi", "Lingasugur"],
+  "kolar": ["Kolar", "Bangarapet", "KGF", "Malur"],
   "dakshina-kannada": ["Mangaluru", "Bantwal", "Puttur", "Belthangady", "Baikampady"],
   "dharwad": ["Hubballi", "Dharwad", "Gokul Road Hubli", "Navalgund"],
-  "koppal": ["Koppal", "Gangavathi", "Kushtagi"],
+  "shivamogga": ["Shivamogga", "Bhadravathi", "Sagara", "Shikaripura"],
+  "vijayanagara": ["Hosapete", "Hampi", "Kudligi", "Harapanahalli"],
   "chitradurga": ["Chitradurga", "Hiriyur", "Challakere"],
+  "koppal": ["Koppal", "Gangavathi", "Kushtagi"],
+  "yadgir": ["Yadgir", "Shahapur", "Shorapur"],
+  "vijayapura": ["Vijayapura", "Indi", "Sindagi", "Muddebihal"],
+  "ramanagara": ["Ramanagara", "Channapatna", "Kanakapura", "Bidadi Industrial Area"],
   "kalaburagi": ["Kalaburagi", "Sedam", "Chincholi"],
   "tumakuru": ["Tumakuru", "Tiptur", "Kunigal", "Sira"],
   "kodagu": ["Madikeri", "Virajpet", "Kushalnagar"],
@@ -96,7 +97,6 @@ const ALL_KARNATAKA_HUBS: Record<string, string[]> = {
   "mandya": ["Mandya", "Maddur", "Malavalli"],
   "ballari": ["Ballari", "Sandur", "Siruguppa"],
   "bagalkote": ["Jamkhandi", "Mudhol", "Ilkal", "Badami"],
-  "vijayapura": ["Vijayapura", "Indi", "Sindagi", "Muddebihal"],
 };
 
 const OFFICIAL_KARNATAKA_DISTRICTS = new Set([
@@ -109,7 +109,7 @@ const OFFICIAL_KARNATAKA_DISTRICTS = new Set([
   "Vijayanagara"
 ]);
 
-// Configure fast page with image/font/media blocking (keep stylesheets so Google Maps renders)
+// Configure fast page with image/font/media blocking
 async function setupTurboPage(browser: Browser): Promise<Page> {
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 800 });
@@ -144,7 +144,7 @@ async function scrapeQueryTurbo(
   const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}?hl=en`;
 
   try {
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 8000 });
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 9000 });
   } catch {
     return collectedRows;
   }
@@ -155,7 +155,7 @@ async function scrapeQueryTurbo(
       const feed = document.querySelector('div[role="feed"]');
       if (feed) {
         feed.scrollTop = feed.scrollHeight;
-        await new Promise((r) => setTimeout(r, 350));
+        await new Promise((r) => setTimeout(r, 400));
         feed.scrollTop = feed.scrollHeight;
       }
     });
@@ -179,7 +179,7 @@ async function scrapeQueryTurbo(
   // Top 4 results are highest-rated & contain validated phone numbers
   for (const item of listingLinks.slice(0, 4)) {
     try {
-      await page.goto(item.url, { waitUntil: "domcontentloaded", timeout: 6000 });
+      await page.goto(item.url, { waitUntil: "domcontentloaded", timeout: 6500 });
       await page.waitForSelector('h1, button[data-item-id*="phone"]', { timeout: 1500 }).catch(() => {});
 
       const details = await page.evaluate(() => {
@@ -304,10 +304,10 @@ async function scrapeQueryTurbo(
 
 async function runTurboFastScraper() {
   console.log("==========================================================================");
-  console.log("⚡ TURBO-ACCELERATED KARNATAKA 100% REAL DATA INGESTION ENGINE");
+  console.log("⚡ STATEWIDE KARNATAKA 100% REAL DATA INGESTION ENGINE");
   console.log("==========================================================================");
-  console.log("🚀 Speed Mode   : 4 Parallel Tabs + Lowest-Count Districts Priority");
-  console.log("🛡️ Quality Rule : 100% Real Google Maps Listings with Callable Numbers");
+  console.log("🎯 Mission       : Complete remaining Karnataka districts to reach 100%");
+  console.log("🛡️ Quality Rule  : 100% Real Google Maps Listings with Callable Numbers");
   console.log("==========================================================================\n");
 
   const allDistricts = await prisma.district.findMany({
@@ -331,9 +331,10 @@ async function runTurboFastScraper() {
 
   districtsWithCounts.sort((a, b) => a.count - b.count);
 
-  console.log("📋 Current Karnataka District Priority (Lowest Count First):");
-  districtsWithCounts.slice(0, 15).forEach((d, i) => {
-    console.log(`   ${(i + 1).toString().padStart(2, " ")}. ${d.name.padEnd(22)}: ${d.count} listings (Prioritized)`);
+  console.log("📋 Current Karnataka District Priority Queue (Lowest Count First):");
+  districtsWithCounts.forEach((d, i) => {
+    const mark = d.count >= 100 ? "✅" : d.count > 0 ? "🟡" : "⏳";
+    console.log(`   ${(i + 1).toString().padStart(2, " ")}. ${mark} ${d.name.padEnd(22)}: ${d.count} listings`);
   });
   console.log("");
 
@@ -348,30 +349,6 @@ async function runTurboFastScraper() {
     process.exit(1);
   }
 
-  const browser = await puppeteer.launch({
-    executablePath: edgePath,
-    headless: true,
-    userDataDir: path.join(process.cwd(), "scraped_data", ".edge_turbo_profile"),
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--disable-extensions",
-      "--disable-background-networking",
-      "--lang=en-US",
-    ],
-  });
-
-  // 4 parallel worker tabs
-  const WORKER_COUNT = 4;
-  console.log(`🌐 Initializing ${WORKER_COUNT} parallel turbo worker tabs...`);
-  const workerPages: Page[] = [];
-  for (let i = 0; i < WORKER_COUNT; i++) {
-    workerPages.push(await setupTurboPage(browser));
-  }
-  console.log(`✅ ${WORKER_COUNT} worker tabs active & ready!\n`);
-
   let grandTotalAdded = 0;
 
   for (let dIdx = 0; dIdx < districtsWithCounts.length; dIdx++) {
@@ -384,11 +361,11 @@ async function runTurboFastScraper() {
       })
     )) || district.count;
 
-    // If district already has >= 100 listings, skip to prioritize 0-count districts
+    // If district already has >= 100 listings, skip to prioritize remaining districts
     if (existingCount >= 100) {
       console.log(`\n==========================================================================`);
       console.log(`📍 [${dIdx + 1}/${districtsWithCounts.length}] DISTRICT: ${district.name.toUpperCase()}`);
-      console.log(`   ⏩ Already has ${existingCount} verified businesses in DB! Skipping to next district...`);
+      console.log(`   ⏩ Already has ${existingCount} verified businesses in DB! Skipping...`);
       console.log(`==========================================================================`);
       continue;
     }
@@ -398,6 +375,26 @@ async function runTurboFastScraper() {
     console.log(`   📊 Current in DB  : ${existingCount} businesses`);
     console.log(`   🏛️ Towns / Hubs   : ${towns.join(", ")}`);
     console.log(`==========================================================================`);
+
+    // Launch a fresh, isolated browser per district to guarantee clean session & prevent rate-limiting
+    const browser = await puppeteer.launch({
+      executablePath: edgePath,
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--disable-extensions",
+        "--lang=en-US",
+      ],
+    });
+
+    const WORKER_COUNT = 4;
+    const workerPages: Page[] = [];
+    for (let i = 0; i < WORKER_COUNT; i++) {
+      workerPages.push(await setupTurboPage(browser));
+    }
 
     const districtExportRows: Array<Record<string, unknown>> = [];
     const beforeCount = existingCount;
@@ -413,7 +410,7 @@ async function runTurboFastScraper() {
 
     const tasks: ScrapeTask[] = [];
 
-    // Focus on top high-yield categories
+    // Top high-density categories
     for (const town of towns) {
       for (const [catSlug, keywords] of Object.entries(HIGH_YIELD_CATEGORIES)) {
         const cat = categories.find((c) => c.slug === catSlug) || categories[0];
@@ -468,17 +465,18 @@ async function runTurboFastScraper() {
         `\r   🚀 [${district.name}] Progress: ${pct}% | Total in DB: ${currentCount} verified listings`
       );
 
-      // Polite pacing to keep connection healthy
-      await new Promise((r) => setTimeout(r, 600));
+      // Polite delay between batches
+      await new Promise((r) => setTimeout(r, 1000));
 
-      // Once district reaches 100+ verified listings, move to next district
-      if (currentCount >= 100) {
-        console.log(`\n   🎯 Milestone reached: 100+ verified listings in ${district.name}! Advancing...`);
+      // Once district reaches 80+ verified listings, advance to next district
+      if (currentCount >= 80) {
+        console.log(`\n   🎯 Target reached: 80+ verified listings in ${district.name}! Advancing...`);
         break;
       }
     }
 
     console.log("");
+    await browser.close();
 
     const afterCount =
       (await safeDb(() => prisma.business.count({ where: { districtId: district.id } }))) || beforeCount;
@@ -507,10 +505,8 @@ async function runTurboFastScraper() {
     console.log(`==========================================================================\n`);
   }
 
-  await browser.close();
-
   console.log("\n==========================================================================");
-  console.log("🎉 ALL KARNATAKA DISTRICTS TURBO SCRAPE COMPLETE!");
+  console.log("🎉 ALL KARNATAKA DISTRICTS SCRAPE RUN COMPLETE!");
   console.log(`   ✅ Total New Real Businesses Added : ${grandTotalAdded}`);
   console.log("==========================================================================\n");
 }
