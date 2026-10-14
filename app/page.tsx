@@ -170,7 +170,7 @@ export default async function Home() {
       />
 
       {/* Hero Section — Distinct, High-Converting & Intuitive */}
-      <section className="relative overflow-hidden rounded-3xl border border-[var(--border-card)] bg-gradient-to-b from-[var(--bg-card)] via-[var(--bg-mist)] to-[var(--bg-card)] p-6 sm:p-12 lg:p-16 shadow-lg text-center">
+      <section className="relative overflow-hidden rounded-2xl border border-[var(--border-card)] bg-gradient-to-b from-[var(--bg-card)] via-[var(--bg-mist)] to-[var(--bg-card)] p-6 sm:p-12 lg:p-16 shadow-lg text-center">
         {/* Ambient Top Glow */}
         <div className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-96 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl" />
 
@@ -327,7 +327,7 @@ export default async function Home() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--bg-mist)] text-2xl">
                     {s.icon}
                   </span>
-                  <span className="rounded-md bg-blue-500/10 px-2 py-0.5 text-xs font-bold text-blue-500">
+                  <span className="rounded-lg bg-blue-500/10 px-2 py-0.5 text-xs font-bold text-blue-500">
                     {s.step}
                   </span>
                 </div>
@@ -402,7 +402,7 @@ export default async function Home() {
                   <h3 className="text-sm font-bold text-[var(--text-main)] group-hover:text-blue-500 transition-colors">
                     {cat.name}
                   </h3>
-                  <span className="inline-block rounded bg-[var(--bg-mist)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
+                  <span className="inline-block rounded-lg bg-[var(--bg-mist)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
                     {cat.tag}
                   </span>
                 </div>
