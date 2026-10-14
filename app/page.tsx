@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { prisma } from "@/lib/db";
+import HomeQuickSearch from "@/components/HomeQuickSearch";
+import LiveSamplePreview from "@/components/LiveSamplePreview";
 
 const steps = [
   {
@@ -50,18 +53,18 @@ const businessIdeas = [
 ];
 
 const topDistricts = [
+  { name: "Bagalkote", slug: "bagalkote", tag: "913+ Verified Leads" },
+  { name: "Ballari", slug: "ballari", tag: "793+ Verified Leads" },
+  { name: "Mandya", slug: "mandya", tag: "777+ Verified Leads" },
+  { name: "Bidar", slug: "bidar", tag: "706+ Verified Leads" },
+  { name: "Chikkaballapur", slug: "chikkaballapur", tag: "681+ Verified Leads" },
+  { name: "Mysuru", slug: "mysuru", tag: "666+ Verified Leads" },
+  { name: "Belagavi", slug: "belagavi", tag: "518+ Industrial Leads" },
   { name: "Bengaluru Urban", slug: "bengaluru-urban", tag: "Tech & Corporate Hub" },
-  { name: "Vijayapura", slug: "vijayapura", tag: "Commercial Hub" },
-  { name: "Belagavi", slug: "belagavi", tag: "Industrial Zone" },
-  { name: "Mysuru", slug: "mysuru", tag: "Heritage & Tech" },
-  { name: "Dharwad", slug: "dharwad", tag: "Education & Commerce" },
-  { name: "Mangaluru", slug: "dakshina-kannada", tag: "Coastal Port Trade" },
-  { name: "Tumakuru", slug: "tumakuru", tag: "Industrial Node" },
-  { name: "Shivamogga", slug: "shivamogga", tag: "Central Trade" },
   { name: "Kalaburagi", slug: "kalaburagi", tag: "North Region Hub" },
-  { name: "Ballari", slug: "ballari", tag: "Mining & Steel Hub" },
-  { name: "Udupi", slug: "udupi", tag: "Coastal Commerce" },
-  { name: "Davanagere", slug: "davanagere", tag: "Agri & Textiles" },
+  { name: "Mangaluru", slug: "dakshina-kannada", tag: "Coastal Port Trade" },
+  { name: "Dharwad", slug: "dharwad", tag: "Education & Hubballi" },
+  { name: "Vijayapura", slug: "vijayapura", tag: "Commercial Trade Node" },
 ];
 
 const benefits = [
@@ -109,7 +112,43 @@ const faqs = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const [districtsData, categoriesData, totalBusinesses] = await Promise.all([
+    prisma.district.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: { name: "asc" },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        _count: { select: { businesses: { where: { status: "ACTIVE" } } } },
+      },
+    }),
+    prisma.category.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: { name: "asc" },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        icon: true,
+      },
+    }),
+    prisma.business.count({ where: { status: "ACTIVE" } }),
+  ]);
+
+  const searchDistricts = districtsData.map((d) => ({
+    name: d.name,
+    slug: d.slug,
+    count: d._count.businesses,
+  }));
+
+  const searchCategories = categoriesData.map((c) => ({
+    name: c.name,
+    slug: c.slug,
+    icon: c.icon,
+  }));
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -148,7 +187,7 @@ export default function Home() {
             />
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-              NivoLeads · B2B Commerce Index & Merchant Registry
+              NivoLeads · {totalBusinesses.toLocaleString("en-IN")}+ Verified Karnataka Enterprises
             </div>
           </div>
 
@@ -162,30 +201,36 @@ export default function Home() {
 
           {/* Subtitle / Value Proposition */}
           <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-[var(--text-muted)] leading-relaxed">
-            Karnataka’s premier B2B directory and merchant registry. Filter by district and industry sector to explore verified local suppliers, manufacturers, distributors, and registered commercial enterprises.
+            Karnataka’s premier B2B directory and merchant registry. Instant search across 31 districts and 28 industry sectors for verified local suppliers, manufacturers, distributors, and retailers.
           </p>
+
+          {/* Instant Interactive Quick Search Bar */}
+          <div className="pt-2 pb-2">
+            <HomeQuickSearch
+              districts={searchDistricts}
+              categories={searchCategories}
+              totalLeads={totalBusinesses}
+            />
+          </div>
 
           {/* Direct CTA Action Box */}
           <div className="mx-auto max-w-xl rounded-2xl border border-blue-500/30 bg-[var(--bg-card)] p-4 sm:p-5 shadow-md">
-            <p className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-3">
-              Looking to connect with verified enterprises and vendors?
-            </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/explore"
                 className="btn btn-primary w-full sm:flex-1 !py-3.5 !text-sm sm:!text-base font-bold shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02]"
               >
-                Explore Trade Directory →
+                Explore Full Directory ({totalBusinesses.toLocaleString("en-IN")}+) →
               </Link>
               <Link
                 href="/directory"
                 className="btn btn-ghost w-full sm:w-auto !py-3.5 !text-sm font-semibold border border-[var(--border-card)]"
               >
-                Browse All Districts 📍
+                Browse All 31 Districts 📍
               </Link>
             </div>
             <div className="mt-3 flex items-center justify-center gap-4 text-xs text-[var(--text-muted)]">
-              <span>Already have an account?</span>
+              <span>Have an existing account?</span>
               <Link href="/login" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                 Client Portal / Sign In →
               </Link>
@@ -195,7 +240,7 @@ export default function Home() {
           {/* Quick Business Ideas & Popular Sectors Pills */}
           <div className="pt-2">
             <div className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2.5">
-              Explore Industry Sectors & Commercial Hubs:
+              Explore Popular Industry Sectors:
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {businessIdeas.map((item) => (
@@ -211,19 +256,21 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Quick Metrics Bar */}
+          {/* Dynamic Real Metrics Bar */}
           <div className="mt-8 grid grid-cols-2 gap-4 border-t border-[var(--border-card)] pt-6 sm:grid-cols-4">
             <div>
-              <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">31</div>
-              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Karnataka Districts</div>
+              <div className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 sm:text-3xl">
+                {totalBusinesses.toLocaleString("en-IN")}+
+              </div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Verified B2B Leads</div>
             </div>
             <div>
-              <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">20</div>
+              <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">31 / 31</div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Karnataka Districts (100%)</div>
+            </div>
+            <div>
+              <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">28</div>
               <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Industry Sectors</div>
-            </div>
-            <div>
-              <div className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 sm:text-3xl">100%</div>
-              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Verified Public Listings</div>
             </div>
             <div>
               <div className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 sm:text-3xl">Instant</div>
@@ -232,6 +279,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Live Data Sample Preview Section */}
+      <LiveSamplePreview />
 
       {/* B2B Sourcing Callout */}
       <section className="card p-6 sm:p-10 border border-blue-500/30 bg-gradient-to-r from-blue-500/5 via-indigo-500/5 to-transparent">

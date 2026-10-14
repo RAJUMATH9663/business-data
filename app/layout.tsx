@@ -1,10 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CookieConsent from "@/components/CookieConsent";
 import { getAppUrl } from "@/lib/seo";
+
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 const appUrl = getAppUrl();
 
@@ -176,7 +184,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="relative bg-[var(--bg-page)] text-[var(--text-main)] selection:bg-brand/20 selection:text-brand">
+      <body className={`relative bg-[var(--bg-page)] text-[var(--text-main)] selection:bg-blue-600/20 selection:text-blue-600 ${fontSans.variable} font-sans`}>
         {/* Subtle decorative background ambient glow */}
         <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
           <div className="absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-tr from-blue-600/10 via-indigo-600/10 to-transparent blur-3xl" />
