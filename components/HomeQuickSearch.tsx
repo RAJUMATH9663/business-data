@@ -137,7 +137,7 @@ export default function HomeQuickSearch({ districts, categories, totalLeads }: H
             {(selectedType === "all" || selectedType === "districts") && filteredDistricts.length > 0 && (
               <div>
                 <div className="px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                  📍 Karnataka Districts
+                  📍 Commercial Districts
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 mt-1">
                   {filteredDistricts.map((d) => (

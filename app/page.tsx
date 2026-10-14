@@ -9,7 +9,7 @@ const steps = [
     step: "01",
     icon: "📍",
     label: "Pick a District",
-    desc: "Choose from any of Karnataka's 31 administrative districts and commerce hubs.",
+    desc: "Choose from any of the 31 administrative districts and commerce hubs.",
   },
   {
     step: "02",
@@ -88,7 +88,7 @@ const benefits = [
 const faqs = [
   {
     q: "What is NivoLeads?",
-    a: "NivoLeads is an organized digital B2B commerce index cataloging registered commercial enterprises, manufacturers, distributors, and service providers across Karnataka's 31 administrative districts.",
+    a: "NivoLeads is an organized digital B2B commerce index cataloging registered commercial enterprises, manufacturers, distributors, and service providers across all 31 administrative districts.",
   },
   {
     q: "How do procurement teams and businesses use this directory?",
@@ -96,7 +96,7 @@ const faqs = [
   },
   {
     q: "How can local businesses list their company on the platform?",
-    a: "Registered business owners in Karnataka can list their enterprise for free by visiting our 'List Business Free' portal. After editorial verification, verified listings are included in our public B2B index.",
+    a: "Registered business owners can list their enterprise for free by visiting our 'List Business Free' portal. After editorial verification, verified listings are included in our public B2B index.",
   },
   {
     q: "Can I download directory datasets in Microsoft Excel or CSV format?",
@@ -187,7 +187,7 @@ export default async function Home() {
             />
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-              NivoLeads · {totalBusinesses.toLocaleString("en-IN")}+ Verified Karnataka Enterprises
+              NivoLeads · {totalBusinesses.toLocaleString("en-IN")}+ Verified Commercial Enterprises
             </div>
           </div>
 
@@ -195,13 +195,13 @@ export default async function Home() {
           <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-main)] sm:text-5xl lg:text-6xl leading-[1.15]">
             Discover Verified Commercial Enterprises & Business Partners{" "}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
-              Across Karnataka
+              Across All Districts
             </span>
           </h1>
 
           {/* Subtitle / Value Proposition */}
           <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-[var(--text-muted)] leading-relaxed">
-            Karnataka’s premier B2B directory and merchant registry. Instant search across 31 districts and 28 industry sectors for verified local suppliers, manufacturers, distributors, and retailers.
+            Premier B2B trade directory and merchant registry. Instant search across 31 districts and 28 industry sectors for verified local suppliers, manufacturers, distributors, and retailers.
           </p>
 
           {/* Instant Interactive Quick Search Bar */}
@@ -266,7 +266,7 @@ export default async function Home() {
             </div>
             <div>
               <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">31 / 31</div>
-              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Karnataka Districts (100%)</div>
+              <div className="text-xs font-medium text-[var(--text-muted)] mt-0.5">Commercial Districts (100%)</div>
             </div>
             <div>
               <div className="text-2xl font-extrabold text-[var(--text-main)] sm:text-3xl">28</div>
@@ -345,7 +345,7 @@ export default async function Home() {
           <div>
             <span className="badge-brand">Location Directory</span>
             <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-[var(--text-main)]">
-              Explore Directory Listings by Karnataka District
+              Explore Directory Listings by District
             </h2>
             <p className="mt-1 text-sm text-[var(--text-muted)]">
               Discover verified commercial listings in your local city or region.

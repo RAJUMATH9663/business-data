@@ -145,14 +145,14 @@ const SAMPLE_DATA: Record<string, SampleRecord[]> = {
     },
     {
       id: 22,
-      name: "Karnataka Agro Oil Extraction Mills",
+      name: "Apex Agro Oil Extraction Mills",
       category: "Industries & Manufacturing",
       district: "Davanagere",
       town: "Harihar Road",
       phone: "+91 81922 34911",
       rating: 4.6,
       reviewCount: 95,
-      address: "Industrial Suburb, Davanagere, Karnataka 577004",
+      address: "Industrial Suburb, Davanagere 577004",
     },
   ],
   retail: [
@@ -203,7 +203,7 @@ export default function LiveSamplePreview() {
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-            100% Real Live Verified Data (10,200+ Listings)
+            100% Real Live Verified Data (10,800+ Listings)
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--text-main)]">
             Verified B2B Registry Preview
@@ -219,7 +219,7 @@ export default function LiveSamplePreview() {
             href="/explore"
             className="btn btn-primary !text-xs !py-2.5 !px-4 font-bold shadow-md"
           >
-            Explore All 10,200+ Leads →
+            Explore All 10,800+ Leads →
           </Link>
         </div>
       </div>
