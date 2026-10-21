@@ -151,6 +151,8 @@ model Purchase {
   finalAmountPaise    Int
   razorpayOrderId     String?       @unique @db.VarChar(64)
   razorpayPaymentId   String?       @db.VarChar(64)
+  utrNumber           String?       @unique @db.VarChar(64)
+  paymentMethod       String?       @default("PHONEPE_UPI") @db.VarChar(32)
   paymentStatus       PaymentStatus @default(PENDING)
   paidAt              DateTime?
   createdAt           DateTime      @default(now())
@@ -165,7 +167,23 @@ model Purchase {
   @@index([userId, paymentStatus])
   @@index([districtId, categoryId])
   @@index([createdAt])
+  @@index([utrNumber])
   @@map("purchases")
+}
+
+model BankCreditNotification {
+  id          Int      @id @default(autoincrement())
+  utrNumber   String   @unique @db.VarChar(64)
+  amountPaise Int
+  sender      String?  @db.VarChar(120)
+  rawMessage  String   @db.Text
+  isConsumed  Boolean  @default(false)
+  purchaseId  Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([utrNumber, isConsumed])
+  @@map("bank_credit_notifications")
 }
 
 model PurchaseContact {

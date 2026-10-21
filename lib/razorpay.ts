@@ -30,9 +30,9 @@ function getRazorpayConfig() {
   return { key_id, key_secret };
 }
 
-export function paymentMode(): "razorpay" | "mock" {
-  // Mock mode can never be active in production.
+export function paymentMode(): "phonepe_upi" | "razorpay" | "mock" {
   if (process.env.PAYMENT_MODE === "mock" && process.env.NODE_ENV !== "production") return "mock";
+  if (process.env.PAYMENT_MODE === "phonepe_upi" || !process.env.RAZORPAY_KEY_SECRET) return "phonepe_upi";
   return "razorpay";
 }
 

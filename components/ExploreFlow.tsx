@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { computePrice } from "@/lib/pricing-core";
 import DownloadSampleButton from "@/components/DownloadSampleButton";
+import PhonePeUpiModal from "@/components/PhonePeUpiModal";
 
 type District = { id: number; name: string; slug: string };
 type Cat = { id: number; name: string; slug: string; icon: string; count: number; purchased?: number; available?: number };
@@ -21,12 +22,16 @@ type Quote = {
   nextStartNumber?: number;
 };
 type Order = {
-  mode: "mock" | "razorpay";
+  mode: "mock" | "razorpay" | "phonepe_upi";
   purchaseId: number;
   code: string;
   orderId: string;
   quantity: number;
   amountPaise: number;
+  amountRupees?: string;
+  upiId?: string;
+  payeeName?: string;
+  upiUri?: string;
   keyId: string;
   prefill: { name: string; email: string; contact: string };
 };
@@ -131,6 +136,8 @@ export default function ExploreFlow({
   const [quoteError, setQuoteError] = useState("");
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
+  const [upiModalOpen, setUpiModalOpen] = useState(false);
+  const [activeUpiOrder, setActiveUpiOrder] = useState<Order | null>(null);
   const wantedCat = useRef<string | null>(initial.c);
   const wantedQty = useRef<number | null>(initial.q);
   const reqId = useRef(0);
@@ -375,6 +382,12 @@ export default function ExploreFlow({
         await verify(o, { razorpay_order_id: o.orderId, razorpay_payment_id: "pay_mock_" + Date.now(), razorpay_signature: "mock_signature" });
         return;
       }
+      if (o.mode === "phonepe_upi") {
+        setActiveUpiOrder(o);
+        setUpiModalOpen(true);
+        setBusy(false);
+        return;
+      }
       await openCheckout(o);
     } catch (e) {
       setNotice(netErr(e));
@@ -615,7 +628,7 @@ export default function ExploreFlow({
                     {busy ? "Processing…" : quote ? `Access Directory (${money(quote.finalPaise)}) →` : "Pay"}
                   </button>
                   <p className="mt-3 text-center text-xs text-[var(--text-muted)]">
-                    {loggedIn ? "Instant electronic delivery via Razorpay / UPI. Excel report downloads immediately." : "You will be asked to log in or register before downloading."}
+                    {loggedIn ? "Instant electronic delivery via PhonePe & UPI. Excel report downloads immediately." : "You will be asked to log in or register before downloading."}
                   </p>
                 </div>
               </div>
@@ -623,6 +636,19 @@ export default function ExploreFlow({
           </div>
         </section>
       )}
+
+      {/* PhonePe Direct UPI Modal */}
+      <PhonePeUpiModal
+        isOpen={upiModalOpen}
+        onClose={() => setUpiModalOpen(false)}
+        order={activeUpiOrder}
+        districtName={district?.name}
+        categoryName={category?.name}
+        onSuccess={(purchaseId) => {
+          setUpiModalOpen(false);
+          router.push(`/purchases/${purchaseId}`);
+        }}
+      />
     </div>
   );
 }

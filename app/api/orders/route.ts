@@ -52,6 +52,8 @@ export const POST = handler(async (req) => {
   try {
     if (mode === "mock") {
       orderId = `order_mock_${crypto.randomBytes(8).toString("hex")}`;
+    } else if (mode === "phonepe_upi") {
+      orderId = `order_upi_${crypto.randomBytes(6).toString("hex")}`;
     } else {
       const rp = razorpayClient();
       const order = await rp.orders.create({
@@ -65,12 +67,17 @@ export const POST = handler(async (req) => {
   } catch (e) {
     await prisma.purchase.update({ where: { id: purchase.id }, data: { paymentStatus: "FAILED" } });
     if (e instanceof ApiError) throw e;
-    console.error("Razorpay order creation failed", e);
-    throw new ApiError(502, "The payment gateway is not reachable right now. Please try again.");
+    console.error("Order creation failed", e);
+    throw new ApiError(502, "The payment service is not reachable right now. Please try again.");
   }
 
   await prisma.purchase.update({ where: { id: purchase.id }, data: { razorpayOrderId: orderId } });
   const dbUser = await prisma.user.findUnique({ where: { id: user.id }, select: { name: true, email: true, phone: true } });
+
+  const phonepeUpiId = process.env.NEXT_PUBLIC_PHONEPE_UPI_ID || "9663319527@ibl";
+  const phonepePayeeName = process.env.NEXT_PUBLIC_PHONEPE_PAYEE_NAME || "NivoLeads B2B";
+  const amountRupees = (purchase.finalAmountPaise / 100).toFixed(2);
+  const upiUri = `upi://pay?pa=${phonepeUpiId}&pn=${encodeURIComponent(phonepePayeeName)}&am=${amountRupees}&tr=${purchase.code}&tn=${encodeURIComponent(`Leads Access ${purchase.code}`)}&cu=INR`;
 
   return json({
     mode,
@@ -79,6 +86,10 @@ export const POST = handler(async (req) => {
     orderId,
     quantity: purchase.quantity,
     amountPaise: purchase.finalAmountPaise,
+    amountRupees,
+    upiId: phonepeUpiId,
+    payeeName: phonepePayeeName,
+    upiUri,
     keyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? "",
     prefill: { name: dbUser?.name ?? "", email: dbUser?.email ?? "", contact: dbUser?.phone ?? "" },
   });
