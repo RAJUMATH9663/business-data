@@ -57,14 +57,16 @@ export default async function OrdersAdmin() {
                 </td>
                 <td className="p-3">
                   <span className="inline-block rounded bg-purple-50 px-2 py-0.5 text-xs font-semibold text-purple-700 dark:bg-purple-950/40 dark:text-purple-300">
-                    {o.paymentMethod || "UPI"}
+                    {o.paymentMethod || "PhonePe UPI"}
                   </span>
-                  {o.utrNumber ? (
-                    <div className="mt-1 font-mono text-xs text-slate-700 dark:text-slate-300">
-                      UTR: {o.utrNumber}
+                  {o.paymentStatus === "PAID" && o.utrNumber ? (
+                    <div className="mt-1 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                      ✓ UTR: {o.utrNumber}
                     </div>
                   ) : (
-                    <div className="mt-1 text-xs text-slate-400">No UTR yet</div>
+                    <div className="mt-1 text-xs text-slate-400">
+                      Awaiting Bank Credit
+                    </div>
                   )}
                 </td>
                 <td className="p-3">

@@ -104,21 +104,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Wall 4: Credit NOT in bank table (Wrong UTR, fake UTR, or payment not received)
-    // Update purchase so admin can inspect the attempted UTR in /admin/orders
-    await prisma.purchase.update({
-      where: { id: purchase.id },
-      data: {
-        utrNumber: cleanUtr,
-        paymentMethod: "PHONEPE_UPI",
-      },
-    });
-
-    // Return explicit error to customer
+    // DO NOT save fake/wrong UTR to purchase.utrNumber! 
+    // This keeps the database clean and prevents fake UTRs from appearing in the Admin portal.
     return NextResponse.json(
       {
         error: `Entered wrong UTR number! No bank payment found matching UTR ${cleanUtr}. Please check your PhonePe app transaction receipt and enter the correct 12-digit UTR.`,
         notFound: true,
-        utr: cleanUtr,
       },
       { status: 400 }
     );
