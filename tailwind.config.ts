@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 
 // Brand palette (the only colours used in the UI)
 const config: Config = {
+  darkMode: ["class", '[data-theme="dark"]'],
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {

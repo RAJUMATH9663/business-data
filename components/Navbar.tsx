@@ -24,7 +24,7 @@ export default async function Navbar() {
   return (
     <>
       {/* Floating Island Header */}
-      <header className="sticky top-3 z-40 w-full px-3 sm:px-6">
+      <header className="sticky top-3 z-50 w-full px-3 sm:px-6">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2.5 rounded-2xl border border-[var(--border-card)]/80 bg-[var(--header-bg)]/90 px-3.5 sm:px-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.35)] backdrop-blur-xl transition-all">
           {/* Brand Logo */}
           <Link href="/" className="group flex items-center gap-2 shrink-0">
