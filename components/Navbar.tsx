@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import LogoutButton from "./LogoutButton";
 import ThemeToggle from "./ThemeToggle";
+import MobileNavDrawer from "./MobileNavDrawer";
 
 export default async function Navbar() {
   const s = await getSession();
@@ -21,26 +22,32 @@ export default async function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-[var(--header-border)] bg-[var(--header-bg)] backdrop-blur-md transition-all shadow-sm">
-        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-          <Link href="/" className="group flex items-center gap-2.5">
+      {/* Floating Island Header */}
+      <header className="sticky top-3 z-40 w-full px-3 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 rounded-2xl border border-[var(--border-card)]/80 bg-[var(--header-bg)]/85 px-3.5 sm:px-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.35)] backdrop-blur-xl transition-all">
+          {/* Brand Logo */}
+          <Link href="/" className="group flex items-center gap-2.5 shrink-0">
             <Image
               src="/logo.png"
               alt="NivoLeads B2B"
-              width={240}
-              height={64}
-              className="h-12 sm:h-14 w-auto rounded-xl object-contain transition-transform duration-200 group-hover:scale-105"
+              width={180}
+              height={44}
+              className="h-8 sm:h-9 w-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-105"
               priority
             />
+            <span className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
+              Verified B2B
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-1.5 md:flex" aria-label="Main">
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="rounded-xl px-3.5 py-2 text-sm font-semibold text-[var(--text-muted)] transition-colors hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
+                className="rounded-xl px-3 py-1.5 text-sm font-medium text-[var(--text-muted)] transition-all hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
               >
                 {l.label}
               </Link>
@@ -48,52 +55,50 @@ export default async function Navbar() {
 
             <Link
               href="/list-business"
-              className="rounded-xl px-3.5 py-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 transition-all hover:bg-emerald-500/20 hover:scale-[1.02]"
             >
-              <span>🚀</span>
-              <span>List Business Free</span>
+              <span>+ Add Business</span>
             </Link>
 
             {s?.user.role === "ADMIN" && (
               <Link
                 href="/admin"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-500/10 px-3.5 py-2 text-sm font-semibold text-indigo-400 hover:bg-indigo-500/20 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-500/20 bg-indigo-500/10 px-3 py-1.5 text-xs font-semibold text-indigo-400 transition-all hover:bg-indigo-500/20"
               >
-                <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                Admin Panel
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                Admin
               </Link>
             )}
 
-            <div className="ml-2 flex items-center gap-2 border-l border-[var(--border-card)] pl-3">
+            <div className="ml-2 flex items-center gap-1.5 border-l border-[var(--border-card)]/70 pl-2.5">
               <ThemeToggle />
 
               {s ? (
-                <LogoutButton className="btn btn-ghost !min-h-[38px] !px-3.5 !py-1.5 !text-xs font-semibold text-[var(--text-muted)] hover:text-rose-500" />
+                <LogoutButton className="btn btn-ghost !min-h-[34px] !px-3 !py-1 !text-xs font-semibold text-[var(--text-muted)] hover:text-rose-500" />
               ) : (
-                <Link href="/register" className="btn btn-primary !min-h-[38px] !px-4 !py-1.5 !text-sm">
+                <Link
+                  href="/register"
+                  className="btn btn-primary !min-h-[36px] !px-3.5 !py-1.5 !text-xs !font-semibold rounded-xl shadow-sm hover:shadow transition-all"
+                >
                   Register Free
                 </Link>
               )}
             </div>
           </nav>
 
-          {/* Mobile Right CTA */}
-          <div className="flex items-center gap-2 md:hidden">
+          {/* Mobile Actions: Add Business + Theme + Hamburger Drawer */}
+          <div className="flex items-center gap-1.5 md:hidden">
+            <Link
+              href="/list-business"
+              className="inline-flex items-center rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 transition-all active:scale-95"
+            >
+              + Add
+            </Link>
             <ThemeToggle />
-            {s?.user.role === "ADMIN" && (
-              <Link href="/admin" className="rounded-lg bg-indigo-500/10 px-2.5 py-1 text-xs font-semibold text-indigo-400">
-                Admin
-              </Link>
-            )}
-            {s ? (
-              <Link href="/explore" className="btn btn-primary !min-h-[36px] !px-3.5 !py-1.5 !text-xs">
-                Explore
-              </Link>
-            ) : (
-              <Link href="/login" className="btn btn-primary !min-h-[36px] !px-3.5 !py-1.5 !text-xs">
-                Get Started
-              </Link>
-            )}
+            <MobileNavDrawer
+              links={links}
+              user={s ? { role: s.user.role, email: s.user.email } : null}
+            />
           </div>
         </div>
       </header>
@@ -108,9 +113,9 @@ export default async function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="flex min-h-[58px] flex-col items-center justify-center gap-1 text-[11px] font-semibold text-[var(--text-muted)] transition-colors active:text-brand"
+              className="flex min-h-[56px] flex-col items-center justify-center gap-1 text-[11px] font-semibold text-[var(--text-muted)] transition-colors active:text-brand"
             >
-              <span className="text-xl leading-none">{l.icon}</span>
+              <span className="text-lg leading-none">{l.icon}</span>
               <span>{l.label}</span>
             </Link>
           ))}

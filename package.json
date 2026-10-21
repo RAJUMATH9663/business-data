@@ -20,6 +20,7 @@
     "scrape:ballari": "tsx scripts/auto-deep-scraper.ts --district=ballari",
     "scrape:all": "tsx scripts/master-karnataka-scraper.ts",
     "scrape:fast": "tsx scripts/ultra-fast-karnataka-scraper.ts",
+    "scrape:deep700": "tsx scripts/deep-expansion-700.ts",
     "verify:audit": "tsx scripts/audit-and-verify-data.ts"
   },
   "prisma": {
