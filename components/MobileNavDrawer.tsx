@@ -17,6 +17,7 @@ interface MobileNavDrawerProps {
 
 export default function MobileNavDrawer({ links, user }: MobileNavDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [expandedSection, setExpandedSection] = useState<"cities" | "categories" | null>(null);
 
   // Close when window is resized to desktop
   useEffect(() => {
@@ -96,6 +97,99 @@ export default function MobileNavDrawer({ links, user }: MobileNavDrawerProps) {
                   <span>{link.label}</span>
                 </Link>
               ))}
+
+              {/* Expandable: Cities */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => setExpandedSection(expandedSection === "cities" ? null : "cities")}
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold text-[var(--text-main)] hover:bg-[var(--tile-hover)]"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span>📍</span>
+                    <span>Browse by City</span>
+                  </span>
+                  <span className="text-xs font-bold text-blue-500">
+                    {expandedSection === "cities" ? "▲" : "▼ 31 Cities"}
+                  </span>
+                </button>
+                {expandedSection === "cities" && (
+                  <div className="mt-1 grid grid-cols-2 gap-1.5 p-2 bg-[var(--tile-hover)]/40 rounded-xl">
+                    {[
+                      { name: "Bengaluru Urban", slug: "bengaluru-urban" },
+                      { name: "Bengaluru Rural", slug: "bengaluru-rural" },
+                      { name: "Mysuru", slug: "mysuru" },
+                      { name: "Hubballi-Dharwad", slug: "dharwad" },
+                      { name: "Belagavi", slug: "belagavi" },
+                      { name: "Mangaluru (D.K.)", slug: "dakshina-kannada" },
+                      { name: "Tumakuru", slug: "tumakuru" },
+                      { name: "Udupi", slug: "udupi" },
+                    ].map((c) => (
+                      <Link
+                        key={c.slug}
+                        href={`/directory?district=${c.slug}`}
+                        onClick={close}
+                        className="rounded-lg bg-[var(--bg-card)] px-2.5 py-1.5 text-xs font-medium text-[var(--text-main)] hover:text-blue-500 truncate"
+                      >
+                        {c.name}
+                      </Link>
+                    ))}
+                    <Link
+                      href="/directory"
+                      onClick={close}
+                      className="col-span-2 text-center text-[11px] font-bold text-blue-500 py-1"
+                    >
+                      View All 31 Districts →
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Expandable: Categories */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => setExpandedSection(expandedSection === "categories" ? null : "categories")}
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold text-[var(--text-main)] hover:bg-[var(--tile-hover)]"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span>🏢</span>
+                    <span>Browse by Industry</span>
+                  </span>
+                  <span className="text-xs font-bold text-purple-500">
+                    {expandedSection === "categories" ? "▲" : "▼ 28+ Sectors"}
+                  </span>
+                </button>
+                {expandedSection === "categories" && (
+                  <div className="mt-1 grid grid-cols-2 gap-1.5 p-2 bg-[var(--tile-hover)]/40 rounded-xl">
+                    {[
+                      { name: "IT & Software", slug: "it-software-companies", icon: "💻" },
+                      { name: "Manufacturing", slug: "manufacturing-industries", icon: "🏭" },
+                      { name: "Hospitals", slug: "hospitals-clinics", icon: "🏥" },
+                      { name: "Automobile", slug: "automobile-dealers", icon: "🚗" },
+                      { name: "Real Estate", slug: "real-estate", icon: "🏠" },
+                      { name: "Retail & Trade", slug: "retail-supermarkets", icon: "🛒" },
+                    ].map((cat) => (
+                      <Link
+                        key={cat.slug}
+                        href={`/explore?category=${cat.slug}`}
+                        onClick={close}
+                        className="flex items-center gap-1.5 rounded-lg bg-[var(--bg-card)] px-2 py-1.5 text-xs font-medium text-[var(--text-main)] hover:text-purple-500 truncate"
+                      >
+                        <span>{cat.icon}</span>
+                        <span className="truncate">{cat.name}</span>
+                      </Link>
+                    ))}
+                    <Link
+                      href="/explore"
+                      onClick={close}
+                      className="col-span-2 text-center text-[11px] font-bold text-purple-500 py-1"
+                    >
+                      Explore All Categories →
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               <Link
                 href="/list-business"

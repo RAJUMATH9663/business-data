@@ -4,6 +4,7 @@ import { getSession } from "@/lib/auth";
 import LogoutButton from "./LogoutButton";
 import ThemeToggle from "./ThemeToggle";
 import MobileNavDrawer from "./MobileNavDrawer";
+import NavDropdowns from "./NavDropdowns";
 
 export default async function Navbar() {
   const s = await getSession();
@@ -24,38 +25,62 @@ export default async function Navbar() {
     <>
       {/* Floating Island Header */}
       <header className="sticky top-3 z-40 w-full px-3 sm:px-6">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 rounded-2xl border border-[var(--border-card)]/80 bg-[var(--header-bg)]/85 px-3.5 sm:px-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.35)] backdrop-blur-xl transition-all">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2.5 rounded-2xl border border-[var(--border-card)]/80 bg-[var(--header-bg)]/90 px-3.5 sm:px-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.35)] backdrop-blur-xl transition-all">
           {/* Brand Logo */}
-          <Link href="/" className="group flex items-center gap-2.5 shrink-0">
+          <Link href="/" className="group flex items-center gap-2 shrink-0">
             <Image
               src="/logo.png"
               alt="NivoLeads B2B"
-              width={180}
-              height={44}
-              className="h-8 sm:h-9 w-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-105"
+              width={160}
+              height={40}
+              className="h-8 w-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-105"
               priority
             />
-            <span className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Verified B2B
+            <span className="hidden lg:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              16,746 Leads
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="rounded-xl px-3 py-1.5 text-sm font-medium text-[var(--text-muted)] transition-all hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
-              >
-                {l.label}
-              </Link>
-            ))}
+            <Link
+              href="/directory"
+              className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[var(--text-muted)] transition-all hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
+            >
+              Directory
+            </Link>
+
+            {/* Interactive City & Category Mega-Popovers */}
+            <NavDropdowns />
+
+            <Link
+              href="/explore"
+              className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[var(--text-muted)] transition-all hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
+            >
+              Explore
+            </Link>
+
+            {s && (
+              <>
+                <Link
+                  href="/purchases"
+                  className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[var(--text-muted)] transition-all hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
+                >
+                  Orders
+                </Link>
+                <Link
+                  href="/account"
+                  className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[var(--text-muted)] transition-all hover:bg-[var(--tile-hover)] hover:text-[var(--text-main)]"
+                >
+                  Account
+                </Link>
+              </>
+            )}
 
             <Link
               href="/list-business"
-              className="ml-1 inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 transition-all hover:bg-emerald-500/20 hover:scale-[1.02]"
+              className="ml-1 inline-flex items-center gap-1 rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 transition-all hover:bg-emerald-500/20 hover:scale-[1.02]"
             >
               <span>+ Add Business</span>
             </Link>
