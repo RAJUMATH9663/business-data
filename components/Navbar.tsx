@@ -36,10 +36,6 @@ export default async function Navbar() {
               className="h-8 w-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-105"
               priority
             />
-            <span className="hidden lg:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              16,746 Leads
-            </span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -157,7 +157,7 @@ export default function NavDropdowns() {
                 style={{ borderColor: "var(--border-card)" }}
                 className="mt-3 pt-2.5 border-t flex items-center justify-between text-xs"
               >
-                <span className="text-[11px] text-[var(--text-muted)]">16,746 verified listings</span>
+                <span className="text-[11px] text-[var(--text-muted)]">Verified Business Directory</span>
                 <Link
                   href="/directory"
                   onClick={close}
